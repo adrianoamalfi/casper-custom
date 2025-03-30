@@ -4,7 +4,7 @@
     "demo": "https://demo.ghost.io",
     "version": "5.8.1",
     "engines": {
-        "ghost": ">=5.0.0"
+        "ghost-api": "v5"
     },
     "license": "MIT",
     "screenshots": {
@@ -20,7 +20,8 @@
         "preship": "yarn test",
         "ship": "node -e \"const { execSync } = require('child_process'); const status = execSync('git status --porcelain').toString().trim(); if (!status) { execSync('yarn version && git push --follow-tags', { stdio: 'inherit' }); } else { console.error('Uncommitted changes found. Please commit or stash your changes before shipping.'); process.exit(1); }\"",
         "ship-win": "node -e \"const { execSync } = require('child_process'); const status = execSync('git status --porcelain').toString().trim(); if (!status) { execSync('yarn version && git push --follow-tags', { stdio: 'inherit' }); } else { console.error('Uncommitted changes found. Please commit or stash your changes before shipping.'); process.exit(1); }\"",
-        "postship": "git fetch && gulp release"
+        "postship": "git fetch && gulp release",
+        "update-browserslist": "npx update-browserslist-db@latest"
     },
     "author": {
         "name": "Adriano Amalfi",
