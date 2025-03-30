@@ -2,6 +2,9 @@
 
 This is a custom fork of the [Casper theme](http://github.com/tryghost/Casper) for Ghost, created and maintained by [Adriano Amalfi](https://adrianoamalfi.com). It includes additional features and customizations not present in the original Casper theme.
 
+[![Test](https://github.com/adrianoamalfi/Casper/actions/workflows/Test.yml/badge.svg?event=push)](https://github.com/adrianoamalfi/Casper/actions/workflows/Test.yml)
+[![Deploy Theme](https://github.com/adrianoamalfi/Casper/actions/workflows/deploy-theme.yml/badge.svg)](https://github.com/adrianoamalfi/Casper/actions/workflows/deploy-theme.yml)
+
 &nbsp;
 
 ![screenshot-desktop](https://user-images.githubusercontent.com/1418797/183329195-8e8f2ee5-a473-4694-a813-a2575491209e.png)
