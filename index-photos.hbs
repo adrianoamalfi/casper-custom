@@ -4,15 +4,12 @@ into the {body} of the default.hbs template --}}
 
 {{!-- The main content area --}}
 <main id="site-main" class="site-main outer">
-<div class="inner posts">
-    <div class="post-feed">
-        {{#foreach posts}}
-            {{!-- The tag below includes the markup for each post - partials/photo-card.hbs --}}
-            {{> "photo-card"}}
-        {{/foreach}}
+    <div class="inner">
+        <div class="photo-grid">
+            {{#foreach posts}}
+                {{> "photo-card"}}
+            {{/foreach}}
+        </div>
+        {{pagination}}
     </div>
-
-    {{pagination}}
-
-</div>
 </main>
