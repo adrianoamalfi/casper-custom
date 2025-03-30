@@ -33,10 +33,26 @@
     background: var(--color-darkgrey);
     transform: translateZ(0); /* Fix for Safari */
     backface-visibility: hidden;
+    transition: transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.photo-card:hover {
+    transform: translateY(-6px);
+}
+
+.photo-card[data-orientation="portrait"] {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.photo-card[data-orientation="landscape"] {
+    break-inside: avoid;
+    page-break-inside: avoid;
 }
 
 .photo-card:hover .photo-card-image {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    filter: brightness(0.85);
 }
 
 .photo-card-image-link {
@@ -45,6 +61,13 @@
     overflow: hidden;
     transform: translateZ(0);
     outline: none;
+    isolation: isolate;
+}
+
+.photo-card-image-link picture {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .photo-card-image-link:focus-visible {
@@ -57,10 +80,39 @@
     height: auto;
     display: block;
     transform: translateZ(0);
-    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1),
+                filter 0.3s ease-out;
     opacity: 0;
     animation: fadeIn 0.6s ease-out forwards;
     will-change: transform;
+    object-fit: cover;
+}
+
+/* Remove fixed aspect ratio to allow natural image dimensions */
+@supports (aspect-ratio: 1) {
+    .photo-card-image {
+        aspect-ratio: auto;
+        min-height: 200px;
+    }
+    
+    /* Optional: Set max-height for very tall images */
+    .photo-card-image[data-orientation="portrait"] {
+        max-height: 600px;
+    }
+}
+
+/* Support for browsers that don't support aspect-ratio */
+@supports not (aspect-ratio: 4/3) {
+    .photo-card-image-link::before {
+        float: left;
+        padding-top: 75%;
+        content: "";
+    }
+    .photo-card-image-link::after {
+        display: block;
+        content: "";
+        clear: both;
+    }
 }
 
 /* Content Overlay */
@@ -74,14 +126,16 @@
     background: linear-gradient(
         to top,
         rgba(0, 0, 0, 0.85) 0%,
-        rgba(0, 0, 0, 0.4) 40%,
+        rgba(0, 0, 0, 0.5) 50%,
         transparent 100%
     );
+    transform: translateY(10px);
     opacity: 0;
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .photo-card:hover .photo-card-content {
+    transform: translateY(0);
     opacity: 1;
 }
 
@@ -146,6 +200,43 @@
     animation: starPulse 2s infinite;
 }
 
+.photo-card-featured {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--ghost-accent-color);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    backdrop-filter: blur(4px);
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.photo-card-featured svg {
+    width: 12px;
+    height: 12px;
+    animation: starPulse 2s infinite;
+}
+
+.photo-card:hover .photo-card-featured {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+@keyframes starPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
 @keyframes starPulse {
     0% { opacity: 1; transform: translateY(1px) scale(1); }
     50% { opacity: 0.7; transform: translateY(1px) scale(1.2); }
@@ -158,6 +249,119 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
                 0 0 0 1px rgba(0, 0, 0, 0.05),
                 0 0 25px rgba(var(--ghost-accent-color-rgb, 0, 124, 255), 0.3);
+}
+
+/* Add shine effect on hover */
+.photo-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        225deg,
+        transparent 0%,
+        transparent 35%,
+        rgba(255, 255, 255, 0.2) 45%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 65%,
+        transparent 100%
+    );
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.photo-card:hover::after {
+    transform: translateX(50%) translateY(-75%) rotate(45deg);
+}
+
+/* Primary Tag Banner */
+.photo-card-primary-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.6rem 1.2rem;
+    background: var(--ghost-accent-color);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-bottom-left-radius: 0.8rem;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.photo-card:hover .photo-card-primary-tag {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Adjust featured badge position when primary tag is present */
+.photo-card-featured {
+    top: 3rem;
+}
+
+/* Badges */
+.photo-card-badge,
+.photo-card-primary-tag {
+    position: absolute;
+    z-index: 10;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.photo-card-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    top: 1rem;
+    left: 1rem;
+    background: var(--ghost-accent-color);
+    color: #fff;
+    border-radius: 2rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.photo-card-badge svg {
+    width: 16px;
+    height: 16px;
+    animation: starPulse 2s infinite;
+}
+
+.photo-card-primary-tag {
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--ghost-accent-color);
+    border-radius: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effects */
+.photo-card:hover .photo-card-badge {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.photo-card:hover .photo-card-primary-tag {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes starPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 
 /* Loading Animation */
@@ -173,10 +377,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .photo-card,
     .photo-card-image,
     .photo-card-content,
     .photo-card-title,
-    .photo-card-tag {
+    .photo-card-tag,
+    .photo-card::after {
         transition: none;
+    }
+    
+    .photo-card:hover::after {
+        display: none;
     }
 }

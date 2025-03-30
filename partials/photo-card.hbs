@@ -16,11 +16,16 @@
             alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
             loading="lazy"
             decoding="async">
+        {{#if featured}}
+            <div class="photo-card-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                    <path fill="currentColor" d="M12 .587l3.668 7.431 8.332 1.21-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.21z"/>
+                </svg>
+                <span>In evidenza</span>
+            </div>
+        {{/if}}
         <div class="photo-card-content">
             <h2 class="photo-card-title">{{title}}</h2>
-            {{#if primary_tag}}
-                <span class="photo-card-tag">{{primary_tag.name}}</span>
-            {{/if}}
         </div>
     </a>
     {{/if}}
