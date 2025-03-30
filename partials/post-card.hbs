@@ -1,32 +1,40 @@
-{{!-- This is a partial file used to generate a post "card"
-which templates loop over to generate a list of posts. --}}
+{{!-- Questo è un file parziale utilizzato per generare una "card" del post
+che i template iterano per generare una lista di post. --}}
 
 <article class="post-card {{post_class}}{{#match @custom.feed_layout "Classic"}}{{#is "home"}}{{#has index="0"}} post-card-large{{/has}}{{#has index="1,2"}} dynamic{{/has}}{{/is}}{{/match}}{{#match @custom.feed_layout "Grid"}} keep-ratio{{/match}}{{#match @custom.feed_layout "List"}}{{^is "tag, author"}} post-card-large{{/is}}{{/match}}{{#unless access}} post-access-{{visibility}}{{/unless}}">
 
     {{#if feature_image}}
     <a class="post-card-image-link" href="{{url}}">
 
-        {{!-- This is a responsive image, it loads different sizes depending on device
-        https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
-        <img class="post-card-image"
-            srcset="{{img_url feature_image size="s"}} 300w,
-                    {{img_url feature_image size="m"}} 600w,
-                    {{img_url feature_image size="l"}} 1000w,
-                    {{img_url feature_image size="xl"}} 2000w"
-            sizes="(max-width: 1000px) 400px, 800px"
-            src="{{img_url feature_image size="m"}}"
-            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-            loading="lazy"
-        />
+        {{!-- Immagine responsiva con supporto WebP --}}
+        <picture>
+            <source srcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                            {{img_url feature_image size="m" format="webp"}} 600w,
+                            {{img_url feature_image size="l" format="webp"}} 1000w,
+                            {{img_url feature_image size="xl" format="webp"}} 2000w"
+                    sizes="(max-width: 1000px) 400px, 800px"
+                    type="image/webp">
+            <source srcset="{{img_url feature_image size="s"}} 300w,
+                            {{img_url feature_image size="m"}} 600w,
+                            {{img_url feature_image size="l"}} 1000w,
+                            {{img_url feature_image size="xl"}} 2000w"
+                    sizes="(max-width: 1000px) 400px, 800px"
+                    type="image/jpeg">
+            <img class="post-card-image"
+                src="{{img_url feature_image size="m"}}"
+                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                loading="lazy"
+                decoding="async">
+        </picture>
 
         {{#unless access}}
         {{^has visibility="public"}}
             <div class="post-card-access">
                 {{> "icons/lock"}}
                 {{#has visibility="members"}}
-                    Members only
+                    Solo per membri
                 {{else}}
-                    Paid-members only
+                    Solo per membri paganti
                 {{/has}}
             </div>
         {{/has}}
@@ -44,7 +52,7 @@ which templates loop over to generate a list of posts. --}}
                         <span class="post-card-primary-tag">{{name}}</span>
                     {{/primary_tag}}
                     {{#if featured}}
-                        <span class="post-card-featured">{{> "icons/fire"}} Featured</span>
+                        <span class="post-card-featured">{{> "icons/fire"}} In evidenza</span>
                     {{/if}}
                 </div>
                 <h2 class="post-card-title">
