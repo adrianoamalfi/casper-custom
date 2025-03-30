@@ -1,0 +1,2 @@
+.progress-bar{-webkit-appearance:none;-moz-appearance:none;appearance:none;background:transparent;height:5px;position:fixed;top:0;width:100%;z-index:1000}.progress-bar::-webkit-progress-bar{background:transparent}.progress-bar::-moz-progress-bar{background:var(--ghost-accent-color)}.progress-bar::-webkit-progress-value{background:var(--ghost-accent-color)}
+/*# sourceMappingURL=progress.css.map */

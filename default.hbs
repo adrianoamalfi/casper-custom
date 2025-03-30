@@ -21,21 +21,7 @@
     {{!-- If is post and Show progress bar is true > Progress Bar Style --}}
     {{#is "post"}}
         {{#if @custom.show_progress_bar_on_post}}
-            <style>
-            .progress-bar {
-                appearance: none;
-                position: fixed;
-                top: 0;
-                width: 100%;
-                height: 5px;
-                background: transparent;
-                z-index: 1000;
-            }
-
-            .progress-bar::-webkit-progress-bar { background: transparent; }
-            .progress-bar::-moz-progress-bar { background: var(--ghost-accent-color); }
-            .progress-bar::-webkit-progress-value { background: var(--ghost-accent-color); }
-            </style>
+            <link rel="stylesheet" type="text/css" href="{{asset "built/progress.css"}}" />   
         {{/if}}
     {{/is}}
 

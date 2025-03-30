@@ -1,0 +1,13 @@
+.progress-bar {
+    appearance: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 5px;
+    background: transparent;
+    z-index: 1000;
+}
+
+.progress-bar::-webkit-progress-bar { background: transparent; }
+.progress-bar::-moz-progress-bar { background: var(--ghost-accent-color); }
+.progress-bar::-webkit-progress-value { background: var(--ghost-accent-color); }
