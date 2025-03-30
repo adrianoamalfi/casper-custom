@@ -5,6 +5,10 @@ on:
     branches:
       - main
       - 'renovate/*'
+      - develop
+      - 'feature/*'
+      - 'hotfix/*'
+      - 'release/*'  # Added support for release branches
 jobs:
   test:
     runs-on: ubuntu-latest
