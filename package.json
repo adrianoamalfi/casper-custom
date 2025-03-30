@@ -57,7 +57,12 @@
         "@tryghost/release-utils": "0.8.1",
         "autoprefixer": "10.4.7",
         "beeper": "2.1.0",
+        "conventional-changelog-cli": "^5.0.0",
+        "conventional-github-releaser": "^3.1.5",
+        "conventional-recommended-bump": "^11.0.0",
         "cssnano": "5.1.12",
+        "dotenv": "^16.4.7",
+        "execa": "^9.5.2",
         "gscan": "4.43.1",
         "gulp": "4.0.2",
         "gulp-concat": "2.6.1",
@@ -122,7 +127,7 @@
                     "Elegant serif"
                 ],
                 "default": "Elegant serif"
-            }, 
+            },
             "show_linkedin_button": {
                 "type": "boolean",
                 "default": true

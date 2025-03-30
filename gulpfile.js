@@ -19,8 +19,8 @@ const colorFunction = require('postcss-color-mod-function');
 const cssnano = require('cssnano');
 const easyimport = require('postcss-easy-import');
 
-const REPO = 'TryGhost/Casper';
-const REPO_READONLY = 'TryGhost/Casper';
+const REPO = 'adrianoamalfi/Casper';
+const REPO_READONLY = 'adrianoamalfi/Casper';
 const CHANGELOG_PATH = path.join(process.cwd(), '.', 'changelog.md');
 
 function serve(done) {
@@ -82,7 +82,8 @@ function zipper(done) {
             '!dist', '!dist/**',
             '!yarn-error.log',
             '!yarn.lock',
-            '!gulpfile.js'
+            '!gulpfile.js',
+            '!.env'
         ]),
         zip(filename),
         dest('dist/')
