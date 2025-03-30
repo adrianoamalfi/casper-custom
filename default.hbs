@@ -17,6 +17,28 @@
     this will take care of caching and cache-busting automatically --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
 
+    
+    {{!-- If is post and Show progress bar is true > Progress Bar Style --}}
+    {{#is "post"}}
+        {{#if @custom.show_progress_bar_on_post}}
+            <style>
+            .progress-bar {
+                appearance: none;
+                position: fixed;
+                top: 0;
+                width: 100%;
+                height: 5px;
+                background: transparent;
+                z-index: 1000;
+            }
+
+            .progress-bar::-webkit-progress-bar { background: transparent; }
+            .progress-bar::-moz-progress-bar { background: var(--ghost-accent-color); }
+            .progress-bar::-webkit-progress-value { background: var(--ghost-accent-color); }
+            </style>
+        {{/if}}
+    {{/is}}
+
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
     {{ghost_head}}
@@ -58,14 +80,36 @@
                     <div class="gh-head-members">
                         {{#unless @member}}
                             {{#unless @site.members_invite_only}}
-                                <a class="gh-head-link" href="#/portal/signin" data-portal="signin">Sign in</a>
-                                <a class="gh-head-button" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                                <a class="gh-head-link" href="#/portal/signin" data-portal="signin">Accedi</a>
+                                <a class="gh-head-button" href="#/portal/signup" data-portal="signup">Iscriviti</a>
                             {{else}}
-                                <a class="gh-head-button" href="#/portal/signin" data-portal="signin">Sign in</a>
+                                <a class="gh-head-button" href="#/portal/signin" data-portal="signin">Iscriviti</a>
                             {{/unless}}
                         {{else}}
                             <a class="gh-head-button" href="#/portal/account" data-portal="account">Account</a>
                         {{/unless}}
+        {{#if @custom.show_linkedin_button}}
+            <style>
+                .libutton {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 12px;
+                text-align: center;
+                outline: none;
+                text-decoration: none !important;
+                color: #ffffff !important;
+                width: 120px;
+                border-radius: 16px;
+                background-color: #0A66C2;
+                font-family: "SF Pro Text", Helvetica, sans-serif;
+                }
+            </style>
+            {{#if @custom.linkedin_account}}
+                <a class="gh-head-link libutton" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember={{@custom.linkedin_account}}" target="_blank">LinkedIn</a>
+            {{/if}}
+            
+        {{/if}}                
                     </div>
                 {{/unless}}
             </div>
@@ -84,7 +128,7 @@
             <nav class="site-footer-nav">
                 {{navigation type="secondary"}}
             </nav>
-            <div class="gh-powered-by"><a href="https://ghost.org/" target="_blank" rel="noopener">Powered by Ghost</a></div>
+            <div class="gh-powered-by">👨‍💻 Code with ❤️ and<a href="https://ghost.org/" target="_blank" rel="noopener"> 👻</a></div>
         </div>
     </footer>
 
@@ -112,6 +156,32 @@ $(document).ready(function () {
     $(".gh-content").fitVids();
 });
 </script>
+
+{{!-- If is post and Show progress bar is true > Progress Bar script --}}
+{{#is "post"}}
+    {{#if @custom.show_progress_bar_on_post}}
+        <progress class="progress-bar" value="0" max="100"></progress>
+        <script>
+        const progressBar = document.querySelector('.progress-bar');
+
+        if (progressBar) {
+            progressBar.setAttribute('value', getScrollPercent());  
+            window.addEventListener('scroll', (event) => {
+            progressBar.setAttribute('value', getScrollPercent());
+            }, false);
+        }
+            
+        function getScrollPercent() {
+            const h = document.documentElement, 
+                b = document.body,
+                st = 'scrollTop',
+                sh = 'scrollHeight';
+            return Math.round((h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100);
+        }
+        </script>
+    {{/if}}
+{{/is}}
+
 
 {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}

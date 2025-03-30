@@ -1,10 +1,21 @@
-# Casper
+# Casper Adriano
 
-The default theme for [Ghost](http://github.com/tryghost/ghost/). This is the latest development version of Casper! If you're just looking to download the latest release, head over to the [releases](https://github.com/TryGhost/Casper/releases) page.
+This is a custom fork of the [Casper theme](http://github.com/tryghost/Casper) for Ghost, created and maintained by [Adriano Amalfi](https://adrianoamalfi.com). It includes additional features and customizations not present in the original Casper theme.
 
 &nbsp;
 
 ![screenshot-desktop](https://user-images.githubusercontent.com/1418797/183329195-8e8f2ee5-a473-4694-a813-a2575491209e.png)
+
+&nbsp;
+
+# Additional Features in Casper Adriano
+
+This fork introduces the following features:
+
+- **LinkedIn Button**: Option to display a LinkedIn button with a customizable account link.
+- **Progress Bar on Posts**: A progress bar that shows reading progress on individual posts.
+
+For more details, visit the [repository](https://github.com/adrianoamalfi/Casper).
 
 &nbsp;
 
@@ -63,7 +74,9 @@ Casper uses inline SVG icons, included via Handlebars partials. You can find all
 
 You can add your own SVG icons in the same manner.
 
+&nbsp;
 
 # Copyright & License
 
-Copyright (c) 2013-2025 Ghost Foundation - Released under the [MIT license](LICENSE).
+This fork is maintained by [Adriano Amalfi](https://adrianoamalfi.com).  
+Original theme copyright (c) 2013-2025 Ghost Foundation - Released under the [MIT license](LICENSE).
