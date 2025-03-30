@@ -33,10 +33,18 @@
 }
 
 .enhanced-caption {
-    margin-top: 1rem;
-    font-size: 1.4rem;
-    color: var(--color-midgrey);
+    margin-top: 1.5rem;
+    padding: 1rem;
+    font-size: 1.6rem;
+    color: var(--color-darkgrey);
     font-style: italic;
+    font-family: Georgia, serif;
+    line-height: 1.6;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid var(--color-lightgrey);
+    border-bottom: 1px solid var(--color-lightgrey);
 }
 
 .read-more-wrap {
