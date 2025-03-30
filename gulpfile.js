@@ -12,7 +12,10 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const beeper = require('beeper');
 const fs = require('fs');
+const dotenv = require('dotenv');
 
+// load environment variables
+const result = dotenv.config();
 // postcss plugins
 const autoprefixer = require('autoprefixer');
 const colorFunction = require('postcss-color-mod-function');
