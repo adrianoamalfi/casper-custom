@@ -4,18 +4,40 @@
        href="{{url}}" 
        aria-label="{{title}}"
        tabindex="0">
-        <img class="photo-card-image"
-            srcset="{{img_url feature_image size="s"}} 300w,
-                    {{img_url feature_image size="m"}} 600w,
-                    {{img_url feature_image size="l"}} 1000w"
-            sizes="(max-width: 600px) 95vw,
-                   (max-width: 1000px) 45vw,
-                   (max-width: 1400px) 30vw,
-                   25vw"
-            src="{{img_url feature_image size="m"}}"
-            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-            loading="lazy"
-            decoding="async">
+        
+        <picture>
+            <source 
+                srcset="{{img_url feature_image size="s" format="avif"}} 300w,
+                        {{img_url feature_image size="m" format="avif"}} 600w,
+                        {{img_url feature_image size="l" format="avif"}} 1000w"
+                sizes="(max-width: 600px) 95vw,
+                       (max-width: 1000px) 45vw,
+                       (max-width: 1400px) 30vw,
+                       25vw"
+                type="image/avif">
+            <source 
+                srcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                        {{img_url feature_image size="m" format="webp"}} 600w,
+                        {{img_url feature_image size="l" format="webp"}} 1000w"
+                sizes="(max-width: 600px) 95vw,
+                       (max-width: 1000px) 45vw,
+                       (max-width: 1400px) 30vw,
+                       25vw"
+                type="image/webp">
+            <img class="photo-card-image"
+                srcset="{{img_url feature_image size="s"}} 300w,
+                        {{img_url feature_image size="m"}} 600w,
+                        {{img_url feature_image size="l"}} 1000w"
+                sizes="(max-width: 600px) 95vw,
+                       (max-width: 1000px) 45vw,
+                       (max-width: 1400px) 30vw,
+                       25vw"
+                src="{{img_url feature_image size="m"}}"
+                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                loading="lazy"
+                decoding="async">
+        </picture>
+        
         {{#if featured}}
             <div class="photo-card-badge">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
