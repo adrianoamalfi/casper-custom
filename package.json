@@ -2,7 +2,10 @@
     "name": "casper-adriano",
     "description": "Casper Adriano - A custom theme forked from Casper, created by Adriano Amalfi.",
     "demo": "https://demo.ghost.io",
-    "version": "5.8.1",
+    "version": "5.9.0",
+    "engines": {
+        "ghost": ">=5.0.0"
+    },
     "license": "MIT",
     "screenshots": {
         "desktop": "assets/screenshot-desktop.jpg",
@@ -61,7 +64,7 @@
         "cssnano": "5.1.15",
         "dotenv": "^16.4.7",
         "execa": "^9.5.2",
-        "gscan": "4.43.1",
+        "gscan": "4.49.1",
         "gulp": "4.0.2",
         "gulp-concat": "2.6.1",
         "gulp-livereload": "4.0.2",
