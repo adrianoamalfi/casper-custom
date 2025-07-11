@@ -202,26 +202,6 @@
                 "type": "boolean",
                 "default": true,
                 "group": "post"
-            },
-            "show_post_date": {
-                "type": "boolean",
-                "default": true,
-                "group": "post"
-            },
-            "show_post_author": {
-                "type": "boolean",
-                "default": true,
-                "group": "post"
-            },
-            "show_post_tags": {
-                "type": "boolean",
-                "default": true,
-                "group": "post"
-            },
-            "show_post_reading_time": {
-                "type": "boolean",
-                "default": true,
-                "group": "post"
             }
         }
     },
