@@ -25,6 +25,9 @@
         {{/if}}
     {{/is}}
 
+    {{!-- Prism.js - syntax highlighting for code blocks --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
     {{ghost_head}}
@@ -146,6 +149,10 @@ $(document).ready(function () {
         </script>
     {{/if}}
 {{/is}}
+
+{{!-- Prism.js - syntax highlighting for code blocks --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js" integrity="sha512-HiD3V4nv8fcjtouznjT9TqDNDm1EXngV331YGbfVGeKUoH+OLkRTCMzA34ecjlgSQZpdHZupdSrqHY+Hz3l6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autoloader/prism-autoloader.js" integrity="sha512-7FzTd9tiD9yWKCeBIQvZ9Ja8sroItACe5+z8h3rqfZJT73DuKTYprW/+O6HC3GiZ3PyHgEWFLht6qzBn1ITRvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
