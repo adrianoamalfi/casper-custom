@@ -33,6 +33,20 @@
         {{/if}}
     {{/is}}
 
+
+    {{#if @custom.show_cookie_banner}}
+        <!-- Cookie Consent by TermsFeed https://www.TermsFeed.com -->
+        <script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js" charset="UTF-8"></script>
+        <script type="text/javascript" charset="UTF-8">
+        document.addEventListener('DOMContentLoaded', function () {
+        cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palette":"light","language":"it","page_load_consent_levels":["strictly-necessary"],"notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,"page_refresh_confirmation_buttons":false,"website_name":"Adriano Amalfi "});
+        });
+        </script>
+
+        <noscript>Free cookie consent management tool by <a href="https://www.termsfeed.com/">TermsFeed Generator</a></noscript>
+        <!-- End Cookie Consent by TermsFeed https://www.TermsFeed.com -->
+    {{/if}}
+
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
     {{ghost_head}}
@@ -101,7 +115,7 @@
             <nav class="site-footer-nav">
                 {{navigation type="secondary"}}
             </nav>
-            <div class="gh-powered-by">👨‍💻 Code with ❤️ and<a href="https://ghost.org/" target="_blank" rel="noopener"> 👻</a></div>
+            <div class="gh-powered-by">👨‍💻 Code with ❤️ and<a href="https://ghost.org/" target="_blank" rel="noopener"> 👻 | </a> <a href="#" id="open_preferences_center">Cookies</a></div>
         </div>
     </footer>
 
@@ -163,6 +177,7 @@ $(document).ready(function () {
         {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}        
     {{/if}}
 {{/is}}
+
 
 {{ghost_foot}}
 

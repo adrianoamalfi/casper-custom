@@ -129,6 +129,10 @@
                 ],
                 "default": "Elegant serif"
             },
+            "show_cookie_banner": {
+                "type": "boolean",
+                "default": true
+            },
             "show_linkedin_button": {
                 "type": "boolean",
                 "default": true
