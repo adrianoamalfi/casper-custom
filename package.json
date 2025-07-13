@@ -2,7 +2,7 @@
     "name": "casper-adriano",
     "description": "Casper Adriano - A custom theme forked from Casper, created by Adriano Amalfi.",
     "demo": "https://demo.ghost.io",
-    "version": "5.9.3",
+    "version": "5.9.4",
     "engines": {
         "ghost": ">=5.0.0"
     },
