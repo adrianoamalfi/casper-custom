@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     {{!-- Preload scripts --}}
     <link rel="preload" as="style" href="{{asset "built/screen.css"}}" />
     <link rel="preload" as="script" href="{{asset "built/casper.js"}}" />
@@ -16,6 +16,11 @@
     {{!-- Theme assets - use the {asset} helper to reference styles & scripts,
     this will take care of caching and cache-busting automatically --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+
+    {{!-- Google Fonts: Lora (editorial serif for headings) --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
 
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
@@ -77,14 +82,17 @@
         {{{body}}}
     </div>
 
-    {{!-- The global footer at the very bottom of the screen --}}
+    {{!-- Footer --}}
     <footer class="site-footer outer">
         <div class="inner">
             <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
             <nav class="site-footer-nav">
                 {{navigation type="secondary"}}
             </nav>
-            <div class="gh-powered-by"><a href="https://ghost.org/" target="_blank" rel="noopener">{{t "Powered by Ghost"}}</a></div>
+            <div class="aa-footer-signature">
+                <span class="aa-footer-name">Adriano Amalfi</span>
+                <span class="aa-footer-role">ICT Strategy · Digital Transformation</span>
+            </div>
         </div>
     </footer>
 
@@ -93,6 +101,27 @@
 
 {{#is "post, page"}}
     {{> "lightbox"}}
+{{/is}}
+
+{{!-- Reading progress bar (post pages only) --}}
+{{#is "post"}}
+<script>
+(function () {
+    var bar = document.createElement('div');
+    bar.id = 'aa-reading-progress';
+    document.body.prepend(bar);
+    function update() {
+        var content = document.querySelector('.gh-content');
+        if (!content) return;
+        var scrollTop = window.scrollY || window.pageYOffset;
+        var docHeight = content.offsetTop + content.offsetHeight - window.innerHeight;
+        var progress = Math.min(Math.max(scrollTop / Math.max(docHeight, 1), 0), 1);
+        bar.style.width = (progress * 100) + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+}());
+</script>
 {{/is}}
 
 {{!-- Scripts - handle member signups, responsive videos, infinite scroll, floating headers, and galleries --}}

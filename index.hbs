@@ -37,6 +37,18 @@ into the {body} of the default.hbs template --}}
 
 </div>
 
+{{!-- Personal intro banner — first page only --}}
+{{#unless pagination.prev}}
+<div class="aa-intro outer">
+    <div class="aa-intro-inner inner">
+        {{#if @site.description}}
+            <p class="aa-intro-tagline">{{@site.description}}</p>
+        {{/if}}
+        <a class="aa-intro-link" href="/about">About me &rarr;</a>
+    </div>
+</div>
+{{/unless}}
+
 {{!-- The main content area --}}
 <main id="site-main" class="site-main outer">
 <div class="inner posts">
