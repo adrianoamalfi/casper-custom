@@ -96,12 +96,57 @@
         </div>
     </footer>
 
+    {{!-- Back to top button --}}
+    <button id="aa-back-top" class="aa-back-top" aria-label="Torna in cima">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
 </div>
 {{!-- /.viewport --}}
 
 {{#is "post, page"}}
     {{> "lightbox"}}
 {{/is}}
+
+{{!-- Sticky header + Back to top --}}
+<script>
+(function () {
+    var head = document.getElementById('gh-head');
+    var backTop = document.getElementById('aa-back-top');
+    var hasCover = document.body.classList.contains('has-cover');
+
+    // Sticky header
+    if (head) {
+        if (hasCover) {
+            // Cover pages: use IntersectionObserver to switch to fixed after cover scrolls out
+            var cover = document.querySelector('.site-header-content');
+            if (cover && window.IntersectionObserver) {
+                var obs = new IntersectionObserver(function (entries) {
+                    head.classList.toggle('is-scrolled', !entries[0].isIntersecting);
+                }, { threshold: 0 });
+                obs.observe(cover);
+            }
+        } else {
+            // Non-cover pages: compact after 50px
+            window.addEventListener('scroll', function () {
+                head.classList.toggle('is-scrolled', window.scrollY > 50);
+            }, { passive: true });
+        }
+    }
+
+    // Back to top
+    if (backTop) {
+        window.addEventListener('scroll', function () {
+            backTop.classList.toggle('is-visible', window.scrollY > 500);
+        }, { passive: true });
+        backTop.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+}());
+</script>
 
 {{!-- Reading progress bar (post pages only) --}}
 {{#is "post"}}
