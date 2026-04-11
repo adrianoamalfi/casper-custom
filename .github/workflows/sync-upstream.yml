@@ -1,0 +1,97 @@
+name: Sync Upstream Casper
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Ogni lunedì alle 6:00 UTC
+  workflow_dispatch: # Trigger manuale
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout custom branch
+        uses: actions/checkout@v4
+        with:
+          ref: custom
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream TryGhost/Casper
+        run: |
+          git remote add upstream https://github.com/TryGhost/Casper.git
+          git fetch upstream main --no-tags
+
+      - name: Update upstream branch
+        run: |
+          git fetch origin upstream
+          git checkout upstream
+          git reset --hard upstream/main
+          git push origin upstream --force-with-lease
+
+      - name: Rebase custom on upstream
+        id: rebase
+        run: |
+          git checkout custom
+          git rebase origin/upstream
+        continue-on-error: true
+
+      - name: Push custom branch
+        if: steps.rebase.outcome == 'success'
+        run: git push origin custom --force-with-lease
+
+      - name: Abort rebase
+        if: steps.rebase.outcome == 'failure'
+        run: git rebase --abort || true
+
+      - name: Open issue on conflict
+        if: steps.rebase.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+            });
+            const exists = issues.some(i => i.title.startsWith('⚠️ Sync upstream'));
+            if (!exists) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '⚠️ Sync upstream: conflitti da risolvere manualmente',
+                body: [
+                  '## Il rebase automatico ha fallito',
+                  '',
+                  'Il branch `custom` non può essere aggiornato automaticamente perché ci sono conflitti',
+                  'con le ultime modifiche di [TryGhost/Casper](https://github.com/TryGhost/Casper).',
+                  '',
+                  '### Come risolvere in locale',
+                  '',
+                  '```bash',
+                  'git fetch origin',
+                  'git checkout custom',
+                  'git rebase origin/upstream',
+                  '# Risolvi i conflitti nei file segnalati, poi:',
+                  'git add <file-risolti>',
+                  'git rebase --continue',
+                  'git push origin custom --force-with-lease',
+                  '```',
+                  '',
+                  '### Riferimenti',
+                  '- [Commit recenti upstream](https://github.com/TryGhost/Casper/commits/main)',
+                  '- [Diff upstream vs custom](../../compare/custom...upstream)',
+                ].join('
+'),
+              });
+            }
+
