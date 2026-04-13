@@ -61,14 +61,32 @@ function css(done) {
     ], handleError(done));
 }
 
-function js(done) {
+function corejs(done) {
     pump([
         src([
-            // pull in lib files first so our own code can depend on it
-            'assets/js/lib/*.js',
-            'assets/js/*.js'
+            'assets/js/lib/imagesloaded.pkgd.min.js',
+            'assets/js/brand-core.js',
+            'assets/js/dropdown.js',
+            'assets/js/infinite-scroll.js'
         ], {sourcemaps: true}),
-        concat('casper.js'),
+        concat('core.js'),
+        uglify(),
+        dest('assets/built/', {sourcemaps: '.'}),
+        livereload()
+    ], handleError(done));
+}
+
+function postjs(done) {
+    pump([
+        src([
+            'node_modules/@highlightjs/cdn-assets/highlight.min.js',
+            'assets/js/lib/photoswipe.min.js',
+            'assets/js/lib/photoswipe-ui-default.min.js',
+            'assets/js/lightbox.js',
+            'assets/js/code-enhancements.js',
+            'assets/js/brand-post.js'
+        ], {sourcemaps: true}),
+        concat('post.js'),
         uglify(),
         dest('assets/built/', {sourcemaps: '.'}),
         livereload()
@@ -100,11 +118,11 @@ function locales(done) {
 }
 
 const cssWatcher = () => watch('assets/css/**', css);
-const jsWatcher = () => watch('assets/js/**', js);
+const jsWatcher = () => watch('assets/js/**', parallel(corejs, postjs));
 const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], hbs);
 const localesWatcher = () => watch('./locales-local/**/*.json', locales);
 const watcher = parallel(cssWatcher, jsWatcher, hbsWatcher, localesWatcher);
-const build = series(css, js, locales);
+const build = series(css, parallel(corejs, postjs), locales);
 
 exports.build = build;
 exports.zip = series(build, zipper);

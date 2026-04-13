@@ -1,0 +1,67 @@
+{{!< default}}
+
+{{#post}}
+<main id="site-main" class="site-main">
+    <article class="article {{post_class}} aa-page aa-page-about">
+        <header class="aa-page-hero outer">
+            <div class="aa-page-hero-inner inner">
+                <div class="aa-page-hero-copy">
+                    <span class="aa-page-eyebrow">Chi sono</span>
+                    <h1 class="aa-page-title">{{title}}</h1>
+
+                    {{#if custom_excerpt}}
+                        <p class="aa-page-dek">{{custom_excerpt}}</p>
+                    {{else}}
+                        {{#if excerpt}}
+                            <p class="aa-page-dek">{{excerpt}}</p>
+                        {{/if}}
+                    {{/if}}
+
+                    <div class="aa-page-actions">
+                        <a class="aa-primary-button" href="/consulenza/">Lavoriamo insieme</a>
+                        <a class="aa-text-link" href="/tag/strategy/">Leggi i contenuti</a>
+                    </div>
+                </div>
+
+                <aside class="aa-page-panel">
+                    <span class="aa-page-panel-label">Posizionamento</span>
+                    <p class="aa-page-panel-text">ICT strategy, digital transformation e adozione pragmatica dell’AI con una prospettiva editoriale e operativa.</p>
+                    <ul class="aa-page-metadata" aria-label="Temi chiave">
+                        <li>Operating model e organizzazione</li>
+                        <li>Platform e product thinking</li>
+                        <li>Comunicazione strategica</li>
+                    </ul>
+                </aside>
+            </div>
+        </header>
+
+        <section class="aa-page-section outer">
+            <div class="aa-page-section-inner inner">
+                <div class="aa-signal-grid" aria-label="Come lavoro">
+                    <article class="aa-signal-card">
+                        <span class="aa-signal-kicker">Approccio</span>
+                        <h2 class="aa-signal-title">Chiarezza strategica</h2>
+                        <p class="aa-signal-copy">Ridurre complessità, esplicitare tradeoff e trasformare ambiguità in direzione operativa.</p>
+                    </article>
+
+                    <article class="aa-signal-card">
+                        <span class="aa-signal-kicker">Metodo</span>
+                        <h2 class="aa-signal-title">Disciplina di execution</h2>
+                        <p class="aa-signal-copy">Decisioni che reggono in delivery: governance, priorità, metriche e responsabilità chiare.</p>
+                    </article>
+
+                    <article class="aa-signal-card">
+                        <span class="aa-signal-kicker">Voce</span>
+                        <h2 class="aa-signal-title">Prospettiva editoriale</h2>
+                        <p class="aa-signal-copy">Scrittura e analisi come strumenti per chiarire la sostanza, non solo raccontarla bene.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="gh-content gh-canvas">
+            {{content}}
+        </section>
+    </article>
+</main>
+{{/post}}

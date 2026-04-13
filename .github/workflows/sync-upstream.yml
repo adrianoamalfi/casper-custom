@@ -2,12 +2,16 @@ name: Sync Upstream Casper
 
 on:
   schedule:
-    - cron: '0 6 * * 1' # Ogni lunedì alle 6:00 UTC
-  workflow_dispatch: # Trigger manuale
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
 
 permissions:
   contents: write
   issues: write
+
+concurrency:
+  group: sync-upstream-casper
+  cancel-in-progress: false
 
 jobs:
   sync:
@@ -19,30 +23,33 @@ jobs:
         with:
           ref: custom
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Fetch upstream TryGhost/Casper
+      - name: Fetch origin and Casper upstream
         run: |
-          git remote add upstream https://github.com/TryGhost/Casper.git
-          git fetch upstream main --no-tags
+          if git remote get-url upstream >/dev/null 2>&1; then
+            git remote set-url upstream https://github.com/TryGhost/Casper.git
+          else
+            git remote add upstream https://github.com/TryGhost/Casper.git
+          fi
 
-      - name: Update upstream branch
+          git fetch origin custom upstream --prune
+          git fetch upstream main --no-tags --prune
+
+      - name: Update upstream branch mirror
         run: |
-          git fetch origin upstream
-          git checkout upstream
-          git reset --hard upstream/main
-          git push origin upstream --force-with-lease
+          git checkout -B upstream refs/remotes/upstream/main
+          git push origin upstream:upstream --force-with-lease
 
       - name: Rebase custom on upstream
         id: rebase
         run: |
           git checkout custom
-          git rebase origin/upstream
+          git rebase upstream
         continue-on-error: true
 
       - name: Push custom branch
@@ -58,22 +65,27 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const { owner, repo } = context.repo;
+            const issueTitle = '⚠️ Sync upstream: conflitti da risolvere manualmente';
+            const compareUrl = `https://github.com/${owner}/${repo}/compare/upstream...custom`;
+
             const { data: issues } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
+              owner,
+              repo,
+              state: 'open'
             });
-            const exists = issues.some(i => i.title.startsWith('⚠️ Sync upstream'));
+
+            const exists = issues.some(issue => issue.title === issueTitle);
+
             if (!exists) {
               await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title: '⚠️ Sync upstream: conflitti da risolvere manualmente',
+                owner,
+                repo,
+                title: issueTitle,
                 body: [
                   '## Il rebase automatico ha fallito',
                   '',
-                  'Il branch `custom` non può essere aggiornato automaticamente perché ci sono conflitti',
-                  'con le ultime modifiche di [TryGhost/Casper](https://github.com/TryGhost/Casper).',
+                  'Il branch `custom` non può essere aggiornato automaticamente perché ci sono conflitti con le ultime modifiche di [TryGhost/Casper](https://github.com/TryGhost/Casper).',
                   '',
                   '### Come risolvere in locale',
                   '',
@@ -89,9 +101,7 @@ jobs:
                   '',
                   '### Riferimenti',
                   '- [Commit recenti upstream](https://github.com/TryGhost/Casper/commits/main)',
-                  '- [Diff upstream vs custom](../../compare/custom...upstream)',
-                ].join('
-'),
+                  `- [Diff upstream vs custom](${compareUrl})`
+                ].join('\n')
               });
             }
-

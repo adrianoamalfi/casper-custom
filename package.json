@@ -45,6 +45,7 @@
     "bugs": "https://github.com/TryGhost/Casper/issues",
     "contributors": "https://github.com/TryGhost/Casper/graphs/contributors",
     "devDependencies": {
+        "@highlightjs/cdn-assets": "^11.11.1",
         "@tryghost/release-utils": "0.8.1",
         "@tryghost/theme-translations": "~0.0.16",
         "autoprefixer": "10.4.24",
@@ -57,6 +58,7 @@
         "gulp-postcss": "10.0.0",
         "gulp-uglify": "3.0.2",
         "gulp-zip": "6.1.0",
+        "highlight.js": "11.11.1",
         "inquirer": "13.2.2",
         "postcss": "8.5.6",
         "postcss-color-mod-function": "4.1.1",

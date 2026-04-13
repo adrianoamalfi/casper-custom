@@ -1,0 +1,90 @@
+<section class="aa-home-topics outer">
+    <div class="aa-home-topics-inner inner">
+        <header class="aa-home-section-heading">
+            <span class="aa-page-eyebrow">Percorsi editoriali</span>
+            <h2 class="aa-home-section-title">Ingresso per aree di contenuto</h2>
+            <p class="aa-home-section-copy">La homepage non è solo una sequenza cronologica: prova a far emergere i temi con cui leggere il sito e il modo in cui i contenuti sono organizzati.</p>
+        </header>
+
+        <div class="aa-topic-hub-grid">
+            <a class="aa-topic-hub" href="/tag/strategy/">
+                <span class="aa-topic-hub-kicker">Archivio</span>
+                <h3 class="aa-topic-hub-title">Nuove tecnologie</h3>
+                <p class="aa-topic-hub-copy">Tecnologie emergenti lette in chiave strategica: cosa sono, come funzionano e quale impatto possono avere davvero.</p>
+            </a>
+
+            <a class="aa-topic-hub" href="/tag/transformation/">
+                <span class="aa-topic-hub-kicker">Archivio</span>
+                <h3 class="aa-topic-hub-title">Innovazione e cambiamento</h3>
+                <p class="aa-topic-hub-copy">Innovazione, change management e impatti organizzativi: dal disegno della trasformazione alla sua adozione concreta.</p>
+            </a>
+
+            <a class="aa-topic-hub" href="/tag/ai/">
+                <span class="aa-topic-hub-kicker">Archivio</span>
+                <h3 class="aa-topic-hub-title">Taccuino tecnico</h3>
+                <p class="aa-topic-hub-copy">Articoli pratici, how-to e note di lavoro su strumenti, configurazioni, esperimenti e implementazioni tecniche.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="aa-home-clusters outer">
+    <div class="aa-home-clusters-inner inner">
+        {{#get "posts" filter="tag:strategy" limit="3" include="tags,authors"}}
+            {{#if posts}}
+                <section class="aa-cluster">
+                    <header class="aa-cluster-header">
+                        <div>
+                            <span class="aa-page-eyebrow">Selezione</span>
+                            <h2 class="aa-cluster-title">Nuove tecnologie</h2>
+                        </div>
+                        <a class="aa-text-link" href="/tag/strategy/">Apri archivio</a>
+                    </header>
+                    <div class="aa-cluster-feed">
+                        {{#foreach posts}}
+                            {{> "post-card"}}
+                        {{/foreach}}
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+
+        {{#get "posts" filter="tag:transformation" limit="3" include="tags,authors"}}
+            {{#if posts}}
+                <section class="aa-cluster">
+                    <header class="aa-cluster-header">
+                        <div>
+                            <span class="aa-page-eyebrow">Selezione</span>
+                            <h2 class="aa-cluster-title">Innovazione e cambiamento</h2>
+                        </div>
+                        <a class="aa-text-link" href="/tag/transformation/">Apri archivio</a>
+                    </header>
+                    <div class="aa-cluster-feed">
+                        {{#foreach posts}}
+                            {{> "post-card"}}
+                        {{/foreach}}
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+
+        {{#get "posts" filter="tag:ai" limit="3" include="tags,authors"}}
+            {{#if posts}}
+                <section class="aa-cluster">
+                    <header class="aa-cluster-header">
+                        <div>
+                            <span class="aa-page-eyebrow">Selezione</span>
+                            <h2 class="aa-cluster-title">Taccuino tecnico</h2>
+                        </div>
+                        <a class="aa-text-link" href="/tag/ai/">Apri archivio</a>
+                    </header>
+                    <div class="aa-cluster-feed">
+                        {{#foreach posts}}
+                            {{> "post-card"}}
+                        {{/foreach}}
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+    </div>
+</section>

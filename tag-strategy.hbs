@@ -1,0 +1,44 @@
+{{!< default}}
+
+<main id="site-main" class="site-main outer aa-tag-template">
+    <section class="aa-tag-hero outer">
+        <div class="aa-tag-hero-inner inner">
+            {{#tag}}
+                <div class="aa-tag-hero-copy">
+                    <span class="aa-page-eyebrow">Topic archive</span>
+                    <h1 class="aa-page-title">{{name}}</h1>
+                    {{#if description}}
+                        <p class="aa-page-dek">{{description}}</p>
+                    {{else}}
+                        <p class="aa-page-dek">Analisi, framework e note operative su strategia, trasformazione e decision making.</p>
+                    {{/if}}
+                </div>
+
+                <div class="aa-tag-summary">
+                    <span class="aa-page-panel-label">Dimensione archivio</span>
+                    <p class="aa-page-panel-text">{{plural ../pagination.total empty="Nessun articolo pubblicato." singular="% post in archivio" plural="% post in archivio"}}</p>
+                </div>
+            {{/tag}}
+        </div>
+    </section>
+
+    <section class="aa-page-section outer">
+        <div class="inner posts">
+            <div class="aa-engagement-strip is-archive">
+                <div>
+                    <span class="aa-page-panel-label">Perché questo archivio</span>
+                    <p class="aa-engagement-copy">Qui trovi i contenuti più vicini al nucleo del sito: operating model, transformation design, execution e AI adoption letti da una prospettiva manageriale.</p>
+                </div>
+                <a class="aa-text-link" href="/about/">Chi sono</a>
+            </div>
+
+            <div class="post-feed">
+                {{#foreach posts}}
+                    {{> "post-card"}}
+                {{/foreach}}
+            </div>
+
+            {{pagination}}
+        </div>
+    </section>
+</main>

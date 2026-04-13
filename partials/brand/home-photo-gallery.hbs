@@ -1,0 +1,51 @@
+<section class="aa-home-photos outer">
+    <div class="aa-home-photos-inner inner">
+        <header class="aa-home-section-heading">
+            <span class="aa-page-eyebrow">Area visuale</span>
+            <h2 class="aa-home-section-title">Fotografie e AI Art</h2>
+            <p class="aa-home-section-copy">Una sezione separata dal flusso editoriale: da una parte immagini scattate da me, dall’altra immagini generate con l’AI.</p>
+        </header>
+
+        <div class="aa-visual-columns">
+            {{#get "posts" filter="tag:hash-photos" limit="6" include="tags,authors"}}
+                {{#if posts}}
+                    <section class="aa-visual-column">
+                        <header class="aa-visual-column-header">
+                            <div>
+                                <span class="aa-page-eyebrow">Fotografie</span>
+                                <h3 class="aa-cluster-title">Scattate da me</h3>
+                            </div>
+                            <a class="aa-text-link" href="/photos/">Apri archivio</a>
+                        </header>
+
+                        <div class="aa-home-photo-grid">
+                            {{#foreach posts}}
+                                {{> "brand/home-photo-thumb"}}
+                            {{/foreach}}
+                        </div>
+                    </section>
+                {{/if}}
+            {{/get}}
+
+            {{#get "posts" filter="tag:hash-ai-art" limit="6" include="tags,authors"}}
+                {{#if posts}}
+                    <section class="aa-visual-column">
+                        <header class="aa-visual-column-header">
+                            <div>
+                                <span class="aa-page-eyebrow">AI Art</span>
+                                <h3 class="aa-cluster-title">Immagini generate con l’AI</h3>
+                            </div>
+                            <a class="aa-text-link" href="/ai-art/">Apri archivio</a>
+                        </header>
+
+                        <div class="aa-home-photo-grid">
+                            {{#foreach posts}}
+                                {{> "brand/home-photo-thumb"}}
+                            {{/foreach}}
+                        </div>
+                    </section>
+                {{/if}}
+            {{/get}}
+        </div>
+    </div>
+</section>

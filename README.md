@@ -42,6 +42,9 @@ yarn install
 
 # run development server
 yarn dev
+
+# build compiled assets
+./node_modules/.bin/gulp build
 ```
 
 Now you can edit `/assets/css/` files, which will be compiled to `/assets/built/` automatically.
@@ -64,6 +67,37 @@ yarn zip
 Casper uses inline SVG icons, included via Handlebars partials. You can find all icons inside `/partials/icons`. To use an icon just include the name of the relevant file, eg. To include the SVG icon in `/partials/icons/rss.hbs` - use `{{> "icons/rss"}}`.
 
 You can add your own SVG icons in the same manner.
+
+# Custom fork notes
+
+This repository is maintained as a custom fork of Casper with the goal of staying easy to rebase on top of [TryGhost/Casper](https://github.com/TryGhost/Casper).
+
+To keep upstream sync low-friction:
+
+- Keep `origin/upstream` as a mirror of Casper's `main`
+- Rebase `custom` on top of `origin/upstream`
+- Prefer isolated customisations in these areas:
+  - `partials/brand/*` for personal or editorial sections
+  - `assets/css/screen.css` custom block at the end of the file
+  - `assets/js/brand.js` for custom front-end behaviour
+- Avoid broad edits across core Casper templates when a partial or CSS/JS override is enough
+
+GitHub Actions:
+
+- `.github/workflows/sync-upstream.yml` keeps the local `upstream` branch aligned with `TryGhost/Casper`
+- `.github/workflows/test.yml` installs dependencies and runs theme validation on push and pull request
+
+# Flusso fotografico
+
+The theme includes a lightweight photo workflow built on top of Ghost posts:
+
+- Tag photo posts with the internal tag `#photos`
+- Tag AI-generated image posts with the internal tag `#ai-art`
+- Assign the custom template `photo` to photo posts when you want the dedicated single-photo layout
+- Create a page with slug `photos` to use `page-photos.hbs` as the public photo archive
+- Create a page with slug `ai-art` to use `page-ai-art.hbs` as the public AI Art archive
+- The homepage automatically shows the latest posts tagged with `#photos`
+- Use the feature image caption on `photo` posts for visible field notes beneath the image
 
 # Translations
 

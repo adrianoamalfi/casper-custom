@@ -1,0 +1,52 @@
+{{!< default}}
+
+{{#post}}
+<main id="site-main" class="site-main aa-photos-page">
+    <article class="article {{post_class}} aa-page aa-page-photos">
+        <header class="aa-page-hero outer">
+            <div class="aa-page-hero-inner inner">
+                <div class="aa-page-hero-copy">
+                    <span class="aa-page-eyebrow">Archivio AI Art</span>
+                    <h1 class="aa-page-title">{{title}}</h1>
+                    {{#if custom_excerpt}}
+                        <p class="aa-page-dek">{{custom_excerpt}}</p>
+                    {{else}}
+                        {{#if excerpt}}
+                            <p class="aa-page-dek">{{excerpt}}</p>
+                        {{/if}}
+                    {{/if}}
+                </div>
+
+                <aside class="aa-page-panel">
+                    <span class="aa-page-panel-label">Area visiva</span>
+                    <p class="aa-page-panel-text">Una raccolta di immagini generate con l’AI come spazio parallelo alla scrittura: più visivo, più sperimentale, meno legato al formato articolo.</p>
+                </aside>
+            </div>
+        </header>
+
+        <section class="gh-content gh-canvas">
+            {{content}}
+        </section>
+
+        {{#get "posts" filter="tag:hash-ai-art" limit="30" include="tags,authors"}}
+            {{#if posts}}
+                <section class="aa-page-section outer">
+                    <div class="aa-page-section-inner inner">
+                        <header class="aa-home-section-heading">
+                            <span class="aa-page-eyebrow">Ultimi lavori</span>
+                            <h2 class="aa-home-section-title">AI Art recente</h2>
+                            <p class="aa-home-section-copy">Immagini generate con l’AI raccolte come archivio visivo autonomo, distinto dalle fotografie scattate da me.</p>
+                        </header>
+
+                        <div class="aa-photo-grid">
+                            {{#foreach posts}}
+                                {{> "brand/photo-card"}}
+                            {{/foreach}}
+                        </div>
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+    </article>
+</main>
+{{/post}}

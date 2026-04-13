@@ -1,0 +1,52 @@
+{{!< default}}
+
+{{#post}}
+<main id="site-main" class="site-main aa-photos-page">
+    <article class="article {{post_class}} aa-page aa-page-photos">
+        <header class="aa-page-hero outer">
+            <div class="aa-page-hero-inner inner">
+                <div class="aa-page-hero-copy">
+                    <span class="aa-page-eyebrow">Archivio fotografico</span>
+                    <h1 class="aa-page-title">{{title}}</h1>
+                    {{#if custom_excerpt}}
+                        <p class="aa-page-dek">{{custom_excerpt}}</p>
+                    {{else}}
+                        {{#if excerpt}}
+                            <p class="aa-page-dek">{{excerpt}}</p>
+                        {{/if}}
+                    {{/if}}
+                </div>
+
+                <aside class="aa-page-panel">
+                    <span class="aa-page-panel-label">Visual archive</span>
+                    <p class="aa-page-panel-text">Una raccolta di immagini personali pubblicate come photo journal: osservazioni, atmosfere e frammenti che convivono con la parte editoriale del sito.</p>
+                </aside>
+            </div>
+        </header>
+
+        <section class="gh-content gh-canvas">
+            {{content}}
+        </section>
+
+        {{#get "posts" filter="tag:hash-photos" limit="30" include="tags,authors"}}
+            {{#if posts}}
+                <section class="aa-page-section outer">
+                    <div class="aa-page-section-inner inner">
+                        <header class="aa-home-section-heading">
+                            <span class="aa-page-eyebrow">Ultimi lavori</span>
+                            <h2 class="aa-home-section-title">Fotografie recenti</h2>
+                            <p class="aa-home-section-copy">La prima immagine prende più spazio e imposta il ritmo della pagina; le altre costruiscono il flusso dell’archivio.</p>
+                        </header>
+
+                        <div class="aa-photo-grid">
+                            {{#foreach posts}}
+                                {{> "brand/photo-card"}}
+                            {{/foreach}}
+                        </div>
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+    </article>
+</main>
+{{/post}}

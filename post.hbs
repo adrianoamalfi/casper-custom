@@ -82,9 +82,24 @@ into the {body} tag of the default.hbs template --}}
 
     </header>
 
-    <section class="gh-content gh-canvas">
-        {{content}}
-    </section>
+    <div class="aa-post-layout gh-canvas">
+        <aside class="aa-post-toc" id="aa-post-toc" hidden>
+            <div class="aa-post-toc-inner">
+                <span class="aa-page-eyebrow">Indice</span>
+                <h2 class="aa-post-toc-title">In questo articolo</h2>
+                <nav class="aa-post-toc-nav" aria-label="Indice dell'articolo">
+                    <ol class="aa-post-toc-list" id="aa-post-toc-list"></ol>
+                </nav>
+            </div>
+        </aside>
+
+        <section class="gh-content aa-post-content">
+            {{content}}
+        </section>
+    </div>
+
+    {{> "brand/post-cta"}}
+    {{> "brand/author-box"}}
 
     {{#if comments}}
         <section class="article-comments gh-canvas">
@@ -117,24 +132,55 @@ into the {body} tag of the default.hbs template --}}
 
 {{!-- Read more links, just above the footer --}}
 {{#if @custom.show_recent_posts_footer}}
-    {{!-- The {#get} helper below fetches some of the latest posts here
-    so that people have something else to read when they finish this one.
-
-    This query gets the latest 3 posts on the site, but adds a filter to
-    exclude the post we're currently on from being included. --}}
-    {{#get "posts" filter="id:-{{id}}" limit="3" as |more_posts|}}
-
-        {{#if more_posts}}
-            <aside class="read-more-wrap outer">
-                <div class="read-more inner">
-                    {{#foreach more_posts}}
-                        {{> "post-card"}}
-                    {{/foreach}}
-                </div>
-            </aside>
-        {{/if}}
-
-    {{/get}}
+    {{#if primary_tag}}
+        {{#get "posts" filter="id:-{{id}}+tag:{{primary_tag.slug}}" limit="3" as |more_posts|}}
+            {{#if more_posts}}
+                <aside class="read-more-wrap outer">
+                    <div class="read-more inner">
+                        <header class="aa-read-more-header">
+                            <span class="aa-page-eyebrow">Continua la lettura</span>
+                            <h2 class="aa-read-more-title">Altri articoli sullo stesso tema</h2>
+                        </header>
+                        {{#foreach more_posts}}
+                            {{> "post-card"}}
+                        {{/foreach}}
+                    </div>
+                </aside>
+            {{else}}
+                {{#get "posts" filter="id:-{{id}}" limit="3" as |fallback_posts|}}
+                    {{#if fallback_posts}}
+                        <aside class="read-more-wrap outer">
+                            <div class="read-more inner">
+                                <header class="aa-read-more-header">
+                                    <span class="aa-page-eyebrow">Continua la lettura</span>
+                                    <h2 class="aa-read-more-title">Articoli recenti</h2>
+                                </header>
+                                {{#foreach fallback_posts}}
+                                    {{> "post-card"}}
+                                {{/foreach}}
+                            </div>
+                        </aside>
+                    {{/if}}
+                {{/get}}
+            {{/if}}
+        {{/get}}
+    {{else}}
+        {{#get "posts" filter="id:-{{id}}" limit="3" as |more_posts|}}
+            {{#if more_posts}}
+                <aside class="read-more-wrap outer">
+                    <div class="read-more inner">
+                        <header class="aa-read-more-header">
+                            <span class="aa-page-eyebrow">Continua la lettura</span>
+                            <h2 class="aa-read-more-title">Articoli recenti</h2>
+                        </header>
+                        {{#foreach more_posts}}
+                            {{> "post-card"}}
+                        {{/foreach}}
+                    </div>
+                </aside>
+            {{/if}}
+        {{/get}}
+    {{/if}}
 {{/if}}
 
 {{/post}}
