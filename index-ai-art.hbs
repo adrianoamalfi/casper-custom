@@ -1,0 +1,34 @@
+{{!< default}}
+
+<main id="site-main" class="site-main aa-photos-page">
+    <section class="aa-page-hero outer">
+        <div class="aa-page-hero-inner inner">
+            <div class="aa-page-hero-copy">
+                <span class="aa-page-eyebrow">Archivio immagini generate</span>
+                <h1 class="aa-page-title">AI Art</h1>
+                <p class="aa-page-dek">Un archivio separato per immagini generate con l'AI, pensato come laboratorio visivo parallelo rispetto agli articoli e alla fotografia.</p>
+            </div>
+
+            <aside class="aa-page-panel">
+                <span class="aa-page-panel-label">Dimensione archivio</span>
+                <p class="aa-page-panel-text">{{plural pagination.total empty="Nessuna immagine pubblicata." singular="% immagine pubblicata" plural="% immagini pubblicate"}}</p>
+            </aside>
+        </div>
+    </section>
+
+    <section class="aa-page-section outer">
+        <div class="aa-page-section-inner inner">
+            {{#if posts}}
+                <div class="aa-photo-grid">
+                    {{#foreach posts}}
+                        {{> "brand/photo-card"}}
+                    {{/foreach}}
+                </div>
+
+                {{pagination}}
+            {{else}}
+                <p class="aa-home-section-copy">Non ci sono ancora immagini generate in archivio.</p>
+            {{/if}}
+        </div>
+    </section>
+</main>

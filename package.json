@@ -117,14 +117,14 @@
                 ],
                 "default": "Elegant serif"
             },
-            "brand_footer_name": {
+            "brand_footer_linkedin_url": {
                 "type": "text",
-                "default": "Adriano Amalfi",
+                "default": "https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=adrianoamalfi",
                 "group": "brand"
             },
-            "brand_footer_role": {
+            "brand_footer_github_url": {
                 "type": "text",
-                "default": "Strategia ICT · Innovazione · Sistemi",
+                "default": "",
                 "group": "brand"
             },
             "global_primary_cta_label": {
@@ -170,101 +170,6 @@
                     "List"
                 ],
                 "default": "Classic",
-                "group": "homepage"
-            },
-            "home_topics_title": {
-                "type": "text",
-                "default": "Mappa editoriale",
-                "group": "homepage"
-            },
-            "home_topics_description": {
-                "type": "text",
-                "default": "Tre accessi tematici per leggere il sito per ambiti, priorità e casi di applicazione.",
-                "group": "homepage"
-            },
-            "home_topic_1_label": {
-                "type": "text",
-                "default": "Tecnologia e sistemi",
-                "group": "homepage"
-            },
-            "home_topic_1_description": {
-                "type": "text",
-                "default": "Analisi su tecnologie, architetture digitali e AI, con attenzione a impatti, maturità operativa e utilità effettiva.",
-                "group": "homepage"
-            },
-            "home_topic_1_url": {
-                "type": "text",
-                "default": "/tag/strategy/",
-                "group": "homepage"
-            },
-            "home_topic_2_label": {
-                "type": "text",
-                "default": "Innovazione e cambiamento",
-                "group": "homepage"
-            },
-            "home_topic_2_description": {
-                "type": "text",
-                "default": "Strategia, governance e trasformazione organizzativa lette dal punto di vista dell'esecuzione e della tenuta dei sistemi.",
-                "group": "homepage"
-            },
-            "home_topic_2_url": {
-                "type": "text",
-                "default": "/tag/transformation/",
-                "group": "homepage"
-            },
-            "home_topic_3_label": {
-                "type": "text",
-                "default": "Taccuino operativo",
-                "group": "homepage"
-            },
-            "home_topic_3_description": {
-                "type": "text",
-                "default": "Note tecniche, configurazioni e prove di lavoro raccolte come documentazione essenziale.",
-                "group": "homepage"
-            },
-            "home_topic_3_url": {
-                "type": "text",
-                "default": "/tag/ai/",
-                "group": "homepage"
-            },
-            "home_visual_title": {
-                "type": "text",
-                "default": "Archivio visuale",
-                "group": "homepage"
-            },
-            "home_visual_description": {
-                "type": "text",
-                "default": "Una sezione dedicata a fotografie e immagini generate, ordinata come parte del medesimo impianto editoriale.",
-                "group": "homepage"
-            },
-            "home_photos_label": {
-                "type": "text",
-                "default": "Fotografie",
-                "group": "homepage"
-            },
-            "home_photos_title": {
-                "type": "text",
-                "default": "Fotografie",
-                "group": "homepage"
-            },
-            "home_photos_url": {
-                "type": "text",
-                "default": "/photos/",
-                "group": "homepage"
-            },
-            "home_ai_label": {
-                "type": "text",
-                "default": "Immagini generate",
-                "group": "homepage"
-            },
-            "home_ai_title": {
-                "type": "text",
-                "default": "Immagini generate",
-                "group": "homepage"
-            },
-            "home_ai_url": {
-                "type": "text",
-                "default": "/ai-art/",
                 "group": "homepage"
             },
             "color_scheme": {

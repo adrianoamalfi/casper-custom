@@ -2,8 +2,6 @@
 
 (function (window, document) {
     var content = document.querySelector('.gh-content');
-    var toc = document.getElementById('aa-post-toc');
-    var tocList = document.getElementById('aa-post-toc-list');
 
     if (!content) {
         return;
@@ -48,11 +46,7 @@
         });
     }
 
-    function buildToc() {
-        if (!toc || !tocList) {
-            return;
-        }
-
+    function enhanceContentHeadings() {
         var headings = getHeadings();
 
         if (!headings.length) {
@@ -78,89 +72,9 @@
 
             usedIds[uniqueId] = true;
             heading.id = uniqueId;
-
-            var item = document.createElement('li');
-            item.className = 'aa-post-toc-item aa-post-toc-item-' + heading.tagName.toLowerCase();
-
-            var link = document.createElement('a');
-            link.className = 'aa-post-toc-link';
-            link.href = '#' + uniqueId;
-            link.textContent = heading.dataset.tocText || heading.textContent.trim();
-
-            item.appendChild(link);
-            tocList.appendChild(item);
         });
 
-        if (tocList.children.length) {
-            enhanceHeadings(headings);
-            toc.hidden = false;
-        }
-    }
-
-    function activateTocOnScroll() {
-        if (!toc || toc.hidden || !tocList.children.length) {
-            return;
-        }
-
-        var links = tocList.querySelectorAll('.aa-post-toc-link');
-        var headings = getHeadings().filter(function (heading) {
-            return Boolean(heading.id);
-        });
-
-        if (!headings.length) {
-            return;
-        }
-
-        function setActive(id) {
-            links.forEach(function (link) {
-                link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
-            });
-        }
-
-        if (window.IntersectionObserver) {
-            var visibleHeadings = new Map();
-
-            var observer = new window.IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        visibleHeadings.set(entry.target.id, entry.target.offsetTop);
-                    } else {
-                        visibleHeadings.delete(entry.target.id);
-                    }
-                });
-
-                if (visibleHeadings.size) {
-                    var activeId = Array.from(visibleHeadings.entries())
-                        .sort(function (a, b) {
-                            return a[1] - b[1];
-                        })[0][0];
-
-                    setActive(activeId);
-                }
-            }, {
-                rootMargin: '-20% 0px -65% 0px',
-                threshold: 0
-            });
-
-            headings.forEach(function (heading) {
-                observer.observe(heading);
-            });
-        } else {
-            function updateActiveOnScroll() {
-                var activeId = headings[0].id;
-
-                headings.forEach(function (heading) {
-                    if (heading.getBoundingClientRect().top <= 140) {
-                        activeId = heading.id;
-                    }
-                });
-
-                setActive(activeId);
-            }
-
-            window.addEventListener('scroll', updateActiveOnScroll, {passive: true});
-            updateActiveOnScroll();
-        }
+        enhanceHeadings(headings);
     }
 
     var progressBar = document.createElement('div');
@@ -177,7 +91,6 @@
 
     window.addEventListener('scroll', updateProgress, {passive: true});
     window.addEventListener('resize', updateProgress, {passive: true});
-    buildToc();
-    activateTocOnScroll();
+    enhanceContentHeadings();
     updateProgress();
 })(window, document);

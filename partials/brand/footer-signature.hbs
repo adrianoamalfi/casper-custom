@@ -1,5 +1,18 @@
 <div class="aa-footer-signature">
-    <span class="aa-footer-name">{{#if @custom.brand_footer_name}}{{@custom.brand_footer_name}}{{else}}Adriano Amalfi{{/if}}</span>
-    <span class="aa-footer-role">{{#if @custom.brand_footer_role}}{{@custom.brand_footer_role}}{{else}}Strategia ICT · Trasformazione digitale{{/if}}</span>
-    <span class="aa-footer-claim">Osservatorio editoriale su tecnologia, innovazione e sistemi.</span>
+    {{#if @site.title}}
+        <span class="aa-footer-name">{{@site.title}}</span>
+    {{/if}}
+    {{#if @site.description}}
+        <span class="aa-footer-role">{{@site.description}}</span>
+    {{/if}}
+    {{#if @custom.brand_footer_linkedin_url}}
+        <a class="aa-footer-button" href="{{@custom.brand_footer_linkedin_url}}" target="_blank" rel="noopener noreferrer">
+            LinkedIn
+        </a>
+    {{/if}}
+    {{#if @custom.brand_footer_github_url}}
+        <a class="aa-footer-button" href="{{@custom.brand_footer_github_url}}" target="_blank" rel="noopener noreferrer">
+            GitHub
+        </a>
+    {{/if}}
 </div>

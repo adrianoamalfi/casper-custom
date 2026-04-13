@@ -93,6 +93,16 @@
                         </button>
                     </div>
                 </div>
+                {{#if @custom.brand_footer_linkedin_url}}
+                    <a class="gh-icon-btn aa-header-social" href="{{@custom.brand_footer_linkedin_url}}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+                        {{> "icons/linkedin"}}
+                    </a>
+                {{/if}}
+                {{#if @custom.brand_footer_github_url}}
+                    <a class="gh-icon-btn aa-header-social" href="{{@custom.brand_footer_github_url}}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+                        {{> "icons/github"}}
+                    </a>
+                {{/if}}
                 {{#unless @site.members_enabled}}
                     {{^match @custom.navigation_layout "Stacked"}}
                         <button class="gh-search gh-icon-btn" aria-label="{{t "Search this site"}}" data-ghost-search>{{> "icons/search"}}</button>

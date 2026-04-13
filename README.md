@@ -92,7 +92,7 @@ GitHub Actions:
 The theme includes a lightweight photo workflow built on top of Ghost posts:
 
 - Tag photo posts with the internal tag `#photos`
-- Tag AI-generated image posts with the internal tag `#ai-art`
+- Tag AI-generated image posts with the internal tag `#ai-art-and-images`
 - Assign the custom template `photo` to photo posts when you want the dedicated single-photo layout
 - Create a page with slug `photos` to use `page-photos.hbs` as the public photo archive
 - Create a page with slug `ai-art` to use `page-ai-art.hbs` as the public AI Art archive
