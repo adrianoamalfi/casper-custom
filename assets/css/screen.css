@@ -62,7 +62,7 @@ production stylesheet in assets/built/screen.css
 
     /* Fonts */
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    --font-serif: 'Lora', Georgia, Times, serif;
+    --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, Times, serif;
     --font-mono: Menlo, Courier, monospace;
 
 }
@@ -198,7 +198,7 @@ production stylesheet in assets/built/screen.css
     max-width: 960px;
     font-size: 6rem;
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.06;
 }
 
 .site-description:first-child {
@@ -210,11 +210,12 @@ production stylesheet in assets/built/screen.css
 }
 
 :is(.site-logo, .site-title) + .site-description {
-    max-width: 640px;
-    margin-top: 16px;
-    font-size: 2.4rem;
-    font-weight: 400;
-    line-height: 1.4;
+    max-width: 720px;
+    margin-top: 18px;
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: 0;
 }
 
 .site-logo + .site-description {
@@ -1038,6 +1039,10 @@ production stylesheet in assets/built/screen.css
     gap: 3px;
     padding-left: 18px;
     color: var(--ghost-accent-color);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .post-card-featured svg {
@@ -1079,10 +1084,10 @@ production stylesheet in assets/built/screen.css
 .post-card-excerpt {
     display: -webkit-box;
     overflow-y: hidden;
-    margin-top: 12px;
+    margin-top: 10px;
     max-width: 720px;
-    font-size: 1.6rem;
-    line-height: 1.5;
+    font-size: 1.55rem;
+    line-height: 1.58;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     word-break: break-word;
@@ -1109,9 +1114,12 @@ production stylesheet in assets/built/screen.css
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-top: 12px;
+    margin-top: 14px;
     padding: 0;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--color-secondary-text);
 }
 
@@ -3738,7 +3746,7 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 4px;
+    gap: 5px;
 }
 
 .aa-footer-name {
@@ -3752,6 +3760,14 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
     color: rgba(255, 255, 255, 0.45);
     font-size: 1.15rem;
     letter-spacing: 0.01em;
+}
+
+.aa-footer-claim {
+    max-width: 28ch;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.2rem;
+    line-height: 1.45;
+    text-align: right;
 }
 
 @media (max-width: 767px) {
@@ -4113,16 +4129,17 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 }
 
 .aa-home-topics {
-    padding: max(6vmin, 48px) 0 max(5vmin, 40px);
+    padding: max(7vmin, 56px) 0 max(6vmin, 48px);
 }
 
 .aa-home-photos {
-    padding: 0 0 max(7vmin, 56px);
+    padding: max(8vmin, 72px) 0 max(7vmin, 64px);
+    border-top: 1px solid rgba(27, 54, 93, 0.1);
 }
 
 .aa-home-photos .aa-home-section-heading {
     max-width: 620px;
-    margin-bottom: 24px;
+    margin-bottom: 34px;
 }
 
 .aa-visual-columns {
@@ -4134,6 +4151,10 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 .aa-visual-column {
     display: grid;
     gap: 16px;
+    padding: 28px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(27, 54, 93, 0.03), rgba(27, 54, 93, 0.01));
 }
 
 .aa-visual-column-header {
@@ -4144,52 +4165,54 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 }
 
 .aa-home-clusters {
-    padding: 0 0 max(7vmin, 56px);
+    padding: max(8vmin, 72px) 0 max(7vmin, 64px);
+    border-top: 1px solid rgba(27, 54, 93, 0.1);
 }
 
 .aa-home-section-heading {
     display: grid;
-    gap: 12px;
-    max-width: 760px;
-    margin-bottom: 32px;
+    gap: 10px;
+    max-width: 720px;
+    margin-bottom: 36px;
 }
 
 .aa-home-section-heading.is-feed-heading {
-    margin: 0 0 32px;
+    margin: 0 0 36px;
 }
 
 .aa-home-section-title {
     margin: 0;
-    font-size: clamp(3.6rem, 4vw, 5.4rem);
-    line-height: 1;
-    letter-spacing: -0.035em;
+    font-size: clamp(3.4rem, 4vw, 4.8rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
 }
 
 .aa-home-section-copy {
-    font-size: 1.85rem;
-    line-height: 1.7;
+    font-size: 1.7rem;
+    line-height: 1.6;
     color: var(--color-secondary-text);
 }
 
 .aa-topic-hub-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px;
+    gap: 24px;
 }
 
 .aa-topic-hub {
     display: block;
     min-height: 100%;
-    padding: 28px;
+    padding: 30px 28px;
     border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: transparent;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(27, 54, 93, 0.03), rgba(27, 54, 93, 0.01));
     text-decoration: none;
-    transition: border-color 0.18s ease;
+    transition: border-color 0.18s ease, transform 0.18s ease, background-color 0.18s ease;
 }
 
 .aa-topic-hub:hover {
     border-color: rgba(27, 54, 93, 0.28);
+    transform: translateY(-1px);
 }
 
 .aa-topic-hub-kicker {
@@ -4205,22 +4228,22 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 .aa-topic-hub-title,
 .aa-cluster-title {
     margin: 0;
-    font-size: 3rem;
-    line-height: 1.05;
+    font-size: 2.8rem;
+    line-height: 1.08;
     letter-spacing: -0.03em;
     overflow-wrap: anywhere;
 }
 
 .aa-topic-hub-copy {
-    margin: 14px 0 0;
-    font-size: 1.7rem;
-    line-height: 1.68;
+    margin: 12px 0 0;
+    font-size: 1.55rem;
+    line-height: 1.62;
     color: var(--color-secondary-text);
 }
 
 .aa-home-clusters-inner {
     display: grid;
-    gap: 38px;
+    gap: 44px;
 }
 
 .aa-photo-grid {
@@ -4417,7 +4440,8 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 
 .aa-cluster {
     display: grid;
-    gap: 22px;
+    gap: 24px;
+    padding-top: 6px;
 }
 
 .aa-cluster-header {
@@ -4439,9 +4463,9 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 
 .aa-post-cta-inner,
 .aa-author-box-inner {
-    padding: 30px;
+    padding: 34px;
     border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border-radius: 10px;
     background: transparent;
 }
 

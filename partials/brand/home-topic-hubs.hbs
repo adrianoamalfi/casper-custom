@@ -1,28 +1,28 @@
 <section class="aa-home-topics outer">
     <div class="aa-home-topics-inner inner">
         <header class="aa-home-section-heading">
-            <span class="aa-page-eyebrow">Percorsi editoriali</span>
-            <h2 class="aa-home-section-title">{{#if @custom.home_topics_title}}{{@custom.home_topics_title}}{{else}}Un modo semplice per orientarsi{{/if}}</h2>
-            <p class="aa-home-section-copy">{{#if @custom.home_topics_description}}{{@custom.home_topics_description}}{{else}}Qui i contenuti non sono pensati solo come flusso cronologico. Ho organizzato il sito in tre percorsi ricorrenti, per aiutare chi arriva a leggere partendo dal tema più vicino ai propri interessi.{{/if}}</p>
+            <span class="aa-page-eyebrow">Percorsi</span>
+            <h2 class="aa-home-section-title">{{#if @custom.home_topics_title}}{{@custom.home_topics_title}}{{else}}Mappa editoriale{{/if}}</h2>
+            <p class="aa-home-section-copy">{{#if @custom.home_topics_description}}{{@custom.home_topics_description}}{{else}}Tre accessi tematici per leggere il sito per ambiti, priorità e casi di applicazione.{{/if}}</p>
         </header>
 
         <div class="aa-topic-hub-grid">
             <a class="aa-topic-hub" href="{{#if @custom.home_topic_1_url}}{{@custom.home_topic_1_url}}{{else}}/tag/strategy/{{/if}}">
                 <span class="aa-topic-hub-kicker">Archivio</span>
-                <h3 class="aa-topic-hub-title">{{#if @custom.home_topic_1_label}}{{@custom.home_topic_1_label}}{{else}}Tecnologia e digitale{{/if}}</h3>
-                <p class="aa-topic-hub-copy">{{#if @custom.home_topic_1_description}}{{@custom.home_topic_1_description}}{{else}}Tecnologie emergenti, architetture digitali, AI e strumenti letti con attenzione a impatti, limiti, maturità e utilità concreta.{{/if}}</p>
+                <h3 class="aa-topic-hub-title">{{#if @custom.home_topic_1_label}}{{@custom.home_topic_1_label}}{{else}}Tecnologia e sistemi{{/if}}</h3>
+                <p class="aa-topic-hub-copy">{{#if @custom.home_topic_1_description}}{{@custom.home_topic_1_description}}{{else}}Analisi su tecnologie, architetture digitali e AI, con attenzione a impatti, maturità operativa e utilità effettiva.{{/if}}</p>
             </a>
 
             <a class="aa-topic-hub" href="{{#if @custom.home_topic_2_url}}{{@custom.home_topic_2_url}}{{else}}/tag/transformation/{{/if}}">
                 <span class="aa-topic-hub-kicker">Archivio</span>
                 <h3 class="aa-topic-hub-title">{{#if @custom.home_topic_2_label}}{{@custom.home_topic_2_label}}{{else}}Innovazione e cambiamento{{/if}}</h3>
-                <p class="aa-topic-hub-copy">{{#if @custom.home_topic_2_description}}{{@custom.home_topic_2_description}}{{else}}Strategia, esecuzione, governance e trasformazione organizzativa: il lato meno retorico e più operativo del cambiamento.{{/if}}</p>
+                <p class="aa-topic-hub-copy">{{#if @custom.home_topic_2_description}}{{@custom.home_topic_2_description}}{{else}}Strategia, governance e trasformazione organizzativa lette dal punto di vista dell'esecuzione e della tenuta dei sistemi.{{/if}}</p>
             </a>
 
             <a class="aa-topic-hub" href="{{#if @custom.home_topic_3_url}}{{@custom.home_topic_3_url}}{{else}}/tag/ai/{{/if}}">
                 <span class="aa-topic-hub-kicker">Archivio</span>
-                <h3 class="aa-topic-hub-title">{{#if @custom.home_topic_3_label}}{{@custom.home_topic_3_label}}{{else}}Taccuino tecnico{{/if}}</h3>
-                <p class="aa-topic-hub-copy">{{#if @custom.home_topic_3_description}}{{@custom.home_topic_3_description}}{{else}}Note pratiche, how-to, configurazioni, prove e piccoli esperimenti: la parte più concreta e laboratoriale del sito.{{/if}}</p>
+                <h3 class="aa-topic-hub-title">{{#if @custom.home_topic_3_label}}{{@custom.home_topic_3_label}}{{else}}Taccuino operativo{{/if}}</h3>
+                <p class="aa-topic-hub-copy">{{#if @custom.home_topic_3_description}}{{@custom.home_topic_3_description}}{{else}}Note tecniche, configurazioni e prove di lavoro raccolte come documentazione essenziale.{{/if}}</p>
             </a>
         </div>
     </div>
@@ -35,10 +35,10 @@
                 <section class="aa-cluster">
                     <header class="aa-cluster-header">
                         <div>
-                            <span class="aa-page-eyebrow">Selezione</span>
-                            <h2 class="aa-cluster-title">{{#if @custom.home_topic_1_label}}{{@custom.home_topic_1_label}}{{else}}Tecnologia e digitale{{/if}}</h2>
+                            <span class="aa-page-eyebrow">Focus</span>
+                            <h2 class="aa-cluster-title">{{#if @custom.home_topic_1_label}}{{@custom.home_topic_1_label}}{{else}}Tecnologia e sistemi{{/if}}</h2>
                         </div>
-                        <a class="aa-text-link" href="{{#if @custom.home_topic_1_url}}{{@custom.home_topic_1_url}}{{else}}/tag/strategy/{{/if}}">Vai all'archivio</a>
+                        <a class="aa-text-link" href="{{#if @custom.home_topic_1_url}}{{@custom.home_topic_1_url}}{{else}}/tag/strategy/{{/if}}">Archivio</a>
                     </header>
                     <div class="aa-cluster-feed">
                         {{#foreach posts}}
@@ -54,10 +54,10 @@
                 <section class="aa-cluster">
                     <header class="aa-cluster-header">
                         <div>
-                            <span class="aa-page-eyebrow">Selezione</span>
+                            <span class="aa-page-eyebrow">Focus</span>
                             <h2 class="aa-cluster-title">{{#if @custom.home_topic_2_label}}{{@custom.home_topic_2_label}}{{else}}Innovazione e cambiamento{{/if}}</h2>
                         </div>
-                        <a class="aa-text-link" href="{{#if @custom.home_topic_2_url}}{{@custom.home_topic_2_url}}{{else}}/tag/transformation/{{/if}}">Vai all'archivio</a>
+                        <a class="aa-text-link" href="{{#if @custom.home_topic_2_url}}{{@custom.home_topic_2_url}}{{else}}/tag/transformation/{{/if}}">Archivio</a>
                     </header>
                     <div class="aa-cluster-feed">
                         {{#foreach posts}}
@@ -73,10 +73,10 @@
                 <section class="aa-cluster">
                     <header class="aa-cluster-header">
                         <div>
-                            <span class="aa-page-eyebrow">Selezione</span>
-                            <h2 class="aa-cluster-title">{{#if @custom.home_topic_3_label}}{{@custom.home_topic_3_label}}{{else}}Taccuino tecnico{{/if}}</h2>
+                            <span class="aa-page-eyebrow">Focus</span>
+                            <h2 class="aa-cluster-title">{{#if @custom.home_topic_3_label}}{{@custom.home_topic_3_label}}{{else}}Taccuino operativo{{/if}}</h2>
                         </div>
-                        <a class="aa-text-link" href="{{#if @custom.home_topic_3_url}}{{@custom.home_topic_3_url}}{{else}}/tag/ai/{{/if}}">Vai all'archivio</a>
+                        <a class="aa-text-link" href="{{#if @custom.home_topic_3_url}}{{@custom.home_topic_3_url}}{{else}}/tag/ai/{{/if}}">Archivio</a>
                     </header>
                     <div class="aa-cluster-feed">
                         {{#foreach posts}}
