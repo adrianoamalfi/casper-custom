@@ -9,9 +9,8 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    {{!-- Preload scripts --}}
+    {{!-- Preload styles --}}
     <link rel="preload" as="style" href="{{asset "built/screen.css"}}" />
-    <link rel="preload" as="script" href="{{asset "built/core.js"}}" />
 
     {{!-- Theme assets - use the {asset} helper to reference styles & scripts,
     this will take care of caching and cache-busting automatically --}}
@@ -133,12 +132,16 @@
 
     {{!-- Footer --}}
     <footer class="site-footer outer">
-        <div class="inner">
-            <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
-            <nav class="site-footer-nav">
-                {{navigation type="secondary"}}
-            </nav>
-            {{> "brand/footer-signature"}}
+        <div class="inner aa-footer-grid">
+            <section class="aa-footer-brand">
+                {{> "brand/footer-signature"}}
+            </section>
+            <div class="aa-footer-meta">
+                <nav class="site-footer-nav">
+                    {{navigation type="secondary"}}
+                </nav>
+                <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
+            </div>
         </div>
     </footer>
 
@@ -157,9 +160,27 @@
 {{/is}}
 
 {{!-- Scripts - handle responsive media, menus, infinite scroll, floating headers, and galleries --}}
-<script src="{{asset "built/core.js"}}"></script>
+<script defer src="{{asset "built/core.js"}}"></script>
 {{#is "post, page"}}
-<script src="{{asset "built/post.js"}}"></script>
+<script defer src="{{asset "built/post.js"}}"></script>
+<script>
+    (function () {
+        function loadScript(src) {
+            var script = document.createElement('script');
+            script.src = src;
+            script.defer = true;
+            document.body.appendChild(script);
+        }
+
+        if (document.querySelector('.gh-content pre code')) {
+            loadScript('{{asset "built/code.js"}}');
+        }
+
+        if (document.querySelector('.kg-image-card > .kg-image[width][height], .kg-gallery-image > img, .aa-lightbox-trigger')) {
+            loadScript('{{asset "built/lightbox.js"}}');
+        }
+    })();
+</script>
 {{/is}}
 
 {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}

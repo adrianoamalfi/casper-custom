@@ -1,18 +1,22 @@
 <div class="aa-footer-signature">
     {{#if @site.title}}
-        <span class="aa-footer-name">{{@site.title}}</span>
+        <a class="aa-footer-name" href="{{@site.url}}">{{@site.title}}</a>
     {{/if}}
     {{#if @site.description}}
         <span class="aa-footer-role">{{@site.description}}</span>
     {{/if}}
-    {{#if @custom.brand_footer_linkedin_url}}
-        <a class="aa-footer-button" href="{{@custom.brand_footer_linkedin_url}}" target="_blank" rel="noopener noreferrer">
-            LinkedIn
-        </a>
-    {{/if}}
-    {{#if @custom.brand_footer_github_url}}
-        <a class="aa-footer-button" href="{{@custom.brand_footer_github_url}}" target="_blank" rel="noopener noreferrer">
-            GitHub
-        </a>
-    {{/if}}
+    <div class="aa-footer-social" aria-label="Profili social">
+        {{#if @custom.brand_footer_linkedin_url}}
+            <a class="aa-footer-button is-icon" href="{{@custom.brand_footer_linkedin_url}}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+                {{> "icons/linkedin"}}
+                <span>LinkedIn</span>
+            </a>
+        {{/if}}
+        {{#if @custom.brand_footer_github_url}}
+            <a class="aa-footer-button is-icon" href="{{@custom.brand_footer_github_url}}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+                {{> "icons/github"}}
+                <span>GitHub</span>
+            </a>
+        {{/if}}
+    </div>
 </div>

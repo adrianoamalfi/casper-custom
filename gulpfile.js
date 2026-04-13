@@ -65,7 +65,6 @@ function css(done) {
 function corejs(done) {
     pump([
         src([
-            'assets/js/lib/imagesloaded.pkgd.min.js',
             'assets/js/brand-core.js',
             'assets/js/dropdown.js',
             'assets/js/infinite-scroll.js'
@@ -80,14 +79,36 @@ function corejs(done) {
 function postjs(done) {
     pump([
         src([
-            'node_modules/@highlightjs/cdn-assets/highlight.min.js',
-            'assets/js/lib/photoswipe.min.js',
-            'assets/js/lib/photoswipe-ui-default.min.js',
-            'assets/js/lightbox.js',
-            'assets/js/code-enhancements.js',
             'assets/js/brand-post.js'
         ], {sourcemaps: true}),
         concat('post.js'),
+        uglify(),
+        dest('assets/built/', {sourcemaps: '.'}),
+        livereload()
+    ], handleError(done));
+}
+
+function codejs(done) {
+    pump([
+        src([
+            'node_modules/@highlightjs/cdn-assets/highlight.min.js',
+            'assets/js/code-enhancements.js'
+        ], {sourcemaps: true}),
+        concat('code.js'),
+        uglify(),
+        dest('assets/built/', {sourcemaps: '.'}),
+        livereload()
+    ], handleError(done));
+}
+
+function lightboxjs(done) {
+    pump([
+        src([
+            'assets/js/lib/photoswipe.min.js',
+            'assets/js/lib/photoswipe-ui-default.min.js',
+            'assets/js/lightbox.js'
+        ], {sourcemaps: true}),
+        concat('lightbox.js'),
         uglify(),
         dest('assets/built/', {sourcemaps: '.'}),
         livereload()
@@ -119,11 +140,11 @@ function locales(done) {
 }
 
 const cssWatcher = () => watch('assets/css/**', css);
-const jsWatcher = () => watch('assets/js/**', parallel(corejs, postjs));
+const jsWatcher = () => watch('assets/js/**', parallel(corejs, postjs, codejs, lightboxjs));
 const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], hbs);
 const localesWatcher = () => watch('./locales-local/**/*.json', locales);
 const watcher = parallel(cssWatcher, jsWatcher, hbsWatcher, localesWatcher);
-const build = series(css, parallel(corejs, postjs), locales);
+const build = series(css, parallel(corejs, postjs, codejs, lightboxjs), locales);
 
 exports.build = build;
 exports.zip = series(build, zipper);

@@ -15,6 +15,9 @@ into the {body} of the default.hbs template --}}
                         {{img_url @site.cover_image size="xl"}} 2000w"
                 sizes="100vw"
                 src="{{img_url @site.cover_image size="xl"}}"
+                fetchpriority="high"
+                loading="eager"
+                decoding="async"
                 alt="{{@site.title}}"
             />
         {{/if}}
