@@ -36,11 +36,11 @@ into the {body} tag of the default.hbs template --}}
                 {{#foreach authors}}
                 <li class="author-list-item">
                     {{#if profile_image}}
-                    <a href="{{url}}" class="author-avatar" aria-label="Read more of {{name}}">
+                    <a href="{{url}}" class="author-avatar" aria-label="Leggi altri articoli di {{name}}">
                         <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
                     </a>
                     {{else}}
-                    <a href="{{url}}" class="author-avatar author-profile-image" aria-label="Read more of {{name}}">{{> "icons/avatar"}}</a>
+                    <a href="{{url}}" class="author-avatar author-profile-image" aria-label="Leggi altri articoli di {{name}}">{{> "icons/avatar"}}</a>
                     {{/if}}
                 </li>
                 {{/foreach}}
@@ -51,7 +51,7 @@ into the {body} tag of the default.hbs template --}}
                 <div class="byline-meta-content">
                     <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time>
                     {{#if reading_time}}
-                        <span class="byline-reading-time"><span class="bull">&bull;</span> {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> Tempo di lettura: {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
                     {{/if}}
                 </div>
             </div>
@@ -87,6 +87,7 @@ into the {body} tag of the default.hbs template --}}
             <div class="aa-post-toc-inner">
                 <span class="aa-page-eyebrow">Indice</span>
                 <h2 class="aa-post-toc-title">In questo articolo</h2>
+                <p class="aa-post-toc-note">Una mappa rapida dei passaggi principali, per orientarti prima o durante la lettura.</p>
                 <nav class="aa-post-toc-nav" aria-label="Indice dell'articolo">
                     <ol class="aa-post-toc-list" id="aa-post-toc-list"></ol>
                 </nav>
