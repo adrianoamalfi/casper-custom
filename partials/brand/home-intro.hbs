@@ -5,27 +5,27 @@
         {{/if}}
 
         <div class="aa-intro-actions">
-            <a class="aa-intro-link" href="/about/">Chi sono &rarr;</a>
-            <a class="aa-intro-link is-secondary" href="/tag/strategy/">Inizia da qui</a>
+            <a class="aa-intro-link" href="{{#if @custom.home_intro_primary_url}}{{@custom.home_intro_primary_url}}{{else}}/about/{{/if}}">{{#if @custom.home_intro_primary_label}}{{@custom.home_intro_primary_label}}{{else}}Chi sono &rarr;{{/if}}</a>
+            <a class="aa-intro-link is-secondary" href="{{#if @custom.home_intro_secondary_url}}{{@custom.home_intro_secondary_url}}{{else}}/tag/strategy/{{/if}}">{{#if @custom.home_intro_secondary_label}}{{@custom.home_intro_secondary_label}}{{else}}Inizia da qui{{/if}}</a>
         </div>
 
         <div class="aa-focus-grid" aria-label="Aree editoriali principali">
             <article class="aa-focus-card">
-                <span class="aa-focus-kicker">Scrivo di</span>
-                <h2 class="aa-focus-title">Tecnologia letta con spirito critico</h2>
-                <p class="aa-focus-copy">Leggo tecnologie emergenti, modelli digitali e nuovi strumenti con un taglio manageriale: meno entusiasmo automatico, più contesto, implicazioni e scelte concrete.</p>
+                <span class="aa-focus-kicker">{{#if @custom.home_focus_1_kicker}}{{@custom.home_focus_1_kicker}}{{else}}Scrivo di{{/if}}</span>
+                <h2 class="aa-focus-title">{{#if @custom.home_focus_1_title}}{{@custom.home_focus_1_title}}{{else}}Tecnologia letta con spirito critico{{/if}}</h2>
+                <p class="aa-focus-copy">{{#if @custom.home_focus_1_copy}}{{@custom.home_focus_1_copy}}{{else}}Leggo tecnologie emergenti, modelli digitali e nuovi strumenti con un taglio manageriale: meno entusiasmo automatico, più contesto, implicazioni e scelte concrete.{{/if}}</p>
             </article>
 
             <article class="aa-focus-card">
-                <span class="aa-focus-kicker">Osservo</span>
-                <h2 class="aa-focus-title">Innovazione, cambiamento, adozione</h2>
-                <p class="aa-focus-copy">Mi interessa il punto in cui strategia, trasformazione e organizzazione smettono di essere slogan e diventano decisioni, priorità, responsabilità e lavoro reale.</p>
+                <span class="aa-focus-kicker">{{#if @custom.home_focus_2_kicker}}{{@custom.home_focus_2_kicker}}{{else}}Osservo{{/if}}</span>
+                <h2 class="aa-focus-title">{{#if @custom.home_focus_2_title}}{{@custom.home_focus_2_title}}{{else}}Innovazione, cambiamento, adozione{{/if}}</h2>
+                <p class="aa-focus-copy">{{#if @custom.home_focus_2_copy}}{{@custom.home_focus_2_copy}}{{else}}Mi interessa il punto in cui strategia, trasformazione e organizzazione smettono di essere slogan e diventano decisioni, priorità, responsabilità e lavoro reale.{{/if}}</p>
             </article>
 
             <article class="aa-focus-card">
-                <span class="aa-focus-kicker">Raccolgo</span>
-                <h2 class="aa-focus-title">Appunti operativi e taccuino personale</h2>
-                <p class="aa-focus-copy">Accanto ai pezzi più riflessivi tengo uno spazio per note pratiche, esperimenti, strumenti e frammenti di lavoro che meritano di essere fissati per iscritto.</p>
+                <span class="aa-focus-kicker">{{#if @custom.home_focus_3_kicker}}{{@custom.home_focus_3_kicker}}{{else}}Raccolgo{{/if}}</span>
+                <h2 class="aa-focus-title">{{#if @custom.home_focus_3_title}}{{@custom.home_focus_3_title}}{{else}}Appunti operativi e taccuino personale{{/if}}</h2>
+                <p class="aa-focus-copy">{{#if @custom.home_focus_3_copy}}{{@custom.home_focus_3_copy}}{{else}}Accanto ai pezzi più riflessivi tengo uno spazio per note pratiche, esperimenti, strumenti e frammenti di lavoro che meritano di essere fissati per iscritto.{{/if}}</p>
             </article>
         </div>
     </div>

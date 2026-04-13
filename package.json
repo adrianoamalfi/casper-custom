@@ -117,6 +117,36 @@
                 ],
                 "default": "Elegant serif"
             },
+            "brand_footer_name": {
+                "type": "text",
+                "default": "Adriano Amalfi",
+                "group": "brand"
+            },
+            "brand_footer_role": {
+                "type": "text",
+                "default": "Strategia ICT · Trasformazione digitale",
+                "group": "brand"
+            },
+            "global_primary_cta_label": {
+                "type": "text",
+                "default": "Lavoriamo insieme",
+                "group": "brand"
+            },
+            "global_primary_cta_url": {
+                "type": "text",
+                "default": "/consulenza/",
+                "group": "brand"
+            },
+            "global_secondary_cta_label": {
+                "type": "text",
+                "default": "Chi sono",
+                "group": "brand"
+            },
+            "global_secondary_cta_url": {
+                "type": "text",
+                "default": "/about/",
+                "group": "brand"
+            },
             "show_publication_cover": {
                 "type": "boolean",
                 "default": true,
@@ -142,6 +172,166 @@
                 "default": "Classic",
                 "group": "homepage"
             },
+            "home_intro_primary_label": {
+                "type": "text",
+                "default": "Chi sono →",
+                "group": "homepage"
+            },
+            "home_intro_primary_url": {
+                "type": "text",
+                "default": "/about/",
+                "group": "homepage"
+            },
+            "home_intro_secondary_label": {
+                "type": "text",
+                "default": "Inizia da qui",
+                "group": "homepage"
+            },
+            "home_intro_secondary_url": {
+                "type": "text",
+                "default": "/tag/strategy/",
+                "group": "homepage"
+            },
+            "home_focus_1_kicker": {
+                "type": "text",
+                "default": "Scrivo di",
+                "group": "homepage"
+            },
+            "home_focus_1_title": {
+                "type": "text",
+                "default": "Tecnologia letta con spirito critico",
+                "group": "homepage"
+            },
+            "home_focus_1_copy": {
+                "type": "text",
+                "default": "Leggo tecnologie emergenti, modelli digitali e nuovi strumenti con un taglio manageriale: meno entusiasmo automatico, più contesto, implicazioni e scelte concrete.",
+                "group": "homepage"
+            },
+            "home_focus_2_kicker": {
+                "type": "text",
+                "default": "Osservo",
+                "group": "homepage"
+            },
+            "home_focus_2_title": {
+                "type": "text",
+                "default": "Innovazione, cambiamento, adozione",
+                "group": "homepage"
+            },
+            "home_focus_2_copy": {
+                "type": "text",
+                "default": "Mi interessa il punto in cui strategia, trasformazione e organizzazione smettono di essere slogan e diventano decisioni, priorità, responsabilità e lavoro reale.",
+                "group": "homepage"
+            },
+            "home_focus_3_kicker": {
+                "type": "text",
+                "default": "Raccolgo",
+                "group": "homepage"
+            },
+            "home_focus_3_title": {
+                "type": "text",
+                "default": "Appunti operativi e taccuino personale",
+                "group": "homepage"
+            },
+            "home_focus_3_copy": {
+                "type": "text",
+                "default": "Accanto ai pezzi più riflessivi tengo uno spazio per note pratiche, esperimenti, strumenti e frammenti di lavoro che meritano di essere fissati per iscritto.",
+                "group": "homepage"
+            },
+            "home_topics_title": {
+                "type": "text",
+                "default": "Un modo semplice per orientarsi",
+                "group": "homepage"
+            },
+            "home_topics_description": {
+                "type": "text",
+                "default": "Qui i contenuti non sono pensati solo come flusso cronologico. Ho organizzato il sito in tre percorsi ricorrenti, per aiutare chi arriva a leggere partendo dal tema più vicino ai propri interessi.",
+                "group": "homepage"
+            },
+            "home_topic_1_label": {
+                "type": "text",
+                "default": "Tecnologia e digitale",
+                "group": "homepage"
+            },
+            "home_topic_1_description": {
+                "type": "text",
+                "default": "Tecnologie emergenti, architetture digitali, AI e strumenti letti con attenzione a impatti, limiti, maturità e utilità concreta.",
+                "group": "homepage"
+            },
+            "home_topic_1_url": {
+                "type": "text",
+                "default": "/tag/strategy/",
+                "group": "homepage"
+            },
+            "home_topic_2_label": {
+                "type": "text",
+                "default": "Innovazione e cambiamento",
+                "group": "homepage"
+            },
+            "home_topic_2_description": {
+                "type": "text",
+                "default": "Strategia, esecuzione, governance e trasformazione organizzativa: il lato meno retorico e più operativo del cambiamento.",
+                "group": "homepage"
+            },
+            "home_topic_2_url": {
+                "type": "text",
+                "default": "/tag/transformation/",
+                "group": "homepage"
+            },
+            "home_topic_3_label": {
+                "type": "text",
+                "default": "Taccuino tecnico",
+                "group": "homepage"
+            },
+            "home_topic_3_description": {
+                "type": "text",
+                "default": "Note pratiche, how-to, configurazioni, prove e piccoli esperimenti: la parte più concreta e laboratoriale del sito.",
+                "group": "homepage"
+            },
+            "home_topic_3_url": {
+                "type": "text",
+                "default": "/tag/ai/",
+                "group": "homepage"
+            },
+            "home_visual_title": {
+                "type": "text",
+                "default": "Fotografie e immagini generate",
+                "group": "homepage"
+            },
+            "home_visual_description": {
+                "type": "text",
+                "default": "Accanto alla scrittura tengo un archivio visivo separato. Da una parte le fotografie che scatto, dall’altra le immagini generate con l’AI come spazio di esplorazione più libero e sperimentale.",
+                "group": "homepage"
+            },
+            "home_photos_label": {
+                "type": "text",
+                "default": "Fotografie",
+                "group": "homepage"
+            },
+            "home_photos_title": {
+                "type": "text",
+                "default": "Scatti personali",
+                "group": "homepage"
+            },
+            "home_photos_url": {
+                "type": "text",
+                "default": "/photos/",
+                "group": "homepage"
+            },
+            "home_ai_label": {
+                "type": "text",
+                "default": "Immagini generate",
+                "group": "homepage"
+            },
+            "home_ai_title": {
+                "type": "text",
+                "default": "Immagini generate con l’AI",
+                "group": "homepage"
+            },
+            "home_ai_url": {
+                "type": "text",
+                "default": "/ai-art/",
+                "group": "homepage"
+            },
             "color_scheme": {
                 "type": "select",
                 "options": [
@@ -165,6 +355,26 @@
             "email_signup_text": {
                 "type": "text",
                 "default": "Iscriviti per ricevere nuovi articoli come questo.",
+                "group": "post"
+            },
+            "post_cta_eyebrow": {
+                "type": "text",
+                "default": "Dopo l'articolo",
+                "group": "post"
+            },
+            "post_cta_title": {
+                "type": "text",
+                "default": "Se questo tema ti interessa, puoi approfondire.",
+                "group": "post"
+            },
+            "post_cta_copy": {
+                "type": "text",
+                "default": "Puoi continuare la lettura nel sito, capire meglio il mio approccio oppure usare questo articolo come punto di partenza per una conversazione di lavoro.",
+                "group": "post"
+            },
+            "author_box_fallback_bio": {
+                "type": "text",
+                "default": "Scrivo di strategia, trasformazione digitale, innovazione e adozione pragmatica dell’AI con un taglio personale, operativo ed editoriale.",
                 "group": "post"
             },
             "show_recent_posts_footer": {

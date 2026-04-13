@@ -16,7 +16,7 @@
             {{#if bio}}
                 <p class="aa-author-box-bio">{{bio}}</p>
             {{else}}
-                <p class="aa-author-box-bio">Scrivo di strategia, trasformazione digitale, innovazione e adozione pragmatica dell’AI con un taglio personale, operativo ed editoriale.</p>
+                <p class="aa-author-box-bio">{{#if @custom.author_box_fallback_bio}}{{@custom.author_box_fallback_bio}}{{else}}Scrivo di strategia, trasformazione digitale, innovazione e adozione pragmatica dell’AI con un taglio personale, operativo ed editoriale.{{/if}}</p>
             {{/if}}
 
             <div class="aa-author-box-links">
