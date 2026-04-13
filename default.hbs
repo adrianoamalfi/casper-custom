@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{@site.locale}}"{{#match @custom.color_scheme "Dark"}} class="dark-mode"{{else match @custom.color_scheme "Auto"}} class="auto-color"{{/match}}>
+<html lang="{{@site.locale}}" data-default-color-scheme="{{#match @custom.color_scheme "Dark"}}dark{{else match @custom.color_scheme "Auto"}}auto{{else}}light{{/match}}"{{#match @custom.color_scheme "Dark"}} class="dark-mode"{{else match @custom.color_scheme "Auto"}} class="auto-color"{{/match}}>
 <head>
 
     {{!-- Basic meta - advanced meta is output with {ghost_head} below --}}
@@ -21,6 +21,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+
+    <script>
+        (function () {
+            var root = document.documentElement;
+            var stored = null;
+
+            try {
+                stored = window.localStorage.getItem('aa-theme-preference');
+            } catch (error) {}
+
+            if (!stored || ['light', 'dark', 'auto'].indexOf(stored) === -1) {
+                return;
+            }
+
+            root.classList.remove('dark-mode', 'auto-color');
+
+            if (stored === 'dark') {
+                root.classList.add('dark-mode');
+            } else if (stored === 'auto') {
+                root.classList.add('auto-color');
+            }
+        })();
+    </script>
 
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
@@ -54,6 +77,27 @@
             </nav>
 
             <div class="gh-head-actions">
+                <div class="aa-theme-switcher" data-theme-switcher>
+                    <div class="aa-theme-switcher-controls" role="group" aria-label="Selettore tema">
+                        <button class="aa-theme-option" type="button" data-theme-option="light" aria-pressed="false" aria-label="Tema chiaro">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+                                <circle cx="12" cy="12" r="4.2"></circle>
+                                <path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9L5.3 5.3"></path>
+                            </svg>
+                        </button>
+                        <button class="aa-theme-option" type="button" data-theme-option="dark" aria-pressed="false" aria-label="Tema scuro">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                                <path d="M20.2 14.4A8.8 8.8 0 0 1 9.6 3.8a.7.7 0 0 0-.9-.9A10.2 10.2 0 1 0 21.1 15.3a.7.7 0 0 0-.9-.9z"></path>
+                            </svg>
+                        </button>
+                        <button class="aa-theme-option" type="button" data-theme-option="auto" aria-pressed="false" aria-label="Tema automatico">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+                                <rect x="3.5" y="4.5" width="17" height="12" rx="2"></rect>
+                                <path d="M8 19.5h8M10 16.5v3M14 16.5v3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
                 {{#unless @site.members_enabled}}
                     {{^match @custom.navigation_layout "Stacked"}}
                         <button class="gh-search gh-icon-btn" aria-label="{{t "Search this site"}}" data-ghost-search>{{> "icons/search"}}</button>

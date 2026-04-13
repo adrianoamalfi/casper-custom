@@ -585,6 +585,54 @@ production stylesheet in assets/built/screen.css
     text-align: right;
 }
 
+.aa-theme-switcher {
+    display: inline-flex;
+    align-items: center;
+}
+
+.aa-theme-switcher-controls {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(14px);
+}
+
+.aa-theme-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 999px;
+    color: var(--color-secondary-text);
+    line-height: 1;
+    background: transparent;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.aa-theme-option svg {
+    width: 16px;
+    height: 16px;
+}
+
+.aa-theme-option:hover {
+    color: var(--color-darkgrey);
+}
+
+.aa-theme-option.is-active {
+    color: #fff;
+    background: var(--ghost-accent-color);
+}
+
+.aa-theme-option:focus-visible {
+    outline: 2px solid rgba(27, 54, 93, 0.24);
+    outline-offset: 2px;
+}
+
 .gh-head-members {
     display: flex;
     gap: 20px;
@@ -620,6 +668,11 @@ production stylesheet in assets/built/screen.css
         flex-direction: column-reverse;
         gap: 16px;
         width: 100%;
+    }
+
+    .aa-theme-option {
+        width: 38px;
+        height: 38px;
     }
 }
 
@@ -838,6 +891,10 @@ production stylesheet in assets/built/screen.css
         align-items: center;
         padding: max(4vmin, 20px) 0 max(4vmin, 28px);
         background-color: #fff;
+    }
+
+    .gh-head-open #gh-head .aa-theme-switcher {
+        flex-direction: column;
     }
 
     .gh-head-open #gh-head :is(.gh-head-button, .gh-head-link) {
@@ -2091,17 +2148,47 @@ iframe.instagram-media + script + :not([id]) {
 
 .read-more {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-gap: 4vmin;
+    align-items: start;
 }
 
 .read-more .post-card-tags {
     display: none;
 }
 
+.read-more .post-card,
+.read-more .post-card-large {
+    grid-column: auto;
+    min-width: 0;
+}
+
+.read-more .post-card-large {
+    display: flex;
+    grid-template-columns: none;
+    gap: 0;
+    border-top: 0;
+}
+
+.read-more .post-card-image-link,
+.read-more .post-card-large .post-card-image-link {
+    margin-bottom: 18px;
+}
+
+.read-more .post-card-title,
+.read-more .post-card-large .post-card-title {
+    font-size: 2.6rem;
+    line-height: 1.08;
+}
+
+.read-more .post-card-excerpt,
+.read-more .post-card-large .post-card-excerpt {
+    margin-top: 12px;
+}
+
 @media (max-width: 1000px) {
     .read-more {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .read-more .post-card:nth-child(3) {
         display: none;
@@ -4755,6 +4842,24 @@ html.dark-mode .aa-text-link.is-muted {
     border-bottom-color: rgba(255, 255, 255, 0.22);
 }
 
+html.dark-mode .aa-theme-switcher-controls {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+html.dark-mode .aa-theme-option {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+html.dark-mode .aa-theme-option:hover {
+    color: #fff;
+}
+
+html.dark-mode .aa-theme-option.is-active {
+    color: var(--color-darkgrey);
+    background: #fff;
+}
+
 html.dark-mode .aa-focus-card {
     border-color: rgba(255, 255, 255, 0.08);
     background: transparent;
@@ -4874,6 +4979,24 @@ html.auto-color .post-card-primary-tag {
     html.auto-color .aa-intro-link.is-secondary {
         color: rgba(255, 255, 255, 0.82);
         border-bottom-color: rgba(255, 255, 255, 0.22);
+    }
+
+    html.auto-color .aa-theme-switcher-controls {
+        border-color: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    html.auto-color .aa-theme-option {
+        color: rgba(255, 255, 255, 0.78);
+    }
+
+    html.auto-color .aa-theme-option:hover {
+        color: #fff;
+    }
+
+    html.auto-color .aa-theme-option.is-active {
+        color: var(--color-darkgrey);
+        background: #fff;
     }
 
     html.auto-color .aa-focus-card {

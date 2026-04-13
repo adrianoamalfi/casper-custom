@@ -5,6 +5,7 @@
     var backTop = document.getElementById('aa-back-top');
     var burger = document.querySelector('.gh-burger');
     var hasCover = document.body.classList.contains('has-cover');
+    var root = document.documentElement;
 
     if (burger) {
         burger.addEventListener('click', function () {
@@ -57,6 +58,70 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
     }
+
+    function applyThemePreference(theme) {
+        root.classList.remove('dark-mode', 'auto-color');
+
+        if (theme === 'dark') {
+            root.classList.add('dark-mode');
+        } else if (theme === 'auto') {
+            root.classList.add('auto-color');
+        }
+
+        root.dataset.activeColorScheme = theme;
+    }
+
+    function getInitialThemePreference() {
+        var stored = null;
+
+        try {
+            stored = window.localStorage.getItem('aa-theme-preference');
+        } catch (error) {}
+
+        if (stored && ['light', 'dark', 'auto'].indexOf(stored) !== -1) {
+            return stored;
+        }
+
+        return root.dataset.defaultColorScheme || 'light';
+    }
+
+    function initThemeSwitcher() {
+        var switcher = document.querySelector('[data-theme-switcher]');
+
+        if (!switcher) {
+            return;
+        }
+
+        var options = switcher.querySelectorAll('[data-theme-option]');
+        var currentTheme = getInitialThemePreference();
+
+        function syncButtons(theme) {
+            options.forEach(function (button) {
+                var isActive = button.getAttribute('data-theme-option') === theme;
+
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+        }
+
+        applyThemePreference(currentTheme);
+        syncButtons(currentTheme);
+
+        options.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var theme = button.getAttribute('data-theme-option');
+
+                applyThemePreference(theme);
+                syncButtons(theme);
+
+                try {
+                    window.localStorage.setItem('aa-theme-preference', theme);
+                } catch (error) {}
+            });
+        });
+    }
+
+    initThemeSwitcher();
 
     function normalizePath(href) {
         if (!href) {

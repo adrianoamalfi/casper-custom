@@ -139,8 +139,8 @@ into the {body} tag of the default.hbs template --}}
                 <aside class="read-more-wrap outer">
                     <div class="read-more inner">
                         <header class="aa-read-more-header">
-                            <span class="aa-page-eyebrow">Continua la lettura</span>
-                            <h2 class="aa-read-more-title">Altri articoli sullo stesso tema</h2>
+                            <span class="aa-page-eyebrow">Per continuare</span>
+                            <h2 class="aa-read-more-title">Altri articoli su {{primary_tag.name}}</h2>
                         </header>
                         {{#foreach more_posts}}
                             {{> "post-card"}}
@@ -153,7 +153,7 @@ into the {body} tag of the default.hbs template --}}
                         <aside class="read-more-wrap outer">
                             <div class="read-more inner">
                                 <header class="aa-read-more-header">
-                                    <span class="aa-page-eyebrow">Continua la lettura</span>
+                                    <span class="aa-page-eyebrow">Per continuare</span>
                                     <h2 class="aa-read-more-title">Articoli recenti</h2>
                                 </header>
                                 {{#foreach fallback_posts}}
@@ -171,7 +171,7 @@ into the {body} tag of the default.hbs template --}}
                 <aside class="read-more-wrap outer">
                     <div class="read-more inner">
                         <header class="aa-read-more-header">
-                            <span class="aa-page-eyebrow">Continua la lettura</span>
+                            <span class="aa-page-eyebrow">Per continuare</span>
                             <h2 class="aa-read-more-title">Articoli recenti</h2>
                         </header>
                         {{#foreach more_posts}}
