@@ -1,113 +1,175 @@
-# Casper
+# Casper Custom
 
-A classic theme for [Ghost](http://github.com/tryghost/ghost/), originally the default theme. These days, our default theme is [Source](http://github.com/tryghost/source/)
+Fork personalizzato di [TryGhost/Casper](https://github.com/TryGhost/Casper) per `adrianoamalfi.com`, mantenuto in modo da poter recepire gli aggiornamenti upstream senza perdere le personalizzazioni editoriali e visive.
 
-This is the latest development version of Casper! If you're just looking to download the latest release, head over to the [releases](https://github.com/TryGhost/Casper/releases) page.
+Il repository usa tre riferimenti principali:
 
-&nbsp;
+- `origin/custom`: branch di lavoro del fork
+- `origin/upstream`: mirror del branch `main` di Casper
+- `custom`: branch locale che viene ribasato sopra `origin/upstream`
 
-![screenshot-desktop](https://user-images.githubusercontent.com/1418797/183329195-8e8f2ee5-a473-4694-a813-a2575491209e.png)
+## Development
 
-&nbsp;
+Prerequisiti:
 
-# First time using a Ghost theme?
+- Node.js
+- Yarn
 
-Ghost uses a simple templating language called [Handlebars](http://handlebarsjs.com/) for its themes.
-
-This theme has lots of code comments to help explain what's going on just by reading the code. Once you feel comfortable with how everything works, we also have full [theme API documentation](https://ghost.org/docs/themes/) which explains every possible Handlebars helper and template.
-
-**The main files are:**
-
-- `default.hbs` - The parent template file, which includes your global header/footer
-- `index.hbs` - The main template to generate a list of posts, usually the home page
-- `post.hbs` - The template used to render individual posts
-- `page.hbs` - Used for individual pages
-- `tag.hbs` - Used for tag archives, eg. "all posts tagged with `news`"
-- `author.hbs` - Used for author archives, eg. "all posts written by Jamie"
-
-One neat trick is that you can also create custom one-off templates by adding the slug of a page to a template file. For example:
-
-- `page-about.hbs` - Custom template for an `/about/` page
-- `tag-news.hbs` - Custom template for `/tag/news/` archive
-- `author-ali.hbs` - Custom template for `/author/ali/` archive
-
-
-# Development
-
-Casper styles are compiled using Gulp/PostCSS to polyfill future CSS spec. You'll need [Node](https://nodejs.org/), [Yarn](https://yarnpkg.com/) and [Gulp](https://gulpjs.com) installed globally. After that, from the theme's root directory:
+Comandi principali dalla root del tema:
 
 ```bash
-# install dependencies
+# installa le dipendenze
 yarn install
 
-# run development server
+# sviluppo locale con watch CSS/assets
 yarn dev
 
-# build compiled assets
+# build degli asset compilati
 ./node_modules/.bin/gulp build
+
+# crea il pacchetto zip del tema
+yarn zip
+
+# aggiorna il fork su origin/upstream, builda e pusha
+yarn sync-upstream
 ```
 
-Now you can edit `/assets/css/` files, which will be compiled to `/assets/built/` automatically.
+Note operative:
 
-The `zip` Gulp task packages the theme files into `dist/<theme-name>.zip`, which you can then upload to your site.
+- gli stili sorgente vivono in `/assets/css/`
+- gli asset compilati finiscono in `/assets/built/`
+- gli script custom principali sono in `/assets/js/brand-core.js`, `/assets/js/brand-post.js` e `/assets/js/code-enhancements.js`
+- il blocco di override CSS del fork vive in coda a `/assets/css/screen.css`
+
+## Struttura Del Tema
+
+Template core:
+
+- `default.hbs`: layout principale, header, footer, asset e script condizionali
+- `index.hbs`: homepage editoriale con topic hubs, galleria foto e feed cronologico
+- `post.hbs`: articolo singolo
+- `page.hbs`: pagina generica
+- `author.hbs`: archivio autore
+- `tag.hbs`: archivio tag
+- `error.hbs` e `error-404.hbs`: pagine di errore
+
+Template personalizzati del fork:
+
+- `custom-photo.hbs`: template per singolo post fotografico
+- `page-photos.hbs`: landing dell’archivio fotografie sullo slug `/photos/`
+- `page-ai-art.hbs`: landing dell’archivio AI Art sullo slug `/ai-art/`
+- `page-about.hbs`: pagina about dedicata
+- `index-photos.hbs`: indice fotografie
+- `index-ai-art.hbs`: indice immagini AI
+- `index-tech-digest.hbs`: indice per il hub tech digest
+- `index-tech-scratchpad.hbs`: indice per appunti e scratchpad tecnici
+- `sitemap.hbs`: sitemap editoriale
+
+Partial rilevanti:
+
+- `/partials/brand/*`: sezioni editoriali e di brand del fork
+- `/partials/media/*`: componenti immagine responsive
+- `/partials/post-card.hbs`: card del feed
+- `/partials/icons/*`: icone inline SVG, incluse quelle aggiunte per il fork
+
+## Personalizzazioni Disponibili In Ghost
+
+Il tema espone impostazioni custom via `package.json` per controllare:
+
+- layout della navigazione
+- font titolo e font body
+- schema colore chiaro/scuro/auto
+- stile dell’immagine del post
+- copy della CTA in fondo ai post
+- link social del footer/header
+- visibilità cover homepage
+- stile dell’header homepage
+- layout del feed
+
+## Workflow Upstream
+
+Il fork è pensato per restare vicino a Casper senza fare merge distruttivi.
+
+Regola di base:
+
+- `origin/upstream` deve rispecchiare Casper `main`
+- `custom` contiene solo i commit del fork
+- gli aggiornamenti si integrano con `rebase`, non con merge permanenti
+
+Flusso manuale:
 
 ```bash
-# create .zip file
-yarn zip
+git fetch origin
+git checkout custom
+git rebase origin/upstream
+./node_modules/.bin/gulp build
+git push --force-with-lease origin custom
 ```
 
-# PostCSS Features Used
+Shortcut locale:
 
-- Autoprefixer - Don't worry about writing browser prefixes of any kind, it's all done automatically with support for the latest 2 major versions of every browser.
-- [Color Mod](https://github.com/jonathantneal/postcss-color-mod-function)
+```bash
+yarn sync-upstream
+```
 
+Se il rebase trova conflitti:
 
-# SVG Icons
+```bash
+git status
+# risolvi i file segnalati
+git add <file-risolti>
+git rebase --continue
+git push --force-with-lease origin custom
+```
 
-Casper uses inline SVG icons, included via Handlebars partials. You can find all icons inside `/partials/icons`. To use an icon just include the name of the relevant file, eg. To include the SVG icon in `/partials/icons/rss.hbs` - use `{{> "icons/rss"}}`.
+Per annullare:
 
-You can add your own SVG icons in the same manner.
+```bash
+git rebase --abort
+```
 
-# Custom fork notes
+## GitHub Actions
 
-This repository is maintained as a custom fork of Casper with the goal of staying easy to rebase on top of [TryGhost/Casper](https://github.com/TryGhost/Casper).
+Workflow presenti nel repository:
 
-To keep upstream sync low-friction:
+- `.github/workflows/sync-upstream.yml`
+  Aggiorna il mirror `upstream`, prova il rebase automatico di `custom` e scrive un riepilogo nella run se trova conflitti. Il trigger schedulato gira ogni lunedi alle `06:00 UTC`, oltre al trigger manuale `workflow_dispatch`.
 
-- Keep `origin/upstream` as a mirror of Casper's `main`
-- Rebase `custom` on top of `origin/upstream`
-- Prefer isolated customisations in these areas:
-  - `partials/brand/*` for personal or editorial sections
-  - `assets/css/screen.css` custom block at the end of the file
-  - `assets/js/brand.js` for custom front-end behaviour
-- Avoid broad edits across core Casper templates when a partial or CSS/JS override is enough
+- `.github/workflows/test.yml`
+  Installa le dipendenze e valida il tema su push e pull request.
 
-GitHub Actions:
+- `.github/workflows/deploy-theme.yml`
+  Esegue test e deploy del tema su Ghost quando viene aggiornato il branch `main`.
 
-- `.github/workflows/sync-upstream.yml` keeps the local `upstream` branch aligned with `TryGhost/Casper`
-- `.github/workflows/test.yml` installs dependencies and runs theme validation on push and pull request
+## Flusso Fotografico E AI Art
 
-# Flusso fotografico
+Il tema supporta due archivi visivi separati.
 
-The theme includes a lightweight photo workflow built on top of Ghost posts:
+Fotografie:
 
-- Tag photo posts with the internal tag `#photos`
-- Tag AI-generated image posts with the internal tag `#ai-art-and-images`
-- Assign the custom template `photo` to photo posts when you want the dedicated single-photo layout
-- Create a page with slug `photos` to use `page-photos.hbs` as the public photo archive
-- Create a page with slug `ai-art` to use `page-ai-art.hbs` as the public AI Art archive
-- The homepage automatically shows the latest posts tagged with `#photos`
-- Use the feature image caption on `photo` posts for visible field notes beneath the image
+- usa il tag interno `#photos`
+- assegna ai post fotografici il template `custom-photo`
+- crea una pagina con slug `photos` per usare `page-photos.hbs`
+- la homepage mostra una selezione recente dal flusso fotografico
+- il campo `feature_image_caption` viene usato come nota visibile sotto l’immagine
 
-# Responsive images
+AI Art:
 
-The theme now uses Ghost's native responsive image pipeline with modern formats:
+- usa il tag interno `#ai-art-and-images`
+- crea una pagina con slug `ai-art` per usare `page-ai-art.hbs`
+- l’archivio AI resta separato dal flusso fotografico
 
-- `AVIF` is served first through `<picture>`
-- `WebP` is used as the next fallback
-- the original Ghost rendition remains the final `<img>` fallback
+## Immagini Responsive
 
-Image variants are defined in `package.json` under `config.image_sizes`:
+Il tema usa la pipeline responsive nativa di Ghost tramite partial `<picture>`.
+
+Formati e fallback:
+
+- `AVIF` come formato preferito
+- `WebP` come fallback intermedio
+- immagine Ghost standard come fallback finale
+
+Dimensioni configurate in `package.json` sotto `config.image_sizes`:
 
 - `xxs`: 30px
 - `xs`: 100px
@@ -117,22 +179,30 @@ Image variants are defined in `package.json` under `config.image_sizes`:
 - `xl`: 2000px
 - `xxl`: 2400px
 
-Reusable image partials live in `/partials/media/`:
+Partial media riutilizzabili:
 
-- `picture-hero.hbs` for LCP and feature images
-- `picture-card.hbs` for feed cards and visual thumbnails
-- `picture-ui.hbs` for logos, avatars, and small UI images
+- `partials/media/picture-hero.hbs`
+- `partials/media/picture-card.hbs`
+- `partials/media/picture-ui.hbs`
 
-Implementation rules:
+Regole implementate:
 
-- only true above-the-fold hero images use `fetchpriority="high"` and `loading="eager"`
-- cards and secondary media use `loading="lazy"`
-- card and thumbnail wrappers reserve space with CSS `aspect-ratio` or ratio placeholders to reduce CLS
+- solo le hero above-the-fold usano `fetchpriority="high"` e `loading="eager"`
+- card, thumbnail e media secondari usano `loading="lazy"`
+- i wrapper riservano spazio tramite `aspect-ratio` per ridurre CLS
 
-# Translations
+## Note Sul Fork
 
-Please see [@TryGhost/Themes/theme-translations/README.md](https://github.com/TryGhost/Themes/blob/main/packages/theme-translations/README.md) for how to build, edit, or contribute translations.
+Per ridurre i conflitti con upstream:
 
-# Copyright & License
+- preferisci nuove sezioni dentro `partials/brand/`
+- centralizza il comportamento custom in `assets/js/brand-core.js` e `assets/js/brand-post.js`
+- usa `assets/css/screen.css` come punto di override principale
+- evita modifiche estese ai template core quando una partial o un componente dedicato basta
 
-Copyright (c) 2013-2026 Ghost Foundation - Released under the [MIT license](LICENSE).
+## Licenza
+
+Fork basato su Casper, distribuito sotto [MIT](LICENSE).
+
+Copyright originale Casper: Ghost Foundation.
+Personalizzazioni del fork: Adriano Amalfi.
