@@ -52,7 +52,14 @@
             <div class="gh-head-brand">
                 <a class="gh-head-logo{{#unless @site.logo}} no-image{{/unless}}" href="{{@site.url}}">
                     {{#if @site.logo}}
-                        <img src="{{@site.logo}}" alt="{{@site.title}}">
+                        {{> "media/picture-ui"
+                            image=@site.logo
+                            picture_class="aa-site-logo-picture aa-responsive-picture"
+                            sizes="(max-width: 767px) 132px, 160px"
+                            loading="eager"
+                            decoding="async"
+                            alt=@site.title
+                        }}
                     {{else}}
                         {{@site.title}}
                     {{/if}}

@@ -99,6 +99,36 @@ The theme includes a lightweight photo workflow built on top of Ghost posts:
 - The homepage automatically shows the latest posts tagged with `#photos`
 - Use the feature image caption on `photo` posts for visible field notes beneath the image
 
+# Responsive images
+
+The theme now uses Ghost's native responsive image pipeline with modern formats:
+
+- `AVIF` is served first through `<picture>`
+- `WebP` is used as the next fallback
+- the original Ghost rendition remains the final `<img>` fallback
+
+Image variants are defined in `package.json` under `config.image_sizes`:
+
+- `xxs`: 30px
+- `xs`: 100px
+- `s`: 300px
+- `m`: 600px
+- `l`: 1000px
+- `xl`: 2000px
+- `xxl`: 2400px
+
+Reusable image partials live in `/partials/media/`:
+
+- `picture-hero.hbs` for LCP and feature images
+- `picture-card.hbs` for feed cards and visual thumbnails
+- `picture-ui.hbs` for logos, avatars, and small UI images
+
+Implementation rules:
+
+- only true above-the-fold hero images use `fetchpriority="high"` and `loading="eager"`
+- cards and secondary media use `loading="lazy"`
+- card and thumbnail wrappers reserve space with CSS `aspect-ratio` or ratio placeholders to reduce CLS
+
 # Translations
 
 Please see [@TryGhost/Themes/theme-translations/README.md](https://github.com/TryGhost/Themes/blob/main/packages/theme-translations/README.md) for how to build, edit, or contribute translations.

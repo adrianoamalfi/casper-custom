@@ -11,17 +11,15 @@
 
             {{#if cover_image}}
             <div class="post-card-image-link">
-                {{!-- This is a responsive image, it loads different sizes depending on device
-                https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
-                <img class="post-card-image"
-                    srcset="{{img_url cover_image size="s"}} 300w,
-                            {{img_url cover_image size="m"}} 600w,
-                            {{img_url cover_image size="l"}} 1000w,
-                            {{img_url cover_image size="xl"}} 2000w"
-                    sizes="(max-width: 1000px) 400px, 800px"
-                    src="{{img_url cover_image size="m"}}"
-                    alt="{{title}}"
-                />
+                {{> "media/picture-card"
+                    image=cover_image
+                    picture_class="aa-responsive-picture aa-post-card-picture"
+                    img_class="post-card-image"
+                    sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1200px) calc(50vw - 40px), 880px"
+                    loading="eager"
+                    decoding="async"
+                    alt=name
+                }}
             </div>
             {{/if}}
 
@@ -29,7 +27,16 @@
             <div class="post-card-content-link">
 
                 {{#if profile_image}}
-                    <img class="author-profile-pic" src="{{profile_image}}" alt="{{name}}" />
+                    {{> "media/picture-ui"
+                        image=profile_image
+                        img_class="author-profile-pic"
+                        sizes="80px"
+                        width="80"
+                        height="80"
+                        loading="eager"
+                        decoding="async"
+                        alt=name
+                    }}
                 {{/if}}
 
                 <header class="post-card-header">

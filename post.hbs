@@ -37,7 +37,16 @@ into the {body} tag of the default.hbs template --}}
                 <li class="author-list-item">
                     {{#if profile_image}}
                     <a href="{{url}}" class="author-avatar" aria-label="Leggi altri articoli di {{name}}">
-                        <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
+                        {{> "media/picture-ui"
+                            image=profile_image
+                            img_class="author-profile-image"
+                            sizes="56px"
+                            width="56"
+                            height="56"
+                            loading="lazy"
+                            decoding="async"
+                            alt=name
+                        }}
                     </a>
                     {{else}}
                     <a href="{{url}}" class="author-avatar author-profile-image" aria-label="Leggi altri articoli di {{name}}">{{> "icons/avatar"}}</a>
@@ -62,20 +71,16 @@ into the {body} tag of the default.hbs template --}}
         {{#match @custom.post_image_style "!=" "Hidden"}}
         {{#if feature_image}}
             <figure class="article-image">
-                {{!-- This is a responsive image, it loads different sizes depending on device
-                https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
-                <img
-                    srcset="{{img_url feature_image size="s"}} 300w,
-                            {{img_url feature_image size="m"}} 600w,
-                            {{img_url feature_image size="l"}} 1000w,
-                            {{img_url feature_image size="xl"}} 2000w"
+                {{> "media/picture-hero"
+                    image=feature_image
+                    picture_class="aa-responsive-picture aa-article-image-picture"
                     sizes="(min-width: 1400px) 1400px, 92vw"
-                    src="{{img_url feature_image size="xl"}}"
                     fetchpriority="high"
                     loading="eager"
                     decoding="async"
-                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                />
+                    image_alt=feature_image_alt
+                    alt=title
+                }}
                 {{#if feature_image_caption}}
                     <figcaption>{{feature_image_caption}}</figcaption>
                 {{/if}}

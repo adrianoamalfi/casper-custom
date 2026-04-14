@@ -88,6 +88,9 @@
             },
             "xl": {
                 "width": 2000
+            },
+            "xxl": {
+                "width": 2400
             }
         },
         "card_assets": true,

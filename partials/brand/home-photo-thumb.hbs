@@ -2,16 +2,16 @@
     <a class="aa-home-photo-thumb-link" href="{{url}}" aria-label="{{title}}">
         {{#if feature_image}}
             <figure class="aa-home-photo-thumb-media">
-                <img
-                    class="aa-home-photo-thumb-image"
-                    srcset="{{img_url feature_image size="s"}} 300w,
-                            {{img_url feature_image size="m"}} 600w,
-                            {{img_url feature_image size="l"}} 1000w"
+                {{> "media/picture-card"
+                    image=feature_image
+                    picture_class="aa-responsive-picture aa-home-photo-thumb-picture"
+                    img_class="aa-home-photo-thumb-image"
                     sizes="(max-width: 480px) 43vw, (max-width: 767px) 44vw, (max-width: 991px) 28vw, 22vw"
-                    src="{{img_url feature_image size="m"}}"
-                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
                     loading="lazy"
-                />
+                    decoding="async"
+                    image_alt=feature_image_alt
+                    alt=title
+                }}
             </figure>
         {{/if}}
         <div class="aa-home-photo-thumb-overlay">

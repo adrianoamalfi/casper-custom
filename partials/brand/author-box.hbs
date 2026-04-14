@@ -3,7 +3,16 @@
     <div class="aa-author-box-inner">
         <div class="aa-author-box-media">
             {{#if profile_image}}
-                <img class="aa-author-box-image" src="{{img_url profile_image size="s"}}" alt="{{name}}" />
+                {{> "media/picture-ui"
+                    image=profile_image
+                    img_class="aa-author-box-image"
+                    sizes="84px"
+                    width="84"
+                    height="84"
+                    loading="lazy"
+                    decoding="async"
+                    alt=name
+                }}
             {{else}}
                 <div class="aa-author-box-avatar">{{> "icons/avatar"}}</div>
             {{/if}}

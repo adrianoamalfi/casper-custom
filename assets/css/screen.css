@@ -116,6 +116,14 @@ production stylesheet in assets/built/screen.css
     object-fit: cover;
 }
 
+.aa-responsive-picture {
+    display: block;
+}
+
+.aa-responsive-picture img {
+    display: block;
+}
+
 .site-header-content {
     position: relative;
     z-index: 100;
@@ -157,9 +165,16 @@ production stylesheet in assets/built/screen.css
 }
 
 .site-logo {
+    display: inline-flex;
+    align-items: center;
     flex-shrink: 0;
     margin: 0 auto;
     max-height: 120px;
+}
+
+.site-logo img {
+    width: auto;
+    max-height: inherit;
 }
 
 .site-header-content.left-aligned .site-logo {
@@ -1046,6 +1061,11 @@ production stylesheet in assets/built/screen.css
     object-fit: cover;
 }
 
+.aa-post-card-picture {
+    display: block;
+    height: 100%;
+}
+
 .post-card.keep-ratio:not(.post-card-large):not(.post-card-full) .post-card-image {
     position: static;
 }
@@ -1423,6 +1443,12 @@ html.no-infinite-scroll .pagination {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
+}
+
+.aa-article-image-picture,
+.aa-single-photo-picture {
+    display: block;
     width: 100%;
 }
 
@@ -4345,13 +4371,15 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 }
 
 .aa-home-photo-thumb-media {
+    aspect-ratio: 4 / 5;
     overflow: hidden;
+    background: rgba(27, 54, 93, 0.06);
 }
 
 .aa-home-photo-thumb-image {
+    display: block;
     width: 100%;
-    height: auto;
-    aspect-ratio: auto;
+    height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -4397,6 +4425,7 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 }
 
 .aa-photo-card-image {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -4497,6 +4526,7 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 }
 
 .aa-single-photo-image {
+    display: block;
     width: 100%;
     border-radius: 24px;
     cursor: zoom-in;
@@ -4587,7 +4617,20 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 }
 
 .aa-author-box-image {
+    display: block;
     object-fit: cover;
+}
+
+.gh-head-logo .aa-site-logo-picture,
+.site-nav-logo .aa-error-logo-picture {
+    display: inline-flex;
+    align-items: center;
+}
+
+.gh-head-logo .aa-site-logo-picture img,
+.site-nav-logo .aa-error-logo-picture img {
+    width: auto;
+    max-height: 40px;
 }
 
 .aa-author-box-avatar {

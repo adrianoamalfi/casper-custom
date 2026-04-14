@@ -30,8 +30,16 @@ Keep this template as lightweight as you can!
                 <div class="inner">
                     <nav class="site-nav-center">
                         {{#if @site.logo}}
-                        <a class="site-nav-logo" href="{{@site.url}}"><img src="{{img_url @site.logo size="xs"}}"
-                                alt="{{@site.title}}" /></a>
+                        <a class="site-nav-logo" href="{{@site.url}}">
+                            {{> "media/picture-ui"
+                                image=@site.logo
+                                picture_class="aa-responsive-picture aa-error-logo-picture"
+                                sizes="100px"
+                                loading="eager"
+                                decoding="async"
+                                alt=@site.title
+                            }}
+                        </a>
                         {{else}}
                         <a class="site-nav-logo" href="{{@site.url}}">{{@site.title}}</a>
                         {{/if}}
