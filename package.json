@@ -24,7 +24,8 @@
     },
     "author": {
         "name": "Adriano Amalfi",
-        "url": "https://adrianoamalfi.com"
+        "email": "info@adrianoamalfi.com",
+        "url": "https://adrianoamalfi.com"        
     },
     "gpm": {
         "type": "theme",
