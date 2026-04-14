@@ -130,24 +130,29 @@
                 "default": "",
                 "group": "brand"
             },
-            "global_primary_cta_label": {
+            "brand_footer_huggingface_url": {
                 "type": "text",
-                "default": "Consulenza",
+                "default": "",
                 "group": "brand"
             },
-            "global_primary_cta_url": {
+            "brand_footer_instagram_url": {
                 "type": "text",
-                "default": "/consulenza/",
+                "default": "",
                 "group": "brand"
             },
-            "global_secondary_cta_label": {
+            "brand_footer_facebook_url": {
                 "type": "text",
-                "default": "Profilo",
+                "default": "",
                 "group": "brand"
             },
-            "global_secondary_cta_url": {
+            "brand_footer_x_url": {
                 "type": "text",
-                "default": "/about/",
+                "default": "",
+                "group": "brand"
+            },
+            "brand_footer_threads_url": {
+                "type": "text",
+                "default": "",
                 "group": "brand"
             },
             "show_publication_cover": {
@@ -213,11 +218,6 @@
             "post_cta_copy": {
                 "type": "text",
                 "default": "Una selezione di percorsi, profilo professionale e possibilità di confronto collegati ai temi trattati nel sito.",
-                "group": "post"
-            },
-            "author_box_fallback_bio": {
-                "type": "text",
-                "default": "Osservatorio editoriale su tecnologia, innovazione e sistemi, con attenzione alle implicazioni organizzative e operative.",
                 "group": "post"
             },
             "show_recent_posts_footer": {

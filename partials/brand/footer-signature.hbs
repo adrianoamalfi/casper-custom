@@ -6,16 +6,46 @@
         <span class="aa-footer-role">{{@site.description}}</span>
     {{/if}}
     <div class="aa-footer-social" aria-label="Profili social">
+        {{#if @custom.brand_footer_huggingface_url}}
+            <a class="aa-footer-social-link" href="{{@custom.brand_footer_huggingface_url}}" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face" title="Hugging Face">
+                {{> "icons/huggingface"}}
+                <span class="aa-visually-hidden">Hugging Face</span>
+            </a>
+        {{/if}}
+        {{#if @custom.brand_footer_instagram_url}}
+            <a class="aa-footer-social-link" href="{{@custom.brand_footer_instagram_url}}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+                {{> "icons/instagram"}}
+                <span class="aa-visually-hidden">Instagram</span>
+            </a>
+        {{/if}}
+        {{#if @custom.brand_footer_facebook_url}}
+            <a class="aa-footer-social-link" href="{{@custom.brand_footer_facebook_url}}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+                {{> "icons/facebook"}}
+                <span class="aa-visually-hidden">Facebook</span>
+            </a>
+        {{/if}}
         {{#if @custom.brand_footer_linkedin_url}}
-            <a class="aa-footer-button is-icon" href="{{@custom.brand_footer_linkedin_url}}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+            <a class="aa-footer-social-link" href="{{@custom.brand_footer_linkedin_url}}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
                 {{> "icons/linkedin"}}
-                <span>LinkedIn</span>
+                <span class="aa-visually-hidden">LinkedIn</span>
             </a>
         {{/if}}
         {{#if @custom.brand_footer_github_url}}
-            <a class="aa-footer-button is-icon" href="{{@custom.brand_footer_github_url}}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+            <a class="aa-footer-social-link" href="{{@custom.brand_footer_github_url}}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
                 {{> "icons/github"}}
-                <span>GitHub</span>
+                <span class="aa-visually-hidden">GitHub</span>
+            </a>
+        {{/if}}
+        {{#if @custom.brand_footer_x_url}}
+            <a class="aa-footer-social-link" href="{{@custom.brand_footer_x_url}}" target="_blank" rel="noopener noreferrer" aria-label="X" title="X">
+                {{> "icons/twitter"}}
+                <span class="aa-visually-hidden">X</span>
+            </a>
+        {{/if}}
+        {{#if @custom.brand_footer_threads_url}}
+            <a class="aa-footer-social-link" href="{{@custom.brand_footer_threads_url}}" target="_blank" rel="noopener noreferrer" aria-label="Threads" title="Threads">
+                {{> "icons/threads"}}
+                <span class="aa-visually-hidden">Threads</span>
             </a>
         {{/if}}
     </div>

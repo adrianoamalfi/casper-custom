@@ -2473,7 +2473,7 @@ iframe.instagram-media + script + :not([id]) {
     position: relative;
     margin: max(12vmin, 64px) 0 0 0;
     padding-top: 40px;
-    padding-bottom: 88px;
+    padding-bottom: 72px;
     color: #fff;
     background:
         radial-gradient(circle at top left, rgba(107, 159, 212, 0.18), transparent 32%),
@@ -2494,7 +2494,7 @@ iframe.instagram-media + script + :not([id]) {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.9fr);
     gap: 40px;
-    align-items: end;
+    align-items: start;
 }
 
 .aa-footer-brand,
@@ -2504,7 +2504,7 @@ iframe.instagram-media + script + :not([id]) {
 
 .aa-footer-meta {
     display: grid;
-    gap: 18px;
+    gap: 14px;
     justify-items: end;
 }
 
@@ -2533,7 +2533,7 @@ iframe.instagram-media + script + :not([id]) {
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 10px 14px;
+    gap: 8px 12px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -2550,8 +2550,8 @@ iframe.instagram-media + script + :not([id]) {
 .site-footer-nav a {
     display: inline-flex;
     align-items: center;
-    min-height: 34px;
-    padding: 0 12px;
+    min-height: 32px;
+    padding: 0 10px;
     border-radius: 999px;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
@@ -2565,28 +2565,33 @@ iframe.instagram-media + script + :not([id]) {
 }
 
 @media (max-width: 767px) {
+    .site-footer {
+        padding-top: 52px;
+    }
+
     .site-footer .inner {
-        max-width: 500px;
-        text-align: center;
+        max-width: 560px;
+        text-align: left;
     }
 
     .aa-footer-grid {
         grid-template-columns: 1fr;
-        gap: 26px;
+        gap: 18px;
     }
 
     .aa-footer-meta {
-        justify-items: center;
+        justify-items: start;
+        gap: 12px;
     }
 
     .site-footer .copyright,
     .site-footer .copyright a {
         color: #fff;
-        font-size: 1.5rem;
+        font-size: 1.35rem;
     }
 
     .site-footer-nav ul {
-        justify-content: center;
+        justify-content: flex-start;
     }
 }
 
@@ -3881,8 +3886,8 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 
 .aa-footer-signature {
     display: grid;
-    gap: 10px;
-    max-width: 38rem;
+    gap: 12px;
+    max-width: 46rem;
 }
 
 .aa-footer-name {
@@ -3895,61 +3900,67 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 
 .aa-footer-role {
     color: rgba(255, 255, 255, 0.62);
-    font-size: 1.4rem;
-    line-height: 1.55;
+    font-size: 1.35rem;
+    line-height: 1.5;
     letter-spacing: 0.01em;
+    max-width: 46ch;
+}
+
+.aa-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .aa-footer-social {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
-    margin-top: 6px;
+    margin-top: 0;
 }
 
-.aa-footer-button {
+.aa-footer-social-link {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 38px;
-    padding: 0 14px;
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    width: 22px;
+    height: 22px;
+    color: rgba(255, 255, 255, 0.74);
+    transition: color 0.18s ease, transform 0.18s ease;
 }
 
-.aa-footer-button.is-icon {
-    gap: 10px;
-    padding: 0 16px 0 12px;
-}
-
-.aa-footer-button.is-icon svg {
+.aa-footer-social-link svg {
     width: 16px;
     height: 16px;
     flex: 0 0 auto;
 }
 
-.aa-footer-button:hover {
+.aa-footer-social-link:hover {
     color: #fff;
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-1px);
 }
 
 @media (max-width: 767px) {
     .aa-footer-signature {
-        justify-items: center;
+        justify-items: start;
         margin-top: 0;
     }
 
     .aa-footer-social {
-        justify-content: center;
+        gap: 12px;
+        justify-content: flex-start;
+    }
+
+    .aa-footer-name {
+        font-size: clamp(2rem, 8vw, 2.6rem);
     }
 }
 
