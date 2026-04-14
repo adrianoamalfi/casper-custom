@@ -3,17 +3,20 @@ on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: Borales/actions-yarn@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          cmd: install
-      - run: yarn install
+          node-version: 22
+          cache: yarn
+      - run: corepack enable
+      - run: yarn install --frozen-lockfile
+      - run: ./node_modules/.bin/gulp build
       - run: yarn test:ci
-      - run: yarn ship
       - name: Deploy Ghost Theme
         uses: TryGhost/action-deploy-theme@v1.6.2
         with:
