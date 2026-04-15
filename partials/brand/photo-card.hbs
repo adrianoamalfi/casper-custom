@@ -1,0 +1,35 @@
+<article class="aa-photo-card">
+    <a class="aa-photo-card-link" href="{{url}}">
+        {{#if feature_image}}
+            <figure class="aa-photo-card-media">
+                {{> "media/picture-card"
+                    image=feature_image
+                    picture_class="aa-responsive-picture aa-photo-card-picture"
+                    img_class="aa-photo-card-image"
+                    sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1200px) calc(50vw - 28px), calc(33vw - 24px)"
+                    loading="lazy"
+                    decoding="async"
+                    image_alt=feature_image_alt
+                    alt=title
+                }}
+            </figure>
+        {{/if}}
+
+        <div class="aa-photo-card-content">
+            <div class="aa-photo-card-topline">
+                <span class="aa-photo-card-meta">{{date format="DD MMM YYYY"}}</span>
+                {{#primary_author}}
+                    <span class="aa-photo-card-author">{{name}}</span>
+                {{/primary_author}}
+            </div>
+            <h3 class="aa-photo-card-title">{{title}}</h3>
+            {{#if custom_excerpt}}
+                <p class="aa-photo-card-caption">{{custom_excerpt}}</p>
+            {{else}}
+                {{#if excerpt}}
+                    <p class="aa-photo-card-caption">{{excerpt}}</p>
+                {{/if}}
+            {{/if}}
+        </div>
+    </a>
+</article>

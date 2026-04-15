@@ -1,0 +1,15 @@
+{{!-- partials/brand/read-more.hbs
+     Usato da post.hbs per la sezione "continua a leggere".
+     Parametri: posts (array), label (stringa titolo sezione)
+--}}
+<aside class="read-more-wrap outer">
+    <div class="read-more inner">
+        <header class="aa-read-more-header">
+            <span class="aa-page-eyebrow">{{t "Per continuare"}}</span>
+            <h2 class="aa-read-more-title">{{#if label}}{{t "Altri articoli su"}} {{label}}{{else}}{{t "Articoli recenti"}}{{/if}}</h2>
+        </header>
+        {{#foreach posts}}
+            {{> "post-card"}}
+        {{/foreach}}
+    </div>
+</aside>

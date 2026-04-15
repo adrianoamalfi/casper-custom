@@ -1,0 +1,129 @@
+name: Sync Upstream Casper
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: sync-upstream-casper
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout custom branch
+        uses: actions/checkout@v4
+        with:
+          ref: custom
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch origin and Casper upstream
+        run: |
+          if git remote get-url upstream >/dev/null 2>&1; then
+            git remote set-url upstream https://github.com/TryGhost/Casper.git
+          else
+            git remote add upstream https://github.com/TryGhost/Casper.git
+          fi
+
+          git fetch origin custom upstream --prune
+          git fetch upstream main --no-tags --prune
+
+      - name: Update upstream branch mirror
+        run: |
+          git checkout -B upstream refs/remotes/upstream/main
+          git push origin upstream:upstream --force-with-lease
+
+      - name: Rebase custom on upstream
+        id: rebase
+        run: |
+          git checkout custom
+          git rebase upstream
+        continue-on-error: true
+
+      - name: Push custom branch
+        if: steps.rebase.outcome == 'success'
+        run: git push origin custom --force-with-lease
+
+      - name: Abort rebase
+        if: steps.rebase.outcome == 'failure'
+        run: git rebase --abort || true
+
+      - name: Open issue on conflict
+        if: steps.rebase.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const issueTitle = '⚠️ Sync upstream: conflitti da risolvere manualmente';
+            const compareUrl = `https://github.com/${owner}/${repo}/compare/upstream...custom`;
+
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: 'open'
+            });
+
+            const exists = issues.some(issue => issue.title === issueTitle);
+
+            if (!exists) {
+              await github.rest.issues.create({
+                owner,
+                repo,
+                title: issueTitle,
+                body: [
+                  '## Il rebase automatico ha fallito',
+                  '',
+                  'Il branch `custom` non può essere aggiornato automaticamente perché ci sono conflitti con le ultime modifiche di [TryGhost/Casper](https://github.com/TryGhost/Casper).',
+                  '',
+                  '### Come risolvere in locale',
+                  '',
+                  '```bash',
+                  'git fetch origin',
+                  'git checkout custom',
+                  'git rebase origin/upstream',
+                  '# Risolvi i conflitti nei file segnalati, poi:',
+                  'git add <file-risolti>',
+                  'git rebase --continue',
+                  'git push origin custom --force-with-lease',
+                  '```',
+                  '',
+                  '### Riferimenti',
+                  '- [Commit recenti upstream](https://github.com/TryGhost/Casper/commits/main)',
+                  `- [Diff upstream vs custom](${compareUrl})`
+                ].join('\n')
+              });
+            }
+
+      - name: Add conflict summary
+        if: steps.rebase.outcome == 'failure'
+        run: |
+          {
+            echo "## Sync upstream: conflitti manuali richiesti"
+            echo
+            echo "Il rebase automatico di \`custom\` su \`upstream\` ha trovato conflitti."
+            echo
+            echo "Risoluzione locale:"
+            echo
+            echo "\`\`\`bash"
+            echo "git fetch origin"
+            echo "git checkout custom"
+            echo "git rebase origin/upstream"
+            echo "# Risolvi i conflitti nei file segnalati, poi:"
+            echo "git add <file-risolti>"
+            echo "git rebase --continue"
+            echo "git push --force-with-lease origin custom"
+            echo "\`\`\`"
+          } >> "$GITHUB_STEP_SUMMARY"

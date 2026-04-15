@@ -12,26 +12,26 @@ Keep this template as lightweight as you can!
 
 --}}
 
-<section class="outer error-content">
-    <div class="inner">
-        <section class="error-message">
-            <h1 class="error-code">{{statusCode}}</h1>
-            <p class="error-description">{{message}}</p>
-            <a class="error-link" href="{{@site.url}}">{{t "Go to the front page →"}}</a>
+<section class="outer error-content aa-404-fullpage">
+    <div class="inner aa-404-fullpage-inner">
+        <section class="error-message aa-404-shell">
+            <span class="aa-404-eyebrow">Pagina evaporata</span>
+            <div class="aa-404-visual" aria-hidden="true">
+                <span class="aa-404-code">{{statusCode}}</span>
+            </div>
+            <div class="aa-404-copy">
+                <h1 class="error-code">Qui non c'è nulla.</h1>
+                <p class="error-description">
+                    Il link ha preso una scorciatoia discutibile. La buona notizia è che puoi tornare alla home o cercare quello che volevi davvero.
+                </p>
+                <div class="aa-404-actions">
+                    <a class="error-link aa-404-primary-link" href="{{@site.url}}">Vai alla home</a>
+                    <button class="aa-404-search gh-search gh-icon-btn" type="button" data-ghost-search aria-label="Cerca nel sito">
+                        {{> "icons/search"}}
+                        <span>Cerca</span>
+                    </button>
+                </div>
+            </div>
         </section>
     </div>
 </section>
-
-{{!-- Given that people landing on this page didn't find what they
-were looking for, let's give them some alternative stuff to read. --}}
-<aside class="read-more-wrap outer">
-    <div class="read-more inner">
-        {{#get "posts" include="authors" limit="3" as |more_posts|}}
-            {{#if more_posts}}
-                {{#foreach more_posts}}
-                    {{> "post-card"}}
-                {{/foreach}}
-            {{/if}}
-        {{/get}}
-    </div>
-</aside>

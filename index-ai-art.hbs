@@ -1,0 +1,32 @@
+{{!< default}}
+
+<main id="site-main" class="site-main aa-photos-page aa-ai-art-page">
+    <header class="aa-photo-page-hero outer">
+        <div class="aa-photo-page-hero-inner inner">
+            <div class="aa-photo-page-hero-topline">
+                <span class="aa-page-eyebrow">{{t "Archivio immagini generate"}}</span>
+                <span class="aa-photo-page-hero-count">
+                    {{plural pagination.total empty="—" singular="% immagine" plural="% immagini"}}
+                </span>
+            </div>
+            <h1 class="aa-photo-page-hero-title">{{t "AI Art"}}</h1>
+            <p class="aa-photo-page-hero-dek">{{t "Un archivio separato per immagini generate con l'AI, pensato come laboratorio visivo parallelo rispetto agli articoli e alla fotografia."}}</p>
+        </div>
+    </header>
+
+    <section class="aa-page-section outer">
+        <div class="inner">
+            {{#if posts}}
+                <div class="aa-photo-masonry-grid" role="list">
+                    {{#foreach posts}}
+                        {{> "brand/photo-card-masonry"}}
+                    {{/foreach}}
+                </div>
+
+                {{pagination}}
+            {{else}}
+                <p class="aa-home-section-copy">{{t "Non ci sono ancora immagini generate in archivio."}}</p>
+            {{/if}}
+        </div>
+    </section>
+</main>

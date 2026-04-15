@@ -1,0 +1,84 @@
+<section class="aa-home-clusters outer">
+    <div class="aa-home-clusters-inner inner">
+        {{#get "posts" filter="tag:intelligenza-artificiale" limit="3" include="tags"}}
+            {{#if posts}}
+                <section class="aa-cluster">
+                    <header class="aa-cluster-header">
+                        <div>
+                            <span class="aa-page-eyebrow">Focus</span>
+                            <h2 class="aa-cluster-title">Intelligenza Artificiale</h2>
+                        </div>
+                        <a class="aa-text-link" href="/tag/intelligenza-artificiale/">Archivio Intelligenza Artificiale</a>
+                    </header>
+                    <div class="aa-cluster-feed">
+                        {{#foreach posts}}
+                            {{> "post-card"}}
+                        {{/foreach}}
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+
+        {{#get "posts" filter="tag:innovazione" limit="3" include="tags"}}
+            {{#if posts}}
+                <section class="aa-cluster">
+                    <header class="aa-cluster-header">
+                        <div>
+                            <span class="aa-page-eyebrow">Focus</span>
+                            <h2 class="aa-cluster-title">Innovazione e cambiamento</h2>
+                        </div>
+                        <a class="aa-text-link" href="/tag/innovazione/">Archivio Innovazione</a>
+                    </header>
+                    <div class="aa-cluster-feed">
+                        {{#foreach posts}}
+                            {{> "post-card"}}
+                        {{/foreach}}
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+
+        {{#get "posts" filter="tag:hash-tech-scratchpad" limit="5" include="tags,authors"}}
+            {{#if posts}}
+                <section class="aa-cluster aa-scratchpad-cluster">
+                    <header class="aa-cluster-header">
+                        <div>
+                            <span class="aa-page-eyebrow">Focus</span>
+                            <h2 class="aa-cluster-title">Taccuino operativo</h2>
+                        </div>
+                        <a class="aa-text-link" href="/tech-scratchpad/">Archivio Guide</a>
+                    </header>
+                    <div class="aa-cluster-feed aa-scratchpad-carousel"
+                         data-scratchpad-carousel
+                         role="region"
+                         aria-label="{{t "Taccuino operativo"}}">
+                        {{#foreach posts}}
+                            {{> "post-card"}}
+                        {{/foreach}}
+                        <article class="post-card aa-scratchpad-view-all-card">
+                            <a class="aa-scratchpad-view-all-link" href="/tech-scratchpad/">
+                                <span class="aa-scratchpad-view-all-kicker">Archivio completo</span>
+                                <h3 class="aa-scratchpad-view-all-title">Visualizza tutti</h3>
+                                <p class="aa-scratchpad-view-all-copy">Apri l'indice completo di guide, project log e note operative.</p>
+                                <span class="aa-scratchpad-view-all-arrow">→</span>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="aa-scratchpad-carousel-controls" data-scratchpad-carousel-controls>
+                        <button class="aa-scratchpad-carousel-button" type="button" data-scratchpad-prev aria-label="{{t "Articolo precedente"}}">
+                            {{> "icons/arrow-left"}}
+                        </button>
+                        <div class="aa-scratchpad-carousel-dots"
+                             data-scratchpad-dots
+                             data-dot-label="{{t "Vai alla scheda"}}"
+                             role="group"
+                             aria-label="{{t "Indicatori carosello"}}"></div>
+                        <button class="aa-scratchpad-carousel-button" type="button" data-scratchpad-next aria-label="{{t "Articolo successivo"}}">
+                            {{> "icons/arrow-right"}}
+                        </button>
+                    </div>
+                </section>
+            {{/if}}
+        {{/get}}
+    </div>
+</section>

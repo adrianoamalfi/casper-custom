@@ -1,0 +1,31 @@
+routes:
+  /sitemap/:
+    template: sitemap
+    content_type: text/xml
+    
+collections:
+  /photos/:
+    permalink: /photos/{slug}/
+    template: index-photos
+    filter: tag:hash-photos
+  /ai-art/:
+    permalink: /ai-art/{slug}/
+    template: index-ai-art
+    filter: tag:hash-ai-art-and-images
+  /tech-digest/:
+    permalink: /tech-digest/{slug}/
+    template: index-tech-digest
+    filter: tag:hash-tech-digest
+  /tech-scratchpad/:
+    permalink: /tech-scratchpad/{slug}/
+    template: index-tech-scratchpad
+    filter: tag:hash-tech-scratchpad
+  /:
+    permalink: /{slug}/
+    template: index
+
+
+
+taxonomies:
+  tag: /tag/{slug}/
+  author: /author/{slug}/

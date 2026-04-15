@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{@site.locale}}"{{#match @custom.color_scheme "Dark"}} class="dark-mode"{{else match @custom.color_scheme "Auto"}} class="auto-color"{{/match}}>
+<html lang="{{@site.locale}}" data-default-color-scheme="{{#match @custom.color_scheme "Dark"}}dark{{else match @custom.color_scheme "Auto"}}auto{{else}}light{{/match}}"{{#match @custom.color_scheme "Dark"}} class="dark-mode"{{else match @custom.color_scheme "Auto"}} class="auto-color"{{/match}}>
 <head>
 
     {{!-- Basic meta - advanced meta is output with {ghost_head} below --}}
@@ -8,21 +8,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    {{!-- Preload scripts --}}
+
+    {{!-- Preload styles --}}
     <link rel="preload" as="style" href="{{asset "built/screen.css"}}" />
-    <link rel="preload" as="script" href="{{asset "built/casper.js"}}" />
 
     {{!-- Theme assets - use the {asset} helper to reference styles & scripts,
     this will take care of caching and cache-busting automatically --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+
+    <script>
+        (function () {
+            var root = document.documentElement;
+            var stored = null;
+
+            try {
+                stored = window.localStorage.getItem('aa-theme-preference');
+            } catch (error) {}
+
+            if (!stored || ['light', 'dark', 'auto'].indexOf(stored) === -1) {
+                return;
+            }
+
+            root.classList.remove('dark-mode', 'auto-color');
+
+            if (stored === 'dark') {
+                root.classList.add('dark-mode');
+            } else if (stored === 'auto') {
+                root.classList.add('auto-color');
+            }
+        })();
+    </script>
 
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
     {{ghost_head}}
 
 </head>
-<body class="{{body_class}} is-head-{{#match @custom.navigation_layout "Logo on cover"}}left-logo{{else match @custom.navigation_layout "Logo in the middle"}}middle-logo{{else}}stacked{{/match}}{{#match @custom.title_font "=" "Elegant serif"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Modern sans-serif"}} has-sans-body{{/match}}{{#if @custom.show_publication_cover}} has-cover{{/if}}">
+<body class="{{body_class}} is-head-{{#match @custom.navigation_layout "Logo on cover"}}left-logo{{else match @custom.navigation_layout "Logo in the middle"}}middle-logo{{else}}stacked{{/match}}{{#match @custom.title_font "=" "Elegant serif"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Modern sans-serif"}} has-sans-body{{/match}}{{#if @custom.show_publication_cover}} has-cover{{/if}}"
+      data-anchor-label="{{t "Link diretto a"}}"
+      data-copy-label="{{t "Copia"}}"
+      data-copy-done-label="{{t "Copiato"}}">
 <div class="viewport">
 
     <header id="gh-head" class="gh-head outer{{#match @custom.header_style "Hidden"}} is-header-hidden{{/match}}">
@@ -30,31 +55,69 @@
             <div class="gh-head-brand">
                 <a class="gh-head-logo{{#unless @site.logo}} no-image{{/unless}}" href="{{@site.url}}">
                     {{#if @site.logo}}
-                        <img src="{{@site.logo}}" alt="{{@site.title}}">
+                        {{> "media/picture-ui"
+                            image=@site.logo
+                            picture_class="aa-site-logo-picture aa-responsive-picture"
+                            sizes="(max-width: 767px) 132px, 160px"
+                            loading="eager"
+                            decoding="async"
+                            alt=@site.title
+                        }}
                     {{else}}
                         {{@site.title}}
                     {{/if}}
                 </a>
-                <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> "icons/search"}}</button>
-                <button class="gh-burger" aria-label="Main Menu"></button>
+                <button class="gh-search gh-icon-btn" aria-label="{{t "Search this site"}}" data-ghost-search>{{> "icons/search"}}</button>
+                <button class="gh-burger" aria-label="{{t "Toggle menu"}}"></button>
             </div>
 
             <nav class="gh-head-menu">
                 {{navigation}}
                 {{#unless @site.members_enabled}}
                     {{#match @custom.navigation_layout "Stacked"}}
-                        <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> "icons/search"}}</button>
+                        <button class="gh-search gh-icon-btn" aria-label="{{t "Search this site"}}" data-ghost-search>{{> "icons/search"}}</button>
                     {{/match}}
                 {{/unless}}
             </nav>
 
             <div class="gh-head-actions">
+                <div class="aa-theme-switcher" data-theme-switcher>
+                    <div class="aa-theme-switcher-controls" role="group" aria-label="{{t "Selettore tema"}}">
+                        <button class="aa-theme-option" type="button" data-theme-option="light" aria-pressed="false" aria-label="Tema chiaro">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+                                <circle cx="12" cy="12" r="4.2"></circle>
+                                <path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9L5.3 5.3"></path>
+                            </svg>
+                        </button>
+                        <button class="aa-theme-option" type="button" data-theme-option="dark" aria-pressed="false" aria-label="Tema scuro">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                                <path d="M20.2 14.4A8.8 8.8 0 0 1 9.6 3.8a.7.7 0 0 0-.9-.9A10.2 10.2 0 1 0 21.1 15.3a.7.7 0 0 0-.9-.9z"></path>
+                            </svg>
+                        </button>
+                        <button class="aa-theme-option" type="button" data-theme-option="auto" aria-pressed="false" aria-label="Tema automatico">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+                                <rect x="3.5" y="4.5" width="17" height="12" rx="2"></rect>
+                                <path d="M8 19.5h8M10 16.5v3M14 16.5v3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                {{#if @custom.brand_footer_linkedin_url}}
+                    <a class="gh-icon-btn aa-header-social" href="{{@custom.brand_footer_linkedin_url}}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+                        {{> "icons/linkedin"}}
+                    </a>
+                {{/if}}
+                {{#if @custom.brand_footer_github_url}}
+                    <a class="gh-icon-btn aa-header-social" href="{{@custom.brand_footer_github_url}}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+                        {{> "icons/github"}}
+                    </a>
+                {{/if}}
                 {{#unless @site.members_enabled}}
                     {{^match @custom.navigation_layout "Stacked"}}
-                        <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> "icons/search"}}</button>
+                        <button class="gh-search gh-icon-btn" aria-label="{{t "Search this site"}}" data-ghost-search>{{> "icons/search"}}</button>
                     {{/match}}
                 {{else}}
-                    <button class="gh-search gh-icon-btn" aria-label="Search this site" data-ghost-search>{{> "icons/search"}}</button>
+                    <button class="gh-search gh-icon-btn" aria-label="{{t "Search this site"}}" data-ghost-search>{{> "icons/search"}}</button>
                     <div class="gh-head-members">
                         {{#unless @member}}
                             {{#unless @site.members_invite_only}}
@@ -77,16 +140,27 @@
         {{{body}}}
     </div>
 
-    {{!-- The global footer at the very bottom of the screen --}}
+    {{!-- Footer --}}
     <footer class="site-footer outer">
-        <div class="inner">
-            <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
-            <nav class="site-footer-nav">
-                {{navigation type="secondary"}}
-            </nav>
-            <div class="gh-powered-by"><a href="https://ghost.org/" target="_blank" rel="noopener">{{t "Powered by Ghost"}}</a></div>
+        <div class="inner aa-footer-grid">
+            <section class="aa-footer-brand">
+                {{> "brand/footer-signature"}}
+            </section>
+            <div class="aa-footer-meta">
+                <nav class="site-footer-nav">
+                    {{navigation type="secondary"}}
+                </nav>
+                <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
+            </div>
         </div>
     </footer>
+
+    {{!-- Back to top button --}}
+    <button id="aa-back-top" class="aa-back-top" aria-label="{{t "Torna in cima"}}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
 
 </div>
 {{!-- /.viewport --}}
@@ -95,23 +169,29 @@
     {{> "lightbox"}}
 {{/is}}
 
-{{!-- Scripts - handle member signups, responsive videos, infinite scroll, floating headers, and galleries --}}
-<script
-    src="https://code.jquery.com/jquery-3.5.1.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-    crossorigin="anonymous">
-</script>
-<script src="{{asset "built/casper.js"}}"></script>
+{{!-- Scripts - handle responsive media, menus, infinite scroll, floating headers, and galleries --}}
+<script defer src="{{asset "built/core.js"}}"></script>
+{{#is "post, page"}}
+<script defer src="{{asset "built/post.js"}}"></script>
 <script>
-$(document).ready(function () {
-    // Mobile Menu Trigger
-    $('.gh-burger').click(function () {
-        $('body').toggleClass('gh-head-open');
-    });
-    // FitVids - Makes video embeds responsive
-    $(".gh-content").fitVids();
-});
+    (function () {
+        function loadScript(src) {
+            var script = document.createElement('script');
+            script.src = src;
+            script.defer = true;
+            document.body.appendChild(script);
+        }
+
+        if (document.querySelector('.gh-content pre code')) {
+            loadScript('{{asset "built/code.js"}}');
+        }
+
+        if (document.querySelector('.kg-image-card > .kg-image[width][height], .kg-gallery-image > img, .aa-lightbox-trigger')) {
+            loadScript('{{asset "built/lightbox.js"}}');
+        }
+    })();
 </script>
+{{/is}}
 
 {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}

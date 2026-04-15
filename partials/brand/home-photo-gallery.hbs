@@ -1,0 +1,51 @@
+<section class="aa-home-photos outer">
+    <div class="aa-home-photos-inner inner">
+
+        {{#get "posts" filter="tag:hash-photos" limit="9" include="tags"}}
+            {{#if posts}}
+                <div class="aa-visual-section">
+                    <header class="aa-visual-section-header">
+                        <div class="aa-visual-section-copy">
+                            <span class="aa-page-eyebrow">{{t "Fotografie"}}</span>
+                            <h2 class="aa-visual-section-title">{{t "Scatti personali"}}</h2>
+                        </div>
+                        <a class="aa-visual-section-link" href="/photos/">
+                            <span>{{t "Apri archivio"}}</span>
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </header>
+
+                    <div class="aa-home-photo-grid" role="list">
+                        {{#foreach posts}}
+                            {{> "brand/home-photo-thumb"}}
+                        {{/foreach}}
+                    </div>
+                </div>
+            {{/if}}
+        {{/get}}
+
+        {{#get "posts" filter="tag:hash-ai-art-and-images" limit="9" include="tags"}}
+            {{#if posts}}
+                <div class="aa-visual-section">
+                    <header class="aa-visual-section-header">
+                        <div class="aa-visual-section-copy">
+                            <span class="aa-page-eyebrow">{{t "Illustrazioni Sintetiche"}}</span>
+                            <h2 class="aa-visual-section-title">{{t "Immaginazione"}}</h2>
+                        </div>
+                        <a class="aa-visual-section-link" href="/ai-art/">
+                            <span>{{t "Apri archivio"}}</span>
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </header>
+
+                    <div class="aa-home-photo-grid" role="list">
+                        {{#foreach posts}}
+                            {{> "brand/home-photo-thumb"}}
+                        {{/foreach}}
+                    </div>
+                </div>
+            {{/if}}
+        {{/get}}
+
+    </div>
+</section>

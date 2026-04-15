@@ -1,0 +1,24 @@
+name: Deploy Theme
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      - run: corepack enable
+      - run: yarn install --frozen-lockfile
+      - run: ./node_modules/.bin/gulp build
+      - run: yarn test:ci
+      - name: Deploy Ghost Theme
+        uses: TryGhost/action-deploy-theme@v1.6.2
+        with:
+          api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
+          api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}

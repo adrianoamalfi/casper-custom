@@ -5,19 +5,16 @@ which templates loop over to generate a list of posts. --}}
 
     {{#if feature_image}}
     <a class="post-card-image-link" href="{{url}}">
-
-        {{!-- This is a responsive image, it loads different sizes depending on device
-        https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
-        <img class="post-card-image"
-            srcset="{{img_url feature_image size="s"}} 300w,
-                    {{img_url feature_image size="m"}} 600w,
-                    {{img_url feature_image size="l"}} 1000w,
-                    {{img_url feature_image size="xl"}} 2000w"
-            sizes="(max-width: 1000px) 400px, 800px"
-            src="{{img_url feature_image size="m"}}"
-            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+        {{> "media/picture-card"
+            image=feature_image
+            picture_class="aa-responsive-picture aa-post-card-picture"
+            img_class="post-card-image"
+            sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1200px) calc(50vw - 40px), 880px"
             loading="lazy"
-        />
+            decoding="async"
+            image_alt=feature_image_alt
+            alt=title
+        }}
 
         {{#unless access}}
         {{^has visibility="public"}}
@@ -39,14 +36,18 @@ which templates loop over to generate a list of posts. --}}
 
         <a class="post-card-content-link" href="{{url}}">
             <header class="post-card-header">
-                <div class="post-card-tags">
-                    {{#primary_tag}}
-                        <span class="post-card-primary-tag">{{name}}</span>
-                    {{/primary_tag}}
-                    {{#if featured}}
-                        <span class="post-card-featured">{{> "icons/fire"}} {{t "Featured"}}</span>
-                    {{/if}}
-                </div>
+                {{#has tag="hash-tech-scratchpad"}}
+                    {{> "brand/scratchpad-badges"}}
+                {{else}}
+                    <div class="post-card-tags">
+                        {{#primary_tag}}
+                            <span class="post-card-primary-tag">{{name}}</span>
+                        {{/primary_tag}}
+                        {{#if featured}}
+                            <span class="post-card-featured">{{> "icons/fire"}} {{t "Featured"}}</span>
+                        {{/if}}
+                    </div>
+                {{/has}}
                 <h2 class="post-card-title">
                     {{#unless access}}
                     {{^has visibility="public"}}
@@ -72,6 +73,9 @@ which templates loop over to generate a list of posts. --}}
                 {{comment_count}}
             {{/if}}
         </footer>
+        {{#has tag="hash-tech-scratchpad"}}
+            {{> "brand/scratchpad-stacks"}}
+        {{/has}}
 
     </div>
 

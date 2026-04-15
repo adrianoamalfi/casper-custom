@@ -29,6 +29,27 @@ into the {body} tag of the default.hbs template --}}
             <p class="article-excerpt">{{custom_excerpt}}</p>
         {{/if}}
 
+        {{#has tag="hash-tech-scratchpad"}}
+            <section class="aa-scratchpad-hero-strip">
+                <div class="aa-scratchpad-hero-taxonomy">
+                    {{> "brand/scratchpad-badges"}}
+                    {{> "brand/scratchpad-stacks"}}
+                </div>
+                <dl class="aa-scratchpad-stats">
+                    <div class="aa-scratchpad-stat">
+                        <dt>Pubblicato</dt>
+                        <dd><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time></dd>
+                    </div>
+                    {{#if reading_time}}
+                        <div class="aa-scratchpad-stat">
+                            <dt>Tempo</dt>
+                            <dd>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</dd>
+                        </div>
+                    {{/if}}
+                </dl>
+            </section>
+        {{/has}}
+
         <div class="article-byline">
         <section class="article-byline-content">
 
@@ -36,11 +57,20 @@ into the {body} tag of the default.hbs template --}}
                 {{#foreach authors}}
                 <li class="author-list-item">
                     {{#if profile_image}}
-                    <a href="{{url}}" class="author-avatar" aria-label="Read more of {{name}}">
-                        <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
+                    <a href="{{url}}" class="author-avatar" aria-label="Leggi altri articoli di {{name}}">
+                        {{> "media/picture-ui"
+                            image=profile_image
+                            img_class="author-profile-image"
+                            sizes="56px"
+                            width="56"
+                            height="56"
+                            loading="lazy"
+                            decoding="async"
+                            alt=name
+                        }}
                     </a>
                     {{else}}
-                    <a href="{{url}}" class="author-avatar author-profile-image" aria-label="Read more of {{name}}">{{> "icons/avatar"}}</a>
+                    <a href="{{url}}" class="author-avatar author-profile-image" aria-label="Leggi altri articoli di {{name}}">{{> "icons/avatar"}}</a>
                     {{/if}}
                 </li>
                 {{/foreach}}
@@ -51,7 +81,7 @@ into the {body} tag of the default.hbs template --}}
                 <div class="byline-meta-content">
                     <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time>
                     {{#if reading_time}}
-                        <span class="byline-reading-time"><span class="bull">&bull;</span> {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> Tempo di lettura: {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
                     {{/if}}
                 </div>
             </div>
@@ -63,17 +93,16 @@ into the {body} tag of the default.hbs template --}}
         {{#match @custom.post_image_style "!=" "Hidden"}}
         {{#if feature_image}}
             <figure class="article-image">
-                {{!-- This is a responsive image, it loads different sizes depending on device
-                https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
-                <img
-                    srcset="{{img_url feature_image size="s"}} 300w,
-                            {{img_url feature_image size="m"}} 600w,
-                            {{img_url feature_image size="l"}} 1000w,
-                            {{img_url feature_image size="xl"}} 2000w"
+                {{> "media/picture-hero"
+                    image=feature_image
+                    picture_class="aa-responsive-picture aa-article-image-picture"
                     sizes="(min-width: 1400px) 1400px, 92vw"
-                    src="{{img_url feature_image size="xl"}}"
-                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                />
+                    fetchpriority="high"
+                    loading="eager"
+                    decoding="async"
+                    image_alt=feature_image_alt
+                    alt=title
+                }}
                 {{#if feature_image_caption}}
                     <figcaption>{{feature_image_caption}}</figcaption>
                 {{/if}}
@@ -83,9 +112,14 @@ into the {body} tag of the default.hbs template --}}
 
     </header>
 
-    <section class="gh-content gh-canvas">
-        {{content}}
-    </section>
+    <div class="aa-post-layout gh-canvas">
+        <section class="gh-content aa-post-content">
+            {{content}}
+        </section>
+    </div>
+
+    {{> "brand/post-cta"}}
+    {{> "brand/author-box"}}
 
     {{#if comments}}
         <section class="article-comments gh-canvas">
@@ -118,24 +152,25 @@ into the {body} tag of the default.hbs template --}}
 
 {{!-- Read more links, just above the footer --}}
 {{#if @custom.show_recent_posts_footer}}
-    {{!-- The {#get} helper below fetches some of the latest posts here
-    so that people have something else to read when they finish this one.
-
-    This query gets the latest 3 posts on the site, but adds a filter to
-    exclude the post we're currently on from being included. --}}
-    {{#get "posts" filter="id:-{{id}}" limit="3" as |more_posts|}}
-
-        {{#if more_posts}}
-            <aside class="read-more-wrap outer">
-                <div class="read-more inner">
-                    {{#foreach more_posts}}
-                        {{> "post-card"}}
-                    {{/foreach}}
-                </div>
-            </aside>
-        {{/if}}
-
-    {{/get}}
+    {{#if primary_tag}}
+        {{#get "posts" filter="id:-{{id}}+tag:{{primary_tag.slug}}" limit="3" as |more_posts|}}
+            {{#if more_posts}}
+                {{> "brand/read-more" posts=more_posts label=primary_tag.name}}
+            {{else}}
+                {{#get "posts" filter="id:-{{id}}" limit="3" as |fallback_posts|}}
+                    {{#if fallback_posts}}
+                        {{> "brand/read-more" posts=fallback_posts}}
+                    {{/if}}
+                {{/get}}
+            {{/if}}
+        {{/get}}
+    {{else}}
+        {{#get "posts" filter="id:-{{id}}" limit="3" as |more_posts|}}
+            {{#if more_posts}}
+                {{> "brand/read-more" posts=more_posts}}
+            {{/if}}
+        {{/get}}
+    {{/if}}
 {{/if}}
 
 {{/post}}

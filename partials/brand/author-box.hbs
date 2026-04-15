@@ -1,0 +1,40 @@
+{{#primary_author}}
+<section class="aa-author-box gh-canvas">
+    <div class="aa-author-box-inner">
+        <div class="aa-author-box-media">
+            {{#if profile_image}}
+                {{> "media/picture-ui"
+                    image=profile_image
+                    img_class="aa-author-box-image"
+                    sizes="84px"
+                    width="84"
+                    height="84"
+                    loading="lazy"
+                    decoding="async"
+                    alt=name
+                }}
+            {{else}}
+                <div class="aa-author-box-avatar">{{> "icons/avatar"}}</div>
+            {{/if}}
+        </div>
+
+        <div class="aa-author-box-copy">
+            <span class="aa-page-eyebrow">Autore</span>
+            <h2 class="aa-author-box-title">{{name}}</h2>
+
+            {{#if bio}}
+                <p class="aa-author-box-bio">{{bio}}</p>
+            {{else}}
+                <p class="aa-author-box-bio">Scrivo di strategia, trasformazione digitale, innovazione e adozione pragmatica dell’AI con un taglio personale, operativo ed editoriale.</p>
+            {{/if}}
+
+            <div class="aa-author-box-links">
+                <a class="aa-text-link" href="{{url}}">Archivio autore</a>
+                {{#if website}}
+                    <a class="aa-text-link is-muted" href="{{website}}" target="_blank" rel="noopener">Sito personale</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>
+{{/primary_author}}

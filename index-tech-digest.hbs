@@ -1,0 +1,37 @@
+{{!< default}}
+
+<main id="site-main" class="site-main outer aa-tag-template">
+    <section class="aa-tag-hero outer">
+        <div class="aa-tag-hero-inner inner">
+            <div class="aa-tag-hero-copy">
+                <span class="aa-page-eyebrow">Archivio curatoriale</span>
+                <h1 class="aa-page-title">Tech Digest</h1>
+                <p class="aa-page-dek">Una raccolta editoriale di segnali, letture e link commentati per seguire cosa conta davvero nel flusso quotidiano della tecnologia.</p>
+            </div>
+
+            <div class="aa-tag-summary">
+                <span class="aa-page-panel-label">Dimensione archivio</span>
+                <p class="aa-page-panel-text">{{plural pagination.total empty="Nessuna nota pubblicata." singular="% nota pubblicata" plural="% note pubblicate"}}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="aa-page-section outer">
+        <div class="inner posts">
+            <div class="aa-engagement-strip is-archive">
+                <div>
+                    <span class="aa-page-panel-label">Formato</span>
+                    <p class="aa-engagement-copy">Segnali rapidi, contesto essenziale e una lettura selettiva del rumore quotidiano. Un digest pensato per orientarsi senza allungare inutilmente il tempo di lettura.</p>
+                </div>
+            </div>
+
+            <div class="post-feed">
+                {{#foreach posts}}
+                    {{> "post-card"}}
+                {{/foreach}}
+            </div>
+
+            {{pagination}}
+        </div>
+    </section>
+</main>

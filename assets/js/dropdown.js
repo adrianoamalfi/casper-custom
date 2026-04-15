@@ -2,7 +2,11 @@
     const mediaQuery = window.matchMedia('(max-width: 767px)');
 
     const head = document.querySelector('.gh-head');
+    if (!head) return;
+
     const menu = head.querySelector('.gh-head-menu');
+    if (!menu) return;
+
     const nav = menu.querySelector('.nav');
     if (!nav) return;
 
@@ -71,13 +75,22 @@
         window.addEventListener('click', windowClickListener);
     }
 
-    imagesLoaded(head, function () {
-        makeDropdown();
-    });
+    function initDropdown() {
+        window.requestAnimationFrame(makeDropdown);
+    }
+
+    if (document.readyState === 'complete') {
+        initDropdown();
+    } else {
+        window.addEventListener('load', initDropdown, {once: true});
+    }
 
     window.addEventListener('resize', function () {
         setTimeout(function () {
-            window.removeEventListener('click', windowClickListener);
+            if (windowClickListener) {
+                window.removeEventListener('click', windowClickListener);
+                windowClickListener = null;
+            }
             nav.innerHTML = navHTML;
             makeDropdown();
         }, 1);

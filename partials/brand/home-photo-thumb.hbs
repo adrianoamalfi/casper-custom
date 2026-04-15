@@ -1,0 +1,22 @@
+<article class="aa-home-photo-thumb" role="listitem">
+    <a class="aa-home-photo-thumb-link" href="{{url}}" aria-label="{{title}}">
+        {{#if feature_image}}
+            <figure class="aa-home-photo-thumb-media">
+                {{> "media/picture-card"
+                    image=feature_image
+                    picture_class="aa-responsive-picture aa-home-photo-thumb-picture"
+                    img_class="aa-home-photo-thumb-image"
+                    sizes="(max-width: 480px) 90vw, (max-width: 767px) 44vw, (max-width: 991px) 28vw, 22vw"
+                    loading="lazy"
+                    decoding="async"
+                    image_alt=feature_image_alt
+                    alt=title
+                }}
+            </figure>
+        {{/if}}
+        <div class="aa-home-photo-thumb-overlay" aria-hidden="true">
+            <span class="aa-home-photo-thumb-title">{{title}}</span>
+            <span class="aa-home-photo-thumb-date">{{date format="DD MMM YYYY"}}</span>
+        </div>
+    </a>
+</article>

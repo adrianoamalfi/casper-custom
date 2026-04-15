@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>{{@site.url}}/</loc>
+    </url>
+    <url>
+        <loc>{{@site.url}}/photos/</loc>
+    </url>
+    <url>
+        <loc>{{@site.url}}/ai-art/</loc>
+    </url>
+    <url>
+        <loc>{{@site.url}}/tech-digest/</loc>
+    </url>
+    <url>
+        <loc>{{@site.url}}/tech-scratchpad/</loc>
+    </url>
+    {{#get "posts" limit="100" include="tags,authors"}}
+        {{#foreach posts}}
+    <url>
+        <loc>{{url absolute="true"}}</loc>
+        <lastmod>{{date updated_at format="YYYY-MM-DD"}}</lastmod>
+    </url>
+        {{/foreach}}
+    {{/get}}
+    {{#get "pages" limit="100"}}
+        {{#foreach pages}}
+    <url>
+        <loc>{{url absolute="true"}}</loc>
+        <lastmod>{{date updated_at format="YYYY-MM-DD"}}</lastmod>
+    </url>
+        {{/foreach}}
+    {{/get}}
+    {{#get "tags" limit="100"}}
+        {{#foreach tags}}
+    <url>
+        <loc>{{url absolute="true"}}</loc>
+    </url>
+        {{/foreach}}
+    {{/get}}
+    {{#get "authors" limit="100"}}
+        {{#foreach authors}}
+    <url>
+        <loc>{{url absolute="true"}}</loc>
+    </url>
+        {{/foreach}}
+    {{/get}}
+</urlset>

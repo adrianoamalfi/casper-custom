@@ -6,17 +6,16 @@ into the {body} of the default.hbs template --}}
 
     {{#if @custom.show_publication_cover}}
         {{#if @site.cover_image}}
-            {{!-- This is a responsive image, it loads different sizes depending on device
-            https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
-            <img class="site-header-cover"
-                srcset="{{img_url @site.cover_image size="s"}} 300w,
-                        {{img_url @site.cover_image size="m"}} 600w,
-                        {{img_url @site.cover_image size="l"}} 1000w,
-                        {{img_url @site.cover_image size="xl"}} 2000w"
+            {{> "media/picture-hero"
+                image=@site.cover_image
+                picture_class="aa-responsive-picture aa-site-cover-picture"
+                img_class="site-header-cover"
                 sizes="100vw"
-                src="{{img_url @site.cover_image size="xl"}}"
-                alt="{{@site.title}}"
-            />
+                fetchpriority="high"
+                loading="eager"
+                decoding="async"
+                alt=@site.title
+            }}
         {{/if}}
     {{/if}}
 
@@ -24,7 +23,14 @@ into the {body} of the default.hbs template --}}
         <div class="site-header-inner inner">
             {{#match @custom.navigation_layout "Logo on cover"}}
                 {{#if @site.logo}}
-                    <img class="site-logo" src="{{@site.logo}}" alt="{{@site.title}}">
+                    {{> "media/picture-ui"
+                        image=@site.logo
+                        picture_class="site-logo aa-responsive-picture"
+                        sizes="(max-width: 767px) 180px, 240px"
+                        loading="eager"
+                        decoding="async"
+                        alt=@site.title
+                    }}
                 {{else}}
                     <h1 class="site-title">{{@site.title}}</h1>
                 {{/if}}
@@ -37,9 +43,22 @@ into the {body} of the default.hbs template --}}
 
 </div>
 
+{{!-- Personal intro banner — first page only --}}
+{{#unless pagination.prev}}
+    {{> "brand/home-topic-hubs"}}
+    {{> "brand/home-photo-gallery"}}
+{{/unless}}
+
 {{!-- The main content area --}}
 <main id="site-main" class="site-main outer">
 <div class="inner posts">
+    {{#unless pagination.prev}}
+        <header class="aa-home-section-heading is-feed-heading">
+            <span class="aa-page-eyebrow">Cronologia</span>
+            <h2 class="aa-home-section-title">Articoli recenti</h2>
+            <p class="aa-home-section-copy">Ultimi contenuti pubblicati.</p>
+        </header>
+    {{/unless}}
 
     <div class="post-feed">
         {{#foreach posts}}
