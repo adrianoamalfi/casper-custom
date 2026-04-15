@@ -16,3 +16,7 @@
 
 ## 🧩 Architecture Notes
 *   Core structure revolves around `default.hbs` (parent template) and specific templates like `index.hbs` (home), `post.hbs` (single post), and `page.hbs` (pages).
+
+## 🎨 Design Guardrails
+*   Any UI change must follow the existing visual language of the blog: typography, spacing, palette, tone, and component behavior should feel native to the site rather than like a disconnected one-off page.
+*   Pages with custom layouts, including error states like the 404, should still look unique and intentional while remaining clearly part of the same editorial system.
