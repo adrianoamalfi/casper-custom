@@ -2411,11 +2411,80 @@ iframe.instagram-media + script + :not([id]) {
     text-align: center;
 }
 
+.aa-404-fullpage {
+    padding-top: max(56px, 8vh);
+    padding-bottom: max(40px, 6vh);
+}
+
+.aa-404-fullpage-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 220px);
+}
+
+.aa-404-shell {
+    position: relative;
+    width: 100%;
+    max-width: 1120px;
+    display: grid;
+    gap: 28px;
+    align-items: center;
+    justify-items: center;
+    padding: clamp(24px, 4vw, 48px) 0;
+    background: transparent;
+    text-align: center;
+}
+
+.aa-404-visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: clamp(180px, 26vw, 320px);
+}
+
+.aa-404-code {
+    font-family: var(--gh-font-heading, var(--font-sans));
+    font-size: clamp(11rem, 28vw, 28rem);
+    font-weight: 700;
+    line-height: 0.78;
+    letter-spacing: -0.12em;
+    color: var(--color-darkgrey);
+    text-shadow: 14px 14px 0 rgba(107, 159, 212, 0.18);
+}
+
+.aa-404-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+}
+
+.aa-404-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 14px;
+    margin-bottom: 18px;
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-secondary-text);
+}
+
 .error-code {
     margin: 0;
     font-size: 12vw;
     line-height: 1em;
     letter-spacing: -5px;
+}
+
+.aa-404-shell .error-code {
+    font-size: clamp(4.8rem, 6.4vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
 }
 
 .error-description {
@@ -2430,6 +2499,70 @@ iframe.instagram-media + script + :not([id]) {
 .error-link {
     display: inline-block;
     margin-top: 5px;
+}
+
+.aa-404-shell .error-description {
+    max-width: 25em;
+    margin: 12px auto 0;
+    color: var(--color-secondary-text);
+    font-size: clamp(2rem, 2vw, 2.6rem);
+    line-height: 1.42;
+}
+
+.aa-404-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.aa-404-primary-link,
+.aa-404-search {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 22px;
+    margin-top: 0;
+    border-radius: 0;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.aa-404-primary-link {
+    color: #fff;
+    font-weight: 700;
+    background: var(--ghost-accent-color);
+    border: 1px solid var(--ghost-accent-color);
+}
+
+.aa-404-primary-link:hover {
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.aa-404-search {
+    color: var(--color-darkgrey);
+    background: transparent;
+    border: 1px solid rgba(20, 28, 38, 0.08);
+}
+
+.aa-404-search:hover {
+    transform: translateY(-1px);
+    background: rgba(107, 159, 212, 0.08);
+}
+
+.aa-404-search svg {
+    width: 18px;
+    height: 18px;
+}
+
+.aa-404-search span {
+    font-size: 1.6rem;
+    font-weight: 600;
 }
 
 @media (min-width: 940px) {
@@ -2454,14 +2587,40 @@ iframe.instagram-media + script + :not([id]) {
         margin: 5px 0 0 0;
         font-size: 1.8rem;
     }
+    .aa-404-shell {
+        padding: 24px;
+    }
+    .aa-404-visual {
+        min-height: 160px;
+    }
+    .aa-404-shell .error-description {
+        max-width: none;
+    }
+    .aa-404-fullpage-inner {
+        min-height: calc(100vh - 180px);
+    }
 }
 
 @media (max-width: 500px) {
     .error-content {
-        padding-top: 28vw;
+        padding-top: 0;
     }
     .error-message {
         padding-bottom: 14vw;
+    }
+    .aa-404-actions {
+        flex-direction: column;
+    }
+    .aa-404-primary-link,
+    .aa-404-search {
+        width: 100%;
+    }
+    .aa-404-shell {
+        padding: 20px;
+    }
+    .aa-404-code {
+        font-size: clamp(9rem, 34vw, 13rem);
+        text-shadow: 8px 8px 0 rgba(107, 159, 212, 0.18);
     }
 }
 
