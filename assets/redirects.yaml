@@ -1,0 +1,9 @@
+301:
+  /index.php: /
+  /contact/index.php: /about
+  /about/index.php: /
+  /blog/index.php: /
+  /green-coding-per-una-tecnologia-sostenibile/: /green-coding-per-uno-sviluppo-tecnologico-sostenibile/
+  /l-importanza-per-le-aziende-di-stabilire-ora-i-propri-principi-etici-nell-utilizzo-dell-intelligenza-artificiale/: /principi-etici-nellutilizzo-dellia/
+  /posts/catch-22-ed-i-3-paradossi-digitali/: /catch-22-ed-i-3-paradossi-digitali/
+

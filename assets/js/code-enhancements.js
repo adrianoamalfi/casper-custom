@@ -11,6 +11,11 @@
         return;
     }
 
+    // Fix 3: testo del copy button letto da data-attribute nel body (impostato dal template)
+    // invece di hardcoded in italiano — permette traduzioni senza toccare il JS
+    var copyLabel = document.body.dataset.copyLabel || 'Copy';
+    var copyDoneLabel = document.body.dataset.copyDoneLabel || 'Copied';
+
     function getLanguageLabel(codeBlock) {
         var classes = Array.from(codeBlock.classList);
         var languageClass = classes.find(function (className) {
@@ -49,7 +54,9 @@
         var copyButton = document.createElement('button');
         copyButton.className = 'aa-code-copy';
         copyButton.type = 'button';
-        copyButton.textContent = 'Copia';
+        copyButton.textContent = copyLabel;
+        // Fix 3: aria-label contestuale (cosa si copia e da quale blocco)
+        copyButton.setAttribute('aria-label', copyLabel + (language ? ' ' + language : '') + ' codice');
 
         copyButton.addEventListener('click', function () {
             var text = codeBlock.innerText;
@@ -59,12 +66,15 @@
             }
 
             navigator.clipboard.writeText(text).then(function () {
-                copyButton.textContent = 'Copiato';
+                copyButton.textContent = copyDoneLabel;
+                copyButton.setAttribute('aria-label', copyDoneLabel);
 
                 window.setTimeout(function () {
-                    copyButton.textContent = 'Copia';
+                    copyButton.textContent = copyLabel;
+                    copyButton.setAttribute('aria-label', copyLabel + (language ? ' ' + language : '') + ' codice');
                 }, 1800);
-            });
+            // Fix 3: catch esplicito — evita unhandled rejection se clipboard è negata o HTTP
+            }).catch(function () {});
         });
 
         pre.appendChild(copyButton);

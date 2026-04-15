@@ -2,7 +2,7 @@
     "name": "casper-custom",
     "description": "Casper fork personalizzato per adrianoamalfi.com",
     "demo": "https://adrianoamalfi.com",
-    "version": "5.10.4-custom.1",
+    "version": "5.11.4-custom.1",
     "engines": {
         "ghost": ">=5.0.0"
     },
@@ -15,9 +15,9 @@
         "dev": "gulp",
         "sync-upstream": "bash scripts/rebase-upstream.sh",
         "zip": "gulp zip",
-        "test": "gscan .",
-        "test:ci": "gscan --fatal --verbose .",
-        "pretest": "gulp build",
+        "test": "gscan --zip dist/casper-custom.zip",
+        "test:ci": "gscan --fatal --verbose --zip dist/casper-custom.zip",
+        "pretest": "gulp zip",
         "preship": "yarn test",
         "ship": "STATUS=$(git status --porcelain); echo $STATUS; if [ -z \"$STATUS\" ]; then yarn version && git push --follow-tags; else echo \"Uncomitted changes found.\" && exit 1; fi",
         "postship": "git fetch && gulp release"
@@ -111,7 +111,8 @@
                     "Logo in the middle",
                     "Stacked"
                 ],
-                "default": "Logo on cover"
+                "default": "Logo on cover",
+                "group": "homepage"
             },
             "title_font": {
                 "type": "select",
@@ -119,7 +120,8 @@
                     "Modern sans-serif",
                     "Elegant serif"
                 ],
-                "default": "Elegant serif"
+                "default": "Elegant serif",
+                "group": "homepage"
             },
             "body_font": {
                 "type": "select",
@@ -127,42 +129,43 @@
                     "Modern sans-serif",
                     "Elegant serif"
                 ],
-                "default": "Elegant serif"
+                "default": "Elegant serif",
+                "group": "homepage"
             },
             "brand_footer_linkedin_url": {
                 "type": "text",
                 "default": "https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=adrianoamalfi",
-                "group": "brand"
+                "group": "homepage"
             },
             "brand_footer_github_url": {
                 "type": "text",
                 "default": "",
-                "group": "brand"
+                "group": "homepage"
             },
             "brand_footer_huggingface_url": {
                 "type": "text",
                 "default": "",
-                "group": "brand"
+                "group": "homepage"
             },
             "brand_footer_instagram_url": {
                 "type": "text",
                 "default": "",
-                "group": "brand"
+                "group": "homepage"
             },
             "brand_footer_facebook_url": {
                 "type": "text",
                 "default": "",
-                "group": "brand"
+                "group": "homepage"
             },
             "brand_footer_x_url": {
                 "type": "text",
                 "default": "",
-                "group": "brand"
+                "group": "homepage"
             },
             "brand_footer_threads_url": {
                 "type": "text",
                 "default": "",
-                "group": "brand"
+                "group": "homepage"
             },
             "show_publication_cover": {
                 "type": "boolean",
@@ -196,7 +199,8 @@
                     "Dark",
                     "Auto"
                 ],
-                "default": "Light"
+                "default": "Light",
+                "group": "homepage"
             },
             "post_image_style": {
                 "type": "select",
@@ -214,11 +218,6 @@
                 "default": "Iscriviti per ricevere nuovi articoli come questo.",
                 "group": "post"
             },
-            "post_cta_eyebrow": {
-                "type": "text",
-                "default": "Approfondimenti",
-                "group": "post"
-            },
             "post_cta_title": {
                 "type": "text",
                 "default": "Continua l'esplorazione",
@@ -227,6 +226,11 @@
             "post_cta_copy": {
                 "type": "text",
                 "default": "Una selezione di percorsi, profilo professionale e possibilità di confronto collegati ai temi trattati nel sito.",
+                "group": "post"
+            },
+            "post_cta_primary_url": {
+                "type": "text",
+                "default": "/contact-me/",
                 "group": "post"
             },
             "show_recent_posts_footer": {

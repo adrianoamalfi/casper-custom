@@ -36,14 +36,18 @@ which templates loop over to generate a list of posts. --}}
 
         <a class="post-card-content-link" href="{{url}}">
             <header class="post-card-header">
-                <div class="post-card-tags">
-                    {{#primary_tag}}
-                        <span class="post-card-primary-tag">{{name}}</span>
-                    {{/primary_tag}}
-                    {{#if featured}}
-                        <span class="post-card-featured">{{> "icons/fire"}} {{t "Featured"}}</span>
-                    {{/if}}
-                </div>
+                {{#has tag="hash-tech-scratchpad"}}
+                    {{> "brand/scratchpad-badges"}}
+                {{else}}
+                    <div class="post-card-tags">
+                        {{#primary_tag}}
+                            <span class="post-card-primary-tag">{{name}}</span>
+                        {{/primary_tag}}
+                        {{#if featured}}
+                            <span class="post-card-featured">{{> "icons/fire"}} {{t "Featured"}}</span>
+                        {{/if}}
+                    </div>
+                {{/has}}
                 <h2 class="post-card-title">
                     {{#unless access}}
                     {{^has visibility="public"}}
@@ -69,6 +73,9 @@ which templates loop over to generate a list of posts. --}}
                 {{comment_count}}
             {{/if}}
         </footer>
+        {{#has tag="hash-tech-scratchpad"}}
+            {{> "brand/scratchpad-stacks"}}
+        {{/has}}
 
     </div>
 

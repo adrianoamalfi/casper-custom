@@ -7,17 +7,22 @@
     var hasCover = document.body.classList.contains('has-cover');
     var root = document.documentElement;
 
+    // B3: debounce resize handler — evita firing a ogni pixel
     if (burger) {
         burger.addEventListener('click', function () {
             var isOpen = document.body.classList.toggle('gh-head-open');
             burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
 
+        var resizeTimer;
         window.addEventListener('resize', function () {
-            if (window.innerWidth >= 992 && document.body.classList.contains('gh-head-open')) {
-                document.body.classList.remove('gh-head-open');
-                burger.setAttribute('aria-expanded', 'false');
-            }
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                if (window.innerWidth >= 992 && document.body.classList.contains('gh-head-open')) {
+                    document.body.classList.remove('gh-head-open');
+                    burger.setAttribute('aria-expanded', 'false');
+                }
+            }, 100);
         });
     }
 
@@ -123,15 +128,20 @@
 
     initThemeSwitcher();
 
+    // B5: normalizePath robusta — ignora URL cross-origin, nessun fallback fragile
     function normalizePath(href) {
         if (!href) {
             return '';
         }
 
         try {
-            return new window.URL(href, window.location.origin).pathname.replace(/\/+$/, '') || '/';
+            var url = new window.URL(href, window.location.origin);
+            if (url.origin !== window.location.origin) {
+                return '';
+            }
+            return url.pathname.replace(/\/+$/, '') || '/';
         } catch (error) {
-            return href.replace(window.location.origin, '').replace(/\/+$/, '') || '/';
+            return '';
         }
     }
 
@@ -171,11 +181,138 @@
 
     var postFeed = document.querySelector('.post-feed');
 
+    // B4: disconnect MutationObserver durante la pulizia — evita loop su card.remove()
     if (postFeed && document.querySelector('.aa-home-clusters, .aa-home-photos') && window.MutationObserver) {
         var feedObserver = new window.MutationObserver(function () {
+            feedObserver.disconnect();
             dedupeHomeFeed();
+            feedObserver.observe(postFeed, {childList: true});
         });
 
         feedObserver.observe(postFeed, {childList: true});
     }
+
+    function initScratchpadCarousel() {
+        var carousel = document.querySelector('[data-scratchpad-carousel]');
+        var controls = document.querySelector('[data-scratchpad-carousel-controls]');
+
+        if (!carousel || !controls) {
+            return;
+        }
+
+        var slides = Array.prototype.slice.call(carousel.children);
+        var prev = controls.querySelector('[data-scratchpad-prev]');
+        var next = controls.querySelector('[data-scratchpad-next]');
+        var dotsRoot = controls.querySelector('[data-scratchpad-dots]');
+        var currentIndex = 0;
+        var autoAdvance = null;
+
+        // B2: rileva prefers-reduced-motion una sola volta
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // B1: cache del passo del carousel — evita layout thrashing a ogni scroll
+        var cachedStep = 0;
+
+        function updateCachedStep() {
+            var first = slides[0];
+            if (!first) {
+                cachedStep = 0;
+                return;
+            }
+
+            var style = window.getComputedStyle(carousel);
+            var gap = parseFloat(style.columnGap || style.gap || 0);
+            cachedStep = first.getBoundingClientRect().width + gap;
+        }
+
+        updateCachedStep();
+
+        if (window.ResizeObserver) {
+            new window.ResizeObserver(updateCachedStep).observe(carousel);
+        } else {
+            window.addEventListener('resize', updateCachedStep, {passive: true});
+        }
+
+        function setActiveDot(index) {
+            Array.prototype.forEach.call(dotsRoot.children, function (dot, dotIndex) {
+                dot.classList.toggle('is-active', dotIndex === index);
+                dot.setAttribute('aria-pressed', dotIndex === index ? 'true' : 'false');
+            });
+        }
+
+        // B2: rispetta prefers-reduced-motion nel comportamento di scroll
+        function scrollToIndex(index, behavior) {
+            if (!slides.length) {
+                return;
+            }
+
+            currentIndex = (index + slides.length) % slides.length;
+
+            carousel.scrollTo({
+                left: cachedStep * currentIndex,
+                behavior: prefersReduced ? 'instant' : (behavior || 'smooth')
+            });
+
+            setActiveDot(currentIndex);
+        }
+
+        // B2: non avviare auto-advance se l'utente preferisce meno movimento
+        function restartAutoAdvance() {
+            window.clearInterval(autoAdvance);
+            if (prefersReduced) {
+                return;
+            }
+            autoAdvance = window.setInterval(function () {
+                scrollToIndex(currentIndex + 1, 'smooth');
+            }, 4200);
+        }
+
+        // B6: legge l'etichetta dei dot dal template via data-attribute
+        var dotLabel = (dotsRoot.dataset.dotLabel || 'Go to slide') + ' ';
+
+        slides.forEach(function (_, index) {
+            var dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'aa-scratchpad-carousel-dot' + (index === 0 ? ' is-active' : '');
+            dot.setAttribute('aria-label', dotLabel + (index + 1));
+            dot.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
+            dot.addEventListener('click', function () {
+                scrollToIndex(index, 'smooth');
+                restartAutoAdvance();
+            });
+            dotsRoot.appendChild(dot);
+        });
+
+        prev.addEventListener('click', function () {
+            scrollToIndex(currentIndex - 1, 'smooth');
+            restartAutoAdvance();
+        });
+
+        next.addEventListener('click', function () {
+            scrollToIndex(currentIndex + 1, 'smooth');
+            restartAutoAdvance();
+        });
+
+        // B1: usa cachedStep invece di ricalcolare getStep() a ogni scroll event
+        carousel.addEventListener('scroll', function () {
+            if (!cachedStep) {
+                return;
+            }
+
+            currentIndex = Math.round(carousel.scrollLeft / cachedStep);
+            setActiveDot(Math.max(0, Math.min(currentIndex, slides.length - 1)));
+        }, {passive: true});
+
+        carousel.addEventListener('mouseenter', function () {
+            window.clearInterval(autoAdvance);
+        });
+
+        carousel.addEventListener('mouseleave', function () {
+            restartAutoAdvance();
+        });
+
+        restartAutoAdvance();
+    }
+
+    initScratchpadCarousel();
 })(window, document);

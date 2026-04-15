@@ -1,0 +1,19 @@
+<div class="aa-scratchpad-badges">
+    {{#foreach tags}}
+        {{#match slug "=" "hash-type-guide"}}
+            <span class="aa-scratchpad-badge is-type" {{#if accent_color}}style="--aa-scratchpad-badge-accent: {{accent_color}};"{{/if}}>Guide</span>
+        {{else match slug "=" "hash-type-project"}}
+            <span class="aa-scratchpad-badge is-type" {{#if accent_color}}style="--aa-scratchpad-badge-accent: {{accent_color}};"{{/if}}>Project</span>
+        {{else match slug "=" "hash-type-note"}}
+            <span class="aa-scratchpad-badge is-type" {{#if accent_color}}style="--aa-scratchpad-badge-accent: {{accent_color}};"{{/if}}>Note</span>
+        {{/match}}
+
+        {{#match slug "=" "hash-status-wip"}}
+            <span class="aa-scratchpad-badge is-status" {{#if accent_color}}style="--aa-scratchpad-badge-accent: {{accent_color}};"{{/if}}>WIP</span>
+        {{else match slug "=" "hash-status-stable"}}
+            <span class="aa-scratchpad-badge is-status" {{#if accent_color}}style="--aa-scratchpad-badge-accent: {{accent_color}};"{{/if}}>Stable</span>
+        {{else match slug "=" "hash-status-archived"}}
+            <span class="aa-scratchpad-badge is-status" {{#if accent_color}}style="--aa-scratchpad-badge-accent: {{accent_color}};"{{/if}}>Archived</span>
+        {{/match}}
+    {{/foreach}}
+</div>

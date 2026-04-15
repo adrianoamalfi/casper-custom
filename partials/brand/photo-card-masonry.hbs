@@ -1,0 +1,25 @@
+<article class="aa-photo-masonry-card" role="listitem">
+    <a class="aa-photo-masonry-link" href="{{url}}" aria-label="{{title}}">
+        {{#if feature_image}}
+            <figure class="aa-photo-masonry-media">
+                {{> "media/picture-card"
+                    image=feature_image
+                    picture_class="aa-responsive-picture aa-photo-masonry-picture"
+                    img_class="aa-photo-masonry-image"
+                    sizes="(max-width: 480px) 90vw, (max-width: 767px) calc(50vw - 12px), (max-width: 1199px) calc(50vw - 18px), calc(33vw - 18px)"
+                    loading="lazy"
+                    decoding="async"
+                    image_alt=feature_image_alt
+                    alt=title
+                }}
+            </figure>
+        {{/if}}
+        <div class="aa-photo-masonry-overlay" aria-hidden="true">
+            <span class="aa-photo-masonry-title">{{title}}</span>
+            {{#if custom_excerpt}}
+                <span class="aa-photo-masonry-caption">{{custom_excerpt}}</span>
+            {{/if}}
+            <span class="aa-photo-masonry-date">{{date format="DD MMM YYYY"}}</span>
+        </div>
+    </a>
+</article>

@@ -1,33 +1,31 @@
 {{!< default}}
 
 <main id="site-main" class="site-main aa-photos-page">
-    <section class="aa-page-hero outer">
-        <div class="aa-page-hero-inner inner">
-            <div class="aa-page-hero-copy">
-                <span class="aa-page-eyebrow">Archivio fotografico</span>
-                <h1 class="aa-page-title">Photos</h1>
-                <p class="aa-page-dek">Una raccolta ordinata di fotografie pubblicate come flusso visivo autonomo, con permalink dedicati e separati dalla parte editoriale del sito.</p>
+    <header class="aa-photo-page-hero outer">
+        <div class="aa-photo-page-hero-inner inner">
+            <div class="aa-photo-page-hero-topline">
+                <span class="aa-page-eyebrow">{{t "Archivio fotografico"}}</span>
+                <span class="aa-photo-page-hero-count">
+                    {{plural pagination.total empty="—" singular="% fotografia" plural="% fotografie"}}
+                </span>
             </div>
-
-            <aside class="aa-page-panel">
-                <span class="aa-page-panel-label">Dimensione archivio</span>
-                <p class="aa-page-panel-text">{{plural pagination.total empty="Nessuna fotografia pubblicata." singular="% fotografia pubblicata" plural="% fotografie pubblicate"}}</p>
-            </aside>
+            <h1 class="aa-photo-page-hero-title">{{t "Photos"}}</h1>
+            <p class="aa-photo-page-hero-dek">{{t "Una raccolta ordinata di fotografie pubblicate come flusso visivo autonomo, con permalink dedicati e separati dalla parte editoriale del sito."}}</p>
         </div>
-    </section>
+    </header>
 
     <section class="aa-page-section outer">
-        <div class="aa-page-section-inner inner">
+        <div class="inner">
             {{#if posts}}
-                <div class="aa-photo-grid">
+                <div class="aa-photo-masonry-grid" role="list">
                     {{#foreach posts}}
-                        {{> "brand/photo-card"}}
+                        {{> "brand/photo-card-masonry"}}
                     {{/foreach}}
                 </div>
 
                 {{pagination}}
             {{else}}
-                <p class="aa-home-section-copy">Non ci sono ancora fotografie in archivio.</p>
+                <p class="aa-home-section-copy">{{t "Non ci sono ancora fotografie in archivio."}}</p>
             {{/if}}
         </div>
     </section>
