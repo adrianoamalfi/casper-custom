@@ -2,7 +2,7 @@
     "name": "casper-custom",
     "description": "Casper fork personalizzato per adrianoamalfi.com",
     "demo": "https://adrianoamalfi.com",
-    "version": "5.10.4-custom.1",
+    "version": "5.11.4-custom.1",
     "engines": {
         "ghost": ">=5.0.0"
     },
