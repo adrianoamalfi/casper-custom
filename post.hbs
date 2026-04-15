@@ -29,6 +29,27 @@ into the {body} tag of the default.hbs template --}}
             <p class="article-excerpt">{{custom_excerpt}}</p>
         {{/if}}
 
+        {{#has tag="hash-tech-scratchpad"}}
+            <section class="aa-scratchpad-hero-strip">
+                <div class="aa-scratchpad-hero-taxonomy">
+                    {{> "brand/scratchpad-badges"}}
+                    {{> "brand/scratchpad-stacks"}}
+                </div>
+                <dl class="aa-scratchpad-stats">
+                    <div class="aa-scratchpad-stat">
+                        <dt>Pubblicato</dt>
+                        <dd><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time></dd>
+                    </div>
+                    {{#if reading_time}}
+                        <div class="aa-scratchpad-stat">
+                            <dt>Tempo</dt>
+                            <dd>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</dd>
+                        </div>
+                    {{/if}}
+                </dl>
+            </section>
+        {{/has}}
+
         <div class="article-byline">
         <section class="article-byline-content">
 
@@ -133,31 +154,11 @@ into the {body} tag of the default.hbs template --}}
     {{#if primary_tag}}
         {{#get "posts" filter="id:-{{id}}+tag:{{primary_tag.slug}}" limit="3" as |more_posts|}}
             {{#if more_posts}}
-                <aside class="read-more-wrap outer">
-                    <div class="read-more inner">
-                        <header class="aa-read-more-header">
-                            <span class="aa-page-eyebrow">Per continuare</span>
-                            <h2 class="aa-read-more-title">Altri articoli su {{primary_tag.name}}</h2>
-                        </header>
-                        {{#foreach more_posts}}
-                            {{> "post-card"}}
-                        {{/foreach}}
-                    </div>
-                </aside>
+                {{> "brand/read-more" posts=more_posts label=primary_tag.name}}
             {{else}}
                 {{#get "posts" filter="id:-{{id}}" limit="3" as |fallback_posts|}}
                     {{#if fallback_posts}}
-                        <aside class="read-more-wrap outer">
-                            <div class="read-more inner">
-                                <header class="aa-read-more-header">
-                                    <span class="aa-page-eyebrow">Per continuare</span>
-                                    <h2 class="aa-read-more-title">Articoli recenti</h2>
-                                </header>
-                                {{#foreach fallback_posts}}
-                                    {{> "post-card"}}
-                                {{/foreach}}
-                            </div>
-                        </aside>
+                        {{> "brand/read-more" posts=fallback_posts}}
                     {{/if}}
                 {{/get}}
             {{/if}}
@@ -165,17 +166,7 @@ into the {body} tag of the default.hbs template --}}
     {{else}}
         {{#get "posts" filter="id:-{{id}}" limit="3" as |more_posts|}}
             {{#if more_posts}}
-                <aside class="read-more-wrap outer">
-                    <div class="read-more inner">
-                        <header class="aa-read-more-header">
-                            <span class="aa-page-eyebrow">Per continuare</span>
-                            <h2 class="aa-read-more-title">Articoli recenti</h2>
-                        </header>
-                        {{#foreach more_posts}}
-                            {{> "post-card"}}
-                        {{/foreach}}
-                    </div>
-                </aside>
+                {{> "brand/read-more" posts=more_posts}}
             {{/if}}
         {{/get}}
     {{/if}}

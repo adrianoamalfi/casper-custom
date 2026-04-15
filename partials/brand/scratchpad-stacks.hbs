@@ -1,0 +1,7 @@
+<div class="aa-scratchpad-stacks">
+    {{#foreach tags}}
+        {{#match slug "~^" "hash-stack-"}}
+            <span class="aa-scratchpad-stack" {{#if accent_color}}style="--aa-scratchpad-badge-accent: {{accent_color}};"{{/if}}>{{name}}</span>
+        {{/match}}
+    {{/foreach}}
+</div>

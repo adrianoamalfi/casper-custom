@@ -7,11 +7,15 @@
         return;
     }
 
+    // Fix 2: slugify unicode-safe — normalizza NFD prima di rimuovere i diacritici
+    // evita che accenti italiani (à è é ì ò ù) producano ID vuoti o doppi trattini
     function slugify(text) {
         return text
             .toLowerCase()
             .trim()
-            .replace(/[^\w\s-]/g, '')
+            .normalize('NFD')                  // decomponi: è → e + combining grave
+            .replace(/[\u0300-\u036f]/g, '')   // rimuovi i combining marks (accenti)
+            .replace(/[^\w\s-]/g, '')          // rimuovi simboli residui
             .replace(/\s+/g, '-')
             .replace(/-+/g, '-');
     }
@@ -21,6 +25,9 @@
             return child.tagName === 'H2' || child.tagName === 'H3';
         });
     }
+
+    // Fix 5: legge l'etichetta aria dal template via data-attribute invece di hardcoded
+    var anchorLabel = (document.body.dataset.anchorLabel || 'Link to') + ' ';
 
     function enhanceHeadings(headings) {
         headings.forEach(function (heading) {
@@ -39,7 +46,7 @@
             var anchor = document.createElement('a');
             anchor.className = 'aa-heading-anchor';
             anchor.href = '#' + heading.id;
-            anchor.setAttribute('aria-label', 'Link diretto a ' + label);
+            anchor.setAttribute('aria-label', anchorLabel + label);
             anchor.textContent = '#';
 
             heading.appendChild(anchor);
@@ -65,7 +72,7 @@
             var uniqueId = baseId;
             var suffix = 2;
 
-            while (usedIds[uniqueId] || document.getElementById(uniqueId) && document.getElementById(uniqueId) !== heading) {
+            while (usedIds[uniqueId] || (document.getElementById(uniqueId) && document.getElementById(uniqueId) !== heading)) {
                 uniqueId = baseId + '-' + suffix;
                 suffix += 1;
             }
@@ -81,16 +88,44 @@
     progressBar.id = 'aa-reading-progress';
     document.body.prepend(progressBar);
 
+    // Fix 1: calcola scrollRange una volta sola — evita layout read (offsetTop/offsetHeight)
+    // a ogni scroll event. Si ricalcola solo su resize (con debounce).
+    var scrollRange = content.offsetTop + content.offsetHeight - window.innerHeight;
+
     function updateProgress() {
         var scrollTop = window.scrollY || window.pageYOffset;
-        var scrollRange = content.offsetTop + content.offsetHeight - window.innerHeight;
         var progress = Math.min(Math.max(scrollTop / Math.max(scrollRange, 1), 0), 1);
-
         progressBar.style.width = (progress * 100) + '%';
     }
 
-    window.addEventListener('scroll', updateProgress, {passive: true});
-    window.addEventListener('resize', updateProgress, {passive: true});
+    // Fix 1: requestAnimationFrame per batching — una sola write di layout per frame
+    var rafPending = false;
+
+    function scheduleProgress() {
+        if (rafPending) {
+            return;
+        }
+        rafPending = true;
+        window.requestAnimationFrame(function () {
+            rafPending = false;
+            updateProgress();
+        });
+    }
+
+    // Fix 1: resize con debounce — ricalcola scrollRange solo quando il resize si ferma
+    var resizeTimer;
+
+    function onResize() {
+        scrollRange = content.offsetTop + content.offsetHeight - window.innerHeight;
+        updateProgress();
+    }
+
+    window.addEventListener('scroll', scheduleProgress, {passive: true});
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(onResize, 100);
+    }, {passive: true});
+
     enhanceContentHeadings();
     updateProgress();
 })(window, document);

@@ -1,31 +1,35 @@
 {{!< default}}
 
-<main id="site-main" class="site-main outer aa-tag-template">
+<main id="site-main" class="site-main outer aa-tag-template aa-scratchpad-page">
     <section class="aa-tag-hero outer">
         <div class="aa-tag-hero-inner inner">
             <div class="aa-tag-hero-copy">
-                <span class="aa-page-eyebrow">Archivio operativo</span>
+                <span class="aa-page-eyebrow">Tech Scratchpad</span>
                 <h1 class="aa-page-title">Tech Scratchpad</h1>
-                <p class="aa-page-dek">Appunti tecnici, prove, configurazioni e note di lavoro raccolte come un taccuino pratico, più vicino al laboratorio che al saggio finito.</p>
+                <p class="aa-page-dek">Guide, project log e note operative raccolte come un taccuino tecnico: meno editoriale, piu riusabile, piu vicino al banco di lavoro.</p>
             </div>
 
-            <div class="aa-tag-summary">
-                <span class="aa-page-panel-label">Dimensione archivio</span>
-                <p class="aa-page-panel-text">{{plural pagination.total empty="Nessun appunto pubblicato." singular="% appunto pubblicato" plural="% appunti pubblicati"}}</p>
+            <div class="aa-tag-summary aa-scratchpad-summary">
+                <span class="aa-page-panel-label">Segnali rapidi</span>
+                <ul class="aa-page-metadata aa-scratchpad-summary-list">
+                    <li>{{plural pagination.total empty="Nessuna entry pubblicata." singular="% entry pubblicata" plural="% entry pubblicate"}}</li>
+                    <li>Ogni scheda mette in evidenza formato, stato e stack in un colpo d'occhio.</li>
+                    <li>Le tecnologie principali restano sintetiche e leggibili, senza trasformare l'archivio in una docs grid.</li>
+                </ul>
             </div>
         </div>
     </section>
 
     <section class="aa-page-section outer">
         <div class="inner posts">
-            <div class="aa-engagement-strip is-archive">
+            <div class="aa-engagement-strip is-archive aa-scratchpad-intro">
                 <div>
                     <span class="aa-page-panel-label">Formato</span>
-                    <p class="aa-engagement-copy">Un taccuino di lavoro per tenere traccia di esperimenti, fix, configurazioni e scorciatoie utili. Materiale più grezzo, ma immediatamente riusabile.</p>
+                    <p class="aa-engagement-copy">Qui i post si leggono come schede operative: cosa sono, in che stato si trovano e quale stack toccano, prima ancora di aprirli.</p>
                 </div>
             </div>
 
-            <div class="post-feed">
+            <div class="post-feed aa-scratchpad-feed">
                 {{#foreach posts}}
                     {{> "post-card"}}
                 {{/foreach}}

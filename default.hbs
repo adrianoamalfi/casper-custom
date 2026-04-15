@@ -44,7 +44,10 @@
     {{ghost_head}}
 
 </head>
-<body class="{{body_class}} is-head-{{#match @custom.navigation_layout "Logo on cover"}}left-logo{{else match @custom.navigation_layout "Logo in the middle"}}middle-logo{{else}}stacked{{/match}}{{#match @custom.title_font "=" "Elegant serif"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Modern sans-serif"}} has-sans-body{{/match}}{{#if @custom.show_publication_cover}} has-cover{{/if}}">
+<body class="{{body_class}} is-head-{{#match @custom.navigation_layout "Logo on cover"}}left-logo{{else match @custom.navigation_layout "Logo in the middle"}}middle-logo{{else}}stacked{{/match}}{{#match @custom.title_font "=" "Elegant serif"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Modern sans-serif"}} has-sans-body{{/match}}{{#if @custom.show_publication_cover}} has-cover{{/if}}"
+      data-anchor-label="{{t "Link diretto a"}}"
+      data-copy-label="{{t "Copia"}}"
+      data-copy-done-label="{{t "Copiato"}}">
 <div class="viewport">
 
     <header id="gh-head" class="gh-head outer{{#match @custom.header_style "Hidden"}} is-header-hidden{{/match}}">
@@ -79,7 +82,7 @@
 
             <div class="gh-head-actions">
                 <div class="aa-theme-switcher" data-theme-switcher>
-                    <div class="aa-theme-switcher-controls" role="group" aria-label="Selettore tema">
+                    <div class="aa-theme-switcher-controls" role="group" aria-label="{{t "Selettore tema"}}">
                         <button class="aa-theme-option" type="button" data-theme-option="light" aria-pressed="false" aria-label="Tema chiaro">
                             <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
                                 <circle cx="12" cy="12" r="4.2"></circle>
@@ -153,7 +156,7 @@
     </footer>
 
     {{!-- Back to top button --}}
-    <button id="aa-back-top" class="aa-back-top" aria-label="Torna in cima">
+    <button id="aa-back-top" class="aa-back-top" aria-label="{{t "Torna in cima"}}">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="18 15 12 9 6 15"></polyline>
         </svg>
