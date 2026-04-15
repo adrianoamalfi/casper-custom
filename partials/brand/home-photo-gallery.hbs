@@ -1,59 +1,51 @@
 <section class="aa-home-photos outer">
     <div class="aa-home-photos-inner inner">
-        <header class="aa-home-section-heading">
-            <span class="aa-page-eyebrow">Visuale</span>
-            <h2 class="aa-home-section-title">Archivio visuale</h2>
-            <p class="aa-home-section-copy">Sezione dedicata a fotografie e immagini generate.</p>
-        </header>
 
-        <div class="aa-visual-columns">
-            {{#get "posts" filter="tag:hash-photos" limit="6" include="tags,authors"}}
-                {{#if posts}}
-                    <section class="aa-visual-column">
-                        <header class="aa-visual-column-header">
-                            <div class="aa-visual-column-copy">
-                                <span class="aa-page-eyebrow">Fotografie</span>
-                                <h3 class="aa-cluster-title">Scatti personali</h3>
-                                <p class="aa-visual-column-description">Appunti visivi e frammenti d’archivio raccolti in ordine editoriale.</p>
-                            </div>
-                            <a class="aa-visual-column-link" href="/photos/">
-                                <span>Apri archivio fotografico</span>
-                                <span class="aa-visual-column-link-arrow" aria-hidden="true">→</span>
-                            </a>
-                        </header>
-
-                        <div class="aa-home-photo-grid">
-                            {{#foreach posts}}
-                                {{> "brand/home-photo-thumb"}}
-                            {{/foreach}}
+        {{#get "posts" filter="tag:hash-photos" limit="9" include="tags"}}
+            {{#if posts}}
+                <div class="aa-visual-section">
+                    <header class="aa-visual-section-header">
+                        <div class="aa-visual-section-copy">
+                            <span class="aa-page-eyebrow">{{t "Fotografie"}}</span>
+                            <h2 class="aa-visual-section-title">{{t "Scatti personali"}}</h2>
                         </div>
-                    </section>
-                {{/if}}
-            {{/get}}
+                        <a class="aa-visual-section-link" href="/photos/">
+                            <span>{{t "Apri archivio"}}</span>
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </header>
 
-            {{#get "posts" filter="tag:hash-ai-art-and-images" limit="6" include="tags,authors"}}
-                {{#if posts}}
-                    <section class="aa-visual-column">
-                        <header class="aa-visual-column-header">
-                            <div class="aa-visual-column-copy">
-                                <span class="aa-page-eyebrow">Illustrazioni Sintetiche</span>
-                                <h3 class="aa-cluster-title">Immaginazione</h3>
-                                <p class="aa-visual-column-description">Una traccia parallela composta da immagini AI selezionate come parte dello stesso impianto.</p>
-                            </div>
-                            <a class="aa-visual-column-link" href="/ai-art/">
-                                <span>Apri archivio</span>
-                                <span class="aa-visual-column-link-arrow" aria-hidden="true">→</span>
-                            </a>
-                        </header>
+                    <div class="aa-home-photo-grid" role="list">
+                        {{#foreach posts}}
+                            {{> "brand/home-photo-thumb"}}
+                        {{/foreach}}
+                    </div>
+                </div>
+            {{/if}}
+        {{/get}}
 
-                        <div class="aa-home-photo-grid">
-                            {{#foreach posts}}
-                                {{> "brand/home-photo-thumb"}}
-                            {{/foreach}}
+        {{#get "posts" filter="tag:hash-ai-art-and-images" limit="9" include="tags"}}
+            {{#if posts}}
+                <div class="aa-visual-section">
+                    <header class="aa-visual-section-header">
+                        <div class="aa-visual-section-copy">
+                            <span class="aa-page-eyebrow">{{t "Illustrazioni Sintetiche"}}</span>
+                            <h2 class="aa-visual-section-title">{{t "Immaginazione"}}</h2>
                         </div>
-                    </section>
-                {{/if}}
-            {{/get}}
-        </div>
+                        <a class="aa-visual-section-link" href="/ai-art/">
+                            <span>{{t "Apri archivio"}}</span>
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </header>
+
+                    <div class="aa-home-photo-grid" role="list">
+                        {{#foreach posts}}
+                            {{> "brand/home-photo-thumb"}}
+                        {{/foreach}}
+                    </div>
+                </div>
+            {{/if}}
+        {{/get}}
+
     </div>
 </section>
