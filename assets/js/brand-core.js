@@ -34,6 +34,12 @@
         head.classList.toggle('is-scrolled', window.scrollY > 50);
     }
 
+    function updateBackTop() {
+        if (backTop) {
+            backTop.classList.toggle('is-visible', window.scrollY > 500);
+        }
+    }
+
     if (head) {
         if (hasCover) {
             var cover = document.querySelector('.site-header-content');
@@ -44,21 +50,26 @@
                 }, {threshold: 0});
 
                 observer.observe(cover);
+                window.addEventListener('scroll', updateBackTop, {passive: true});
             } else {
-                window.addEventListener('scroll', toggleHeader, {passive: true});
+                window.addEventListener('scroll', function () {
+                    toggleHeader();
+                    updateBackTop();
+                }, {passive: true});
                 toggleHeader();
             }
         } else {
-            window.addEventListener('scroll', toggleHeader, {passive: true});
+            window.addEventListener('scroll', function () {
+                toggleHeader();
+                updateBackTop();
+            }, {passive: true});
             toggleHeader();
         }
+    } else {
+        window.addEventListener('scroll', updateBackTop, {passive: true});
     }
 
     if (backTop) {
-        window.addEventListener('scroll', function () {
-            backTop.classList.toggle('is-visible', window.scrollY > 500);
-        }, {passive: true});
-
         backTop.addEventListener('click', function () {
             window.scrollTo({top: 0, behavior: 'smooth'});
         });

@@ -37,12 +37,12 @@ into the {body} tag of the default.hbs template --}}
                 </div>
                 <dl class="aa-scratchpad-stats">
                     <div class="aa-scratchpad-stat">
-                        <dt>Pubblicato</dt>
+                        <dt>{{t "Published"}}</dt>
                         <dd><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time></dd>
                     </div>
                     {{#if reading_time}}
                         <div class="aa-scratchpad-stat">
-                            <dt>Tempo</dt>
+                            <dt>{{t "Reading time"}}</dt>
                             <dd>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</dd>
                         </div>
                     {{/if}}
@@ -57,7 +57,7 @@ into the {body} tag of the default.hbs template --}}
                 {{#foreach authors}}
                 <li class="author-list-item">
                     {{#if profile_image}}
-                    <a href="{{url}}" class="author-avatar" aria-label="Leggi altri articoli di {{name}}">
+                    <a href="{{url}}" class="author-avatar" aria-label="{{t "Read more articles by {name}" name=name}}">
                         {{> "media/picture-ui"
                             image=profile_image
                             img_class="author-profile-image"
@@ -70,7 +70,7 @@ into the {body} tag of the default.hbs template --}}
                         }}
                     </a>
                     {{else}}
-                    <a href="{{url}}" class="author-avatar author-profile-image" aria-label="Leggi altri articoli di {{name}}">{{> "icons/avatar"}}</a>
+                    <a href="{{url}}" class="author-avatar author-profile-image" aria-label="{{t "Read more articles by {name}" name=name}}">{{> "icons/avatar"}}</a>
                     {{/if}}
                 </li>
                 {{/foreach}}
@@ -81,7 +81,7 @@ into the {body} tag of the default.hbs template --}}
                 <div class="byline-meta-content">
                     <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time>
                     {{#if reading_time}}
-                        <span class="byline-reading-time"><span class="bull">&bull;</span> Tempo di lettura: {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
                     {{/if}}
                 </div>
             </div>
