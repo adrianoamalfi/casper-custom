@@ -145,6 +145,22 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
     }
 }
 
+/* Restore accent-color button when cover header becomes white on scroll.
+   Upstream .has-cover .gh-head-button sets background:#fff for the transparent
+   cover header; this overrides it once the header sticks. */
+.has-cover .gh-head.is-scrolled .gh-head-button {
+    color: #fff;
+    background: var(--ghost-accent-color);
+}
+
+/* Restore readable text color when cover header becomes white on scroll.
+   Upstream .has-cover .gh-head-logo forces color:#fff (specificity 0,2,0);
+   this more-specific rule lets it inherit the darkgrey already set on the
+   scrolled parent, and automatically picks up dark-mode white as well. */
+.has-cover .gh-head.is-scrolled .gh-head-logo {
+    color: inherit;
+}
+
 /* Compact + shadow when scrolled (all pages) */
 .gh-head.is-scrolled {
     height: 64px;
