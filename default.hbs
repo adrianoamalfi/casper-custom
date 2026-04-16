@@ -69,6 +69,12 @@
         })();
     </script>
 
+    {{!-- Preconnect to third-party origins used by analytics/privacy scripts (~130ms saving each) --}}
+    <link rel="preconnect" href="https://stats.adrianoamalfi.com">
+    <link rel="dns-prefetch" href="https://stats.adrianoamalfi.com">
+    <link rel="preconnect" href="https://nocookies.adrianoamalfi.com">
+    <link rel="dns-prefetch" href="https://nocookies.adrianoamalfi.com">
+
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
     {{ghost_head}}

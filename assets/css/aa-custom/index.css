@@ -2491,6 +2491,28 @@ html.auto-color .post-card-primary-tag {
     contain-intrinsic-block-size: 220px;
 }
 
+/* CLS prevention: reserve space for post card images before they load.
+   Without explicit dimensions the browser lays out cards at height=0,
+   then reflowing once the image data arrives — causing layout shift.
+   aspect-ratio keeps the container stable from the start. */
+.post-card-image-link {
+    aspect-ratio: 3 / 2;
+}
+.post-card-large .post-card-image-link {
+    aspect-ratio: 16 / 9;
+}
+.post-card-image {
+    height: 100%;
+    object-fit: cover;
+}
+/* Grid layout (keep-ratio) manages its own dimensions — don't override */
+.post-card.keep-ratio .post-card-image-link {
+    aspect-ratio: unset;
+}
+.post-card.keep-ratio .post-card-image {
+    height: auto;
+}
+
 /* Override text-rendering: optimizeLegibility (set in global.css) on mobile.
    On mobile CPUs, ligature/kerning calculations are measurably slow. */
 @media (max-width: 767px) {
