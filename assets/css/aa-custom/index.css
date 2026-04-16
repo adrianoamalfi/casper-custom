@@ -702,6 +702,8 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
     border-top: 1px solid rgba(27, 54, 93, 0.1);
     display: grid;
     gap: max(6vmin, 52px);
+    content-visibility: auto;
+    contain-intrinsic-block-size: 700px;
 }
 
 .aa-visual-section {
@@ -752,6 +754,8 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 .aa-home-clusters {
     padding: max(8vmin, 72px) 0 max(7vmin, 64px);
     border-top: 1px solid rgba(27, 54, 93, 0.1);
+    content-visibility: auto;
+    contain-intrinsic-block-size: 600px;
 }
 
 .aa-home-section-heading {
@@ -1182,22 +1186,75 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
     margin-top: 24px;
 }
 
-.aa-single-photo-hero {
-    padding: max(7vmin, 56px) 0 max(5vmin, 40px);
+/* Single photo template — image-first layout */
+
+.aa-single-photo-nav {
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(27, 54, 93, 0.08);
 }
 
-.aa-single-photo-head {
-    margin-bottom: 32px;
+.aa-single-photo-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ghost-accent-color);
+    text-decoration: none;
+    transition: opacity 0.16s ease;
+}
+
+.aa-single-photo-back:hover {
+    opacity: 0.7;
+    text-decoration: none;
+}
+
+/* Full-width image frame */
+.aa-single-photo-frame {
+    display: block;
+    margin: 0;
+    padding: 0;
+    background: rgba(27, 54, 93, 0.04);
+}
+
+.aa-single-photo-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 92vh;
+    object-fit: contain;
+    cursor: zoom-in;
+}
+
+.aa-single-photo-figcaption {
+    padding: 10px 24px 12px;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--color-secondary-text);
+    text-align: center;
+    font-style: italic;
+}
+
+/* Metadata section below image */
+.aa-single-photo-header {
+    padding: max(4vmin, 32px) 0 max(3vmin, 24px);
+    border-bottom: 1px solid rgba(27, 54, 93, 0.08);
 }
 
 .aa-single-photo-meta {
     display: grid;
-    gap: 14px;
-    max-width: 760px;
+    gap: 16px;
+    max-width: 800px;
 }
 
-.aa-single-photo-meta > .aa-text-link {
-    width: fit-content;
+.aa-single-photo-meta-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .aa-single-photo-byline {
@@ -1205,32 +1262,34 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
     gap: 10px;
     align-items: center;
     color: var(--color-secondary-text);
-    font-size: 1.5rem;
+    font-size: 1.45rem;
 }
 
-.aa-single-photo-details {
+.aa-single-photo-title {
+    margin: 0;
+    font-size: clamp(3.4rem, 5vw, 6rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+}
+
+.aa-single-photo-caption {
+    max-width: 60ch;
+    margin: 0;
+    font-size: 1.8rem;
+    line-height: 1.6;
+    color: var(--color-secondary-text);
+}
+
+/* Related photos section */
+.aa-single-photo-more {
+    padding-top: max(6vmin, 48px);
+}
+
+.aa-single-photo-more-header {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-    margin-top: 18px;
-}
-
-.aa-single-photo-detail {
-    padding: 18px 20px;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: transparent;
-}
-
-.aa-single-photo-frame {
-    margin-top: 0;
-}
-
-.aa-single-photo-image {
-    display: block;
-    width: 100%;
-    border-radius: 24px;
-    cursor: zoom-in;
+    gap: 8px;
+    margin-bottom: 24px;
 }
 
 
@@ -1841,8 +1900,7 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
     .aa-tag-summary,
     .aa-signal-card,
     .aa-service-card,
-    .aa-topic-hub,
-    .aa-single-photo-detail {
+    .aa-topic-hub {
         padding: 20px;
     }
 
@@ -1860,8 +1918,14 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
         align-items: flex-start;
     }
 
-    .aa-single-photo-details {
-        grid-template-columns: 1fr;
+    .aa-single-photo-title {
+        font-size: clamp(2.8rem, 6vw, 4.8rem);
+    }
+
+    .aa-single-photo-meta-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 
 }
@@ -2249,13 +2313,19 @@ html.dark-mode .aa-visual-section-link {
 
 html.dark-mode .aa-photo-card-caption,
 html.dark-mode .aa-single-photo-byline,
+html.dark-mode .aa-single-photo-caption,
+html.dark-mode .aa-single-photo-figcaption,
 html.dark-mode .aa-photo-card-author {
     color: var(--color-secondary-text);
 }
 
-html.dark-mode .aa-single-photo-detail {
-    border-color: var(--color-border);
-    background: var(--aa-dark-surface);
+html.dark-mode .aa-single-photo-nav,
+html.dark-mode .aa-single-photo-header {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+html.dark-mode .aa-single-photo-frame {
+    background: rgba(255, 255, 255, 0.03);
 }
 
 html.auto-color .post-card-primary-tag {
@@ -2393,12 +2463,70 @@ html.auto-color .post-card-primary-tag {
 
     html.auto-color .aa-photo-card-caption,
     html.auto-color .aa-single-photo-byline,
+    html.auto-color .aa-single-photo-caption,
+    html.auto-color .aa-single-photo-figcaption,
     html.auto-color .aa-photo-card-author {
         color: var(--color-secondary-text);
     }
 
-    html.auto-color .aa-single-photo-detail {
-        border-color: var(--color-border);
-        background: var(--aa-dark-surface);
+    html.auto-color .aa-single-photo-nav,
+    html.auto-color .aa-single-photo-header {
+        border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    html.auto-color .aa-single-photo-frame {
+        background: rgba(255, 255, 255, 0.03);
+    }
+}
+
+/* ============================================================
+   Performance optimizations
+   ============================================================ */
+
+/* Skip rendering of off-screen sections until they near the viewport.
+   contain-intrinsic-block-size gives the browser a size estimate to
+   maintain correct scroll length before the section is rendered. */
+.site-footer {
+    content-visibility: auto;
+    contain-intrinsic-block-size: 220px;
+}
+
+/* CLS prevention: reserve space for post card images before they load.
+   Without explicit dimensions the browser lays out cards at height=0,
+   then reflowing once the image data arrives — causing layout shift.
+   aspect-ratio keeps the container stable from the start. */
+.post-card-image-link {
+    aspect-ratio: 3 / 2;
+}
+.post-card-large .post-card-image-link {
+    aspect-ratio: 16 / 9;
+}
+.post-card-image {
+    height: 100%;
+    object-fit: cover;
+}
+/* Grid layout (keep-ratio) manages its own dimensions — don't override */
+.post-card.keep-ratio .post-card-image-link {
+    aspect-ratio: unset;
+}
+.post-card.keep-ratio .post-card-image {
+    height: auto;
+}
+
+/* Override text-rendering: optimizeLegibility (set in global.css) on mobile.
+   On mobile CPUs, ligature/kerning calculations are measurably slow. */
+@media (max-width: 767px) {
+    body,
+    h1, h2, h3, h4, h5, h6 {
+        text-rendering: auto;
+    }
+
+    /* Remove decorative box-shadows that don't affect layout on mobile */
+    .aa-topic-hub,
+    .aa-focus-card,
+    .aa-scratchpad-card,
+    .aa-page-panel,
+    .aa-tag-summary {
+        box-shadow: none;
     }
 }

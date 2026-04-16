@@ -5,16 +5,31 @@ which templates loop over to generate a list of posts. --}}
 
     {{#if feature_image}}
     <a class="post-card-image-link" href="{{url}}">
-        {{> "media/picture-card"
-            image=feature_image
-            picture_class="aa-responsive-picture aa-post-card-picture"
-            img_class="post-card-image"
-            sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1200px) calc(50vw - 40px), 880px"
-            loading="lazy"
-            decoding="async"
-            image_alt=feature_image_alt
-            alt=title
-        }}
+        {{#has index="0"}}
+            {{!-- First card is the likely LCP candidate: load eagerly with high priority --}}
+            {{> "media/picture-card"
+                image=feature_image
+                picture_class="aa-responsive-picture aa-post-card-picture"
+                img_class="post-card-image"
+                sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1200px) calc(50vw - 40px), 880px"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                image_alt=feature_image_alt
+                alt=title
+            }}
+        {{else}}
+            {{> "media/picture-card"
+                image=feature_image
+                picture_class="aa-responsive-picture aa-post-card-picture"
+                img_class="post-card-image"
+                sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1200px) calc(50vw - 40px), 880px"
+                loading="lazy"
+                decoding="async"
+                image_alt=feature_image_alt
+                alt=title
+            }}
+        {{/has}}
 
         {{#unless access}}
         {{^has visibility="public"}}
