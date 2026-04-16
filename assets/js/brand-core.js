@@ -34,6 +34,12 @@
         head.classList.toggle('is-scrolled', window.scrollY > 50);
     }
 
+    function updateBackTop() {
+        if (backTop) {
+            backTop.classList.toggle('is-visible', window.scrollY > 500);
+        }
+    }
+
     if (head) {
         if (hasCover) {
             var cover = document.querySelector('.site-header-content');
@@ -44,21 +50,26 @@
                 }, {threshold: 0});
 
                 observer.observe(cover);
+                window.addEventListener('scroll', updateBackTop, {passive: true});
             } else {
-                window.addEventListener('scroll', toggleHeader, {passive: true});
+                window.addEventListener('scroll', function () {
+                    toggleHeader();
+                    updateBackTop();
+                }, {passive: true});
                 toggleHeader();
             }
         } else {
-            window.addEventListener('scroll', toggleHeader, {passive: true});
+            window.addEventListener('scroll', function () {
+                toggleHeader();
+                updateBackTop();
+            }, {passive: true});
             toggleHeader();
         }
+    } else {
+        window.addEventListener('scroll', updateBackTop, {passive: true});
     }
 
     if (backTop) {
-        window.addEventListener('scroll', function () {
-            backTop.classList.toggle('is-visible', window.scrollY > 500);
-        }, {passive: true});
-
         backTop.addEventListener('click', function () {
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
@@ -264,7 +275,7 @@
             }
             autoAdvance = window.setInterval(function () {
                 scrollToIndex(currentIndex + 1, 'smooth');
-            }, 4200);
+            }, 5500);
         }
 
         // B6: legge l'etichetta dei dot dal template via data-attribute
@@ -309,6 +320,19 @@
 
         carousel.addEventListener('mouseleave', function () {
             restartAutoAdvance();
+        });
+
+        // Keyboard navigation when the carousel region is focused
+        carousel.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                scrollToIndex(currentIndex - 1, 'smooth');
+                restartAutoAdvance();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                scrollToIndex(currentIndex + 1, 'smooth');
+                restartAutoAdvance();
+            }
         });
 
         restartAutoAdvance();

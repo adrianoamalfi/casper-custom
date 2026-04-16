@@ -38,44 +38,26 @@
             {{/if}}
         {{/get}}
 
-        {{#get "posts" filter="tag:hash-tech-scratchpad" limit="5" include="tags,authors"}}
+        {{#get "posts" filter="tag:hash-tech-scratchpad" limit="7" include="tags,authors"}}
             {{#if posts}}
                 <section class="aa-cluster aa-scratchpad-cluster">
                     <header class="aa-cluster-header">
                         <div>
                             <span class="aa-page-eyebrow">Focus</span>
-                            <h2 class="aa-cluster-title">Taccuino operativo</h2>
+                            <h2 class="aa-cluster-title">Appunti e guide tecnologiche</h2>
                         </div>
-                        <a class="aa-text-link" href="/tech-scratchpad/">Archivio Guide</a>
+                        <a class="aa-text-link" href="/tech-scratchpad/">Archivio completo →</a>
                     </header>
-                    <div class="aa-cluster-feed aa-scratchpad-carousel"
-                         data-scratchpad-carousel
-                         role="region"
-                         aria-label="{{t "Taccuino operativo"}}">
+                    <div class="aa-scratchpad-log" role="list">
                         {{#foreach posts}}
-                            {{> "post-card"}}
-                        {{/foreach}}
-                        <article class="post-card aa-scratchpad-view-all-card">
-                            <a class="aa-scratchpad-view-all-link" href="/tech-scratchpad/">
-                                <span class="aa-scratchpad-view-all-kicker">Archivio completo</span>
-                                <h3 class="aa-scratchpad-view-all-title">Visualizza tutti</h3>
-                                <p class="aa-scratchpad-view-all-copy">Apri l'indice completo di guide, project log e note operative.</p>
-                                <span class="aa-scratchpad-view-all-arrow">→</span>
+                            <a class="aa-scratchpad-log-row" href="{{url}}" role="listitem">
+                                <div class="aa-scratchpad-log-badges">
+                                    {{> "brand/scratchpad-badges"}}
+                                </div>
+                                <span class="aa-scratchpad-log-title">{{title}}</span>
+                                <time class="aa-scratchpad-log-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time>
                             </a>
-                        </article>
-                    </div>
-                    <div class="aa-scratchpad-carousel-controls" data-scratchpad-carousel-controls>
-                        <button class="aa-scratchpad-carousel-button" type="button" data-scratchpad-prev aria-label="{{t "Articolo precedente"}}">
-                            {{> "icons/arrow-left"}}
-                        </button>
-                        <div class="aa-scratchpad-carousel-dots"
-                             data-scratchpad-dots
-                             data-dot-label="{{t "Vai alla scheda"}}"
-                             role="group"
-                             aria-label="{{t "Indicatori carosello"}}"></div>
-                        <button class="aa-scratchpad-carousel-button" type="button" data-scratchpad-next aria-label="{{t "Articolo successivo"}}">
-                            {{> "icons/arrow-right"}}
-                        </button>
+                        {{/foreach}}
                     </div>
                 </section>
             {{/if}}
