@@ -16,6 +16,36 @@
     this will take care of caching and cache-busting automatically --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
 
+    {{!-- LCP preload: cover image on homepage, feature image on posts --}}
+    {{#is "home"}}
+        {{#if @custom.show_publication_cover}}
+            {{#if @site.cover_image}}
+                <link rel="preload" as="image"
+                      href="{{img_url @site.cover_image size="l" format="webp"}}"
+                      imagesrcset="{{img_url @site.cover_image size="s" format="webp"}} 300w,
+                                   {{img_url @site.cover_image size="m" format="webp"}} 600w,
+                                   {{img_url @site.cover_image size="l" format="webp"}} 1000w,
+                                   {{img_url @site.cover_image size="xl" format="webp"}} 2000w"
+                      imagesizes="100vw"
+                      fetchpriority="high" />
+            {{/if}}
+        {{/if}}
+    {{/is}}
+    {{#is "post, page"}}
+        {{#post}}
+            {{#if feature_image}}
+                <link rel="preload" as="image"
+                      href="{{img_url feature_image size="l" format="webp"}}"
+                      imagesrcset="{{img_url feature_image size="s" format="webp"}} 300w,
+                                   {{img_url feature_image size="m" format="webp"}} 600w,
+                                   {{img_url feature_image size="l" format="webp"}} 1000w,
+                                   {{img_url feature_image size="xl" format="webp"}} 2000w"
+                      imagesizes="(max-width: 1200px) 100vw, 1200px"
+                      fetchpriority="high" />
+            {{/if}}
+        {{/post}}
+    {{/is}}
+
     <script>
         (function () {
             var root = document.documentElement;

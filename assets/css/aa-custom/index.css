@@ -702,6 +702,8 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
     border-top: 1px solid rgba(27, 54, 93, 0.1);
     display: grid;
     gap: max(6vmin, 52px);
+    content-visibility: auto;
+    contain-intrinsic-block-size: 700px;
 }
 
 .aa-visual-section {
@@ -752,6 +754,8 @@ html.dark-mode .has-cover .gh-head.is-scrolled {
 .aa-home-clusters {
     padding: max(8vmin, 72px) 0 max(7vmin, 64px);
     border-top: 1px solid rgba(27, 54, 93, 0.1);
+    content-visibility: auto;
+    contain-intrinsic-block-size: 600px;
 }
 
 .aa-home-section-heading {
@@ -2472,5 +2476,35 @@ html.auto-color .post-card-primary-tag {
 
     html.auto-color .aa-single-photo-frame {
         background: rgba(255, 255, 255, 0.03);
+    }
+}
+
+/* ============================================================
+   Performance optimizations
+   ============================================================ */
+
+/* Skip rendering of off-screen sections until they near the viewport.
+   contain-intrinsic-block-size gives the browser a size estimate to
+   maintain correct scroll length before the section is rendered. */
+.site-footer {
+    content-visibility: auto;
+    contain-intrinsic-block-size: 220px;
+}
+
+/* Override text-rendering: optimizeLegibility (set in global.css) on mobile.
+   On mobile CPUs, ligature/kerning calculations are measurably slow. */
+@media (max-width: 767px) {
+    body,
+    h1, h2, h3, h4, h5, h6 {
+        text-rendering: auto;
+    }
+
+    /* Remove decorative box-shadows that don't affect layout on mobile */
+    .aa-topic-hub,
+    .aa-focus-card,
+    .aa-scratchpad-card,
+    .aa-page-panel,
+    .aa-tag-summary {
+        box-shadow: none;
     }
 }
