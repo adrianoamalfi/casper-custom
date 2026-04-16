@@ -264,7 +264,7 @@
             }
             autoAdvance = window.setInterval(function () {
                 scrollToIndex(currentIndex + 1, 'smooth');
-            }, 4200);
+            }, 5500);
         }
 
         // B6: legge l'etichetta dei dot dal template via data-attribute
@@ -309,6 +309,19 @@
 
         carousel.addEventListener('mouseleave', function () {
             restartAutoAdvance();
+        });
+
+        // Keyboard navigation when the carousel region is focused
+        carousel.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                scrollToIndex(currentIndex - 1, 'smooth');
+                restartAutoAdvance();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                scrollToIndex(currentIndex + 1, 'smooth');
+                restartAutoAdvance();
+            }
         });
 
         restartAutoAdvance();
