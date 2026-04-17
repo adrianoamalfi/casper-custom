@@ -1348,7 +1348,8 @@ make sure this only happens on large viewports / desktop-ish devices.
     margin-top: 8vmin;
 }
 
-html.no-infinite-scroll .pagination {
+html.no-infinite-scroll .pagination,
+.aa-scratchpad-page .pagination {
     display: grid;
 }
 
