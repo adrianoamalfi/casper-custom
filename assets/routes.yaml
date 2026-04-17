@@ -12,10 +12,6 @@ collections:
     permalink: /ai-art/{slug}/
     template: index-ai-art
     filter: tag:hash-ai-art-and-images
-  /tech-digest/:
-    permalink: /tech-digest/{slug}/
-    template: index-tech-digest
-    filter: tag:hash-tech-digest
   /tech-scratchpad/:
     permalink: /tech-scratchpad/{slug}/
     template: index-tech-scratchpad
