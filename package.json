@@ -67,7 +67,6 @@
         "gulp-postcss": "10.0.0",
         "gulp-uglify": "3.0.2",
         "gulp-zip": "6.1.0",
-        "highlight.js": "11.11.1",
         "inquirer": "13.2.2",
         "postcss": "8.5.6",
         "postcss-color-mod-function": "4.1.1",
@@ -237,6 +236,16 @@
                 "type": "boolean",
                 "default": true,
                 "group": "post"
+            },
+            "analytics_stats_origin": {
+                "type": "text",
+                "default": "https://stats.adrianoamalfi.com",
+                "group": "homepage"
+            },
+            "analytics_nocookies_origin": {
+                "type": "text",
+                "default": "https://nocookies.adrianoamalfi.com",
+                "group": "homepage"
             }
         }
     },

@@ -53,7 +53,7 @@
 
             try {
                 stored = window.localStorage.getItem('aa-theme-preference');
-            } catch (error) {}
+            } catch (e) { return; }
 
             if (!stored || ['light', 'dark', 'auto'].indexOf(stored) === -1) {
                 return;
@@ -69,11 +69,18 @@
         })();
     </script>
 
-    {{!-- Preconnect to third-party origins used by analytics/privacy scripts (~130ms saving each) --}}
-    <link rel="preconnect" href="https://stats.adrianoamalfi.com">
-    <link rel="dns-prefetch" href="https://stats.adrianoamalfi.com">
-    <link rel="preconnect" href="https://nocookies.adrianoamalfi.com">
-    <link rel="dns-prefetch" href="https://nocookies.adrianoamalfi.com">
+    {{!-- Preconnect to analytics/privacy origins — configure via Ghost Admin > Design > Site-wide --}}
+    {{#if @custom.analytics_stats_origin}}
+    <link rel="preconnect" href="{{@custom.analytics_stats_origin}}">
+    <link rel="dns-prefetch" href="{{@custom.analytics_stats_origin}}">
+    {{/if}}
+    {{#if @custom.analytics_nocookies_origin}}
+    <link rel="preconnect" href="{{@custom.analytics_nocookies_origin}}">
+    <link rel="dns-prefetch" href="{{@custom.analytics_nocookies_origin}}">
+    {{/if}}
+
+    {{!-- Slot for per-template <meta> overrides (e.g. custom index pages) --}}
+    {{#block "head_extra"}}{{/block}}
 
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
