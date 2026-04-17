@@ -27,5 +27,6 @@ config.json
 changelog.md
 changelog.md.bk
 
-.claude
-.agent
+.mcp.json
+.claude/settings.local.json
+.claude/skills/deploy/deploy-config.md
