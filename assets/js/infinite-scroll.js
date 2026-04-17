@@ -33,12 +33,20 @@
     var ticking = false;
     var loading = false;
 
+    var loadingEl = document.createElement('div');
+    loadingEl.className = 'aa-scroll-loading';
+    loadingEl.setAttribute('aria-live', 'polite');
+    loadingEl.setAttribute('aria-label', 'Caricamento articoli');
+    loadingEl.innerHTML = '<div class="aa-scroll-loading-spinner" aria-hidden="true"></div>';
+    feedElement.insertAdjacentElement('afterend', loadingEl);
+
     var lastScrollY = window.scrollY;
     var lastWindowHeight = window.innerHeight;
     var lastDocumentHeight = document.documentElement.scrollHeight;
 
     function onPageLoad() {
         if (this.status === 404) {
+            loadingEl.classList.remove('is-visible');
             window.removeEventListener('scroll', onScroll);
             window.removeEventListener('resize', onResize);
             return;
@@ -58,11 +66,13 @@
         if (resNextElement) {
             nextElement.href = resNextElement.href;
         } else {
+            loadingEl.classList.remove('is-visible');
             window.removeEventListener('scroll', onScroll);
             window.removeEventListener('resize', onResize);
         }
 
         // sync status
+        loadingEl.classList.remove('is-visible');
         lastDocumentHeight = document.documentElement.scrollHeight;
         ticking = false;
         loading = false;
@@ -81,6 +91,7 @@
         }
 
         loading = true;
+        loadingEl.classList.add('is-visible');
 
         var xhr = new window.XMLHttpRequest();
         xhr.responseType = 'document';

@@ -87,15 +87,22 @@
         root.dataset.activeColorScheme = theme;
     }
 
-    function getInitialThemePreference() {
-        var stored = null;
-
+    var storageAvailable = (function () {
         try {
-            stored = window.localStorage.getItem('aa-theme-preference');
-        } catch (error) {}
+            window.localStorage.setItem('__aa_test__', '1');
+            window.localStorage.removeItem('__aa_test__');
+            return true;
+        } catch (e) {
+            return false;
+        }
+    })();
 
-        if (stored && ['light', 'dark', 'auto'].indexOf(stored) !== -1) {
-            return stored;
+    function getInitialThemePreference() {
+        if (storageAvailable) {
+            var stored = window.localStorage.getItem('aa-theme-preference');
+            if (stored && ['light', 'dark', 'auto'].indexOf(stored) !== -1) {
+                return stored;
+            }
         }
 
         return root.dataset.defaultColorScheme || 'light';
@@ -106,6 +113,11 @@
 
         if (!switcher) {
             return;
+        }
+
+        if (!storageAvailable) {
+            switcher.setAttribute('title', 'La preferenza tema non può essere salvata in questa modalità di navigazione');
+            switcher.dataset.storageUnavailable = '';
         }
 
         var options = switcher.querySelectorAll('[data-theme-option]');
@@ -130,9 +142,9 @@
                 applyThemePreference(theme);
                 syncButtons(theme);
 
-                try {
+                if (storageAvailable) {
                     window.localStorage.setItem('aa-theme-preference', theme);
-                } catch (error) {}
+                }
             });
         });
     }
