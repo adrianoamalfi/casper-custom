@@ -236,16 +236,6 @@
                 "type": "boolean",
                 "default": true,
                 "group": "post"
-            },
-            "analytics_stats_origin": {
-                "type": "text",
-                "default": "https://stats.adrianoamalfi.com",
-                "group": "homepage"
-            },
-            "analytics_nocookies_origin": {
-                "type": "text",
-                "default": "https://nocookies.adrianoamalfi.com",
-                "group": "homepage"
             }
         }
     },
