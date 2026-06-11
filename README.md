@@ -2,11 +2,13 @@
 
 Fork personalizzato di [TryGhost/Casper](https://github.com/TryGhost/Casper) per `adrianoamalfi.com`, mantenuto in modo da poter recepire gli aggiornamenti upstream senza perdere le personalizzazioni editoriali e visive.
 
-Il repository usa tre riferimenti principali:
+Il repository usa tre branch principali:
 
-- `origin/custom`: branch di lavoro del fork
-- `origin/upstream`: mirror del branch `main` di Casper
-- `custom`: branch locale in cui upstream viene integrato via merge
+- `upstream`: mirror del branch `main` di Casper ufficiale
+- `custom`: branch di sviluppo (default) — qui upstream viene integrato via merge
+- `main`: branch di produzione — il push su `main` (via PR da `custom`) scatena il deploy automatico del tema su adrianoamalfi.com
+
+Flusso: `TryGhost/Casper` → merge in `custom` → sviluppo → PR `custom` → `main` → deploy
 
 ## Development
 
@@ -140,6 +142,7 @@ Workflow presenti nel repository:
   Installa le dipendenze e valida il tema su push e pull request.
 
 - `.github/workflows/deploy-theme.yml`
+  Al push su `main` builda, valida con gscan e carica il tema su Ghost Admin (`TryGhost/action-deploy-theme`).
   Esegue test e deploy del tema su Ghost quando viene aggiornato il branch `main`.
 
 ## Flusso Fotografico E AI Art

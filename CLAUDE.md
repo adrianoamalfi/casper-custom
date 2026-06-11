@@ -51,7 +51,8 @@ Custom fork of the Ghost Casper theme for adrianoamalfi.com. Extends the officia
 - Never commit `dist/` — it is generated on ship
 
 ### Git
-- Branch: `custom` (main working branch)
+- Branches: `custom` (development, default), `main` (production — push triggers deploy to adrianoamalfi.com), `upstream` (mirror of official Casper)
+- Promotion to production: open a PR `custom` -> `main`; never push directly to `main`
 - Upstream: official Ghost Casper repo (synced via `pnpm sync-upstream`, merge-based — never rebase/force-push `custom`)
 - Commits: conventional style, imperative mood
 
