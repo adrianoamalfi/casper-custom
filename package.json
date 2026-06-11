@@ -14,7 +14,7 @@
     },
     "scripts": {
         "dev": "gulp",
-        "sync-upstream": "bash scripts/rebase-upstream.sh",
+        "sync-upstream": "bash scripts/sync-upstream.sh",
         "zip": "gulp zip",
         "build": "gulp build",
         "test": "gscan --zip dist/casper-custom.zip",

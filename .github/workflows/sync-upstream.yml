@@ -37,31 +37,29 @@ jobs:
             git remote add upstream https://github.com/TryGhost/Casper.git
           fi
 
-          git fetch origin custom upstream --prune
+          git fetch origin custom --prune
           git fetch upstream main --no-tags --prune
 
       - name: Update upstream branch mirror
-        run: |
-          git checkout -B upstream refs/remotes/upstream/main
-          git push origin upstream:upstream --force-with-lease
+        run: git push origin refs/remotes/upstream/main:refs/heads/upstream
 
-      - name: Rebase custom on upstream
-        id: rebase
+      - name: Merge upstream into custom
+        id: merge
         run: |
           git checkout custom
-          git rebase upstream
+          git merge --no-edit upstream/main
         continue-on-error: true
 
       - name: Push custom branch
-        if: steps.rebase.outcome == 'success'
-        run: git push origin custom --force-with-lease
+        if: steps.merge.outcome == 'success'
+        run: git push origin custom
 
-      - name: Abort rebase
-        if: steps.rebase.outcome == 'failure'
-        run: git rebase --abort || true
+      - name: Abort merge
+        if: steps.merge.outcome == 'failure'
+        run: git merge --abort || true
 
       - name: Open issue on conflict
-        if: steps.rebase.outcome == 'failure'
+        if: steps.merge.outcome == 'failure'
         continue-on-error: true
         uses: actions/github-script@v7
         with:
@@ -84,7 +82,7 @@ jobs:
                 repo,
                 title: issueTitle,
                 body: [
-                  '## Il rebase automatico ha fallito',
+                  '## Il merge automatico ha fallito',
                   '',
                   'Il branch `custom` non può essere aggiornato automaticamente perché ci sono conflitti con le ultime modifiche di [TryGhost/Casper](https://github.com/TryGhost/Casper).',
                   '',
@@ -93,11 +91,11 @@ jobs:
                   '```bash',
                   'git fetch origin',
                   'git checkout custom',
-                  'git rebase origin/upstream',
+                  'git merge origin/upstream',
                   '# Risolvi i conflitti nei file segnalati, poi:',
                   'git add <file-risolti>',
-                  'git rebase --continue',
-                  'git push origin custom --force-with-lease',
+                  'git commit',
+                  'git push origin custom',
                   '```',
                   '',
                   '### Riferimenti',
@@ -108,22 +106,22 @@ jobs:
             }
 
       - name: Add conflict summary
-        if: steps.rebase.outcome == 'failure'
+        if: steps.merge.outcome == 'failure'
         run: |
           {
             echo "## Sync upstream: conflitti manuali richiesti"
             echo
-            echo "Il rebase automatico di \`custom\` su \`upstream\` ha trovato conflitti."
+            echo "Il merge automatico di \`upstream\` in \`custom\` ha trovato conflitti."
             echo
             echo "Risoluzione locale:"
             echo
             echo "\`\`\`bash"
             echo "git fetch origin"
             echo "git checkout custom"
-            echo "git rebase origin/upstream"
+            echo "git merge origin/upstream"
             echo "# Risolvi i conflitti nei file segnalati, poi:"
             echo "git add <file-risolti>"
-            echo "git rebase --continue"
-            echo "git push --force-with-lease origin custom"
+            echo "git commit"
+            echo "git push origin custom"
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"
