@@ -29,13 +29,13 @@
     "author": {
         "name": "Adriano Amalfi",
         "email": "info@adrianoamalfi.com",
-        "url": "https://adrianoamalfi.com"        
+        "url": "https://adrianoamalfi.com"
     },
     "gpm": {
         "type": "theme",
         "categories": [
             "Minimal",
-            "Magazine", 
+            "Magazine",
             "Customizable",
             "Personal",
             "Responsive",
@@ -192,7 +192,7 @@
                     "Grid",
                     "List"
                 ],
-                "default": "Classic",
+                "default": "List",
                 "group": "homepage"
             },
             "color_scheme": {
