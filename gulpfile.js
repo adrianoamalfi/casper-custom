@@ -126,7 +126,9 @@ function zipper(done) {
             '!.claude', '!.claude/**',
             '!.agents', '!.agents/**',
             '!yarn-error.log',
-            '!yarn.lock',
+            '!pnpm-debug.log',
+            '!pnpm-lock.yaml',
+            '!pnpm-workspace.yaml',
             '!gulpfile.js'
         ]),
         zip(filename),
@@ -153,7 +155,7 @@ exports.zip = series(build, zipper);
 exports.default = series(build, serve, watcher);
 
 exports.release = async () => {
-    // @NOTE: https://yarnpkg.com/lang/en/docs/cli/version/
+    // @NOTE: https://pnpm.io/cli/version
     // require(./package.json) can run into caching issues, this re-reads from file everytime on release
     let packageJSON = JSON.parse(fs.readFileSync('./package.json'));
     const newVersion = packageJSON.version;

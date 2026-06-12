@@ -2815,6 +2815,9 @@ html.dark-mode .gh-button-share:hover {
     .site-footer-nav ul {
         justify-content: flex-start;
     }
+    .site-footer-center {
+        margin-bottom: 16px;
+    }
 }
 
 

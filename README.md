@@ -2,42 +2,45 @@
 
 Fork personalizzato di [TryGhost/Casper](https://github.com/TryGhost/Casper) per `adrianoamalfi.com`, mantenuto in modo da poter recepire gli aggiornamenti upstream senza perdere le personalizzazioni editoriali e visive.
 
-Il repository usa tre riferimenti principali:
+Il repository usa tre branch principali:
 
-- `origin/custom`: branch di lavoro del fork
-- `origin/upstream`: mirror del branch `main` di Casper
-- `custom`: branch locale che viene ribasato sopra `origin/upstream`
+- `upstream`: mirror del branch `main` di Casper ufficiale
+- `custom`: branch di sviluppo (default) — qui upstream viene integrato via merge
+- `main`: branch di produzione — il push su `main` (via PR da `custom`) scatena il deploy automatico del tema su adrianoamalfi.com
+
+Flusso: `TryGhost/Casper` → merge in `custom` → sviluppo → PR `custom` → `main` → deploy
 
 ## Development
 
 Prerequisiti:
 
-- Node.js
-- Yarn
+- Node.js >= 22.12
+- pnpm
 
 Comandi principali dalla root del tema:
 
 ```bash
 # installa le dipendenze
-yarn install
+pnpm install
 
 # sviluppo locale con watch CSS/assets
-yarn dev
+pnpm dev
 
 # build degli asset compilati
-./node_modules/.bin/gulp build
+pnpm build
 
 # crea il pacchetto zip del tema
-yarn zip
+pnpm zip
 
-# aggiorna il fork su origin/upstream, builda e pusha
-yarn sync-upstream
+# aggiorna il mirror upstream, fa il merge in custom, builda e pusha
+pnpm sync-upstream
 ```
 
 Note operative:
 
 - gli stili sorgente vivono in `/assets/css/`
 - gli asset compilati finiscono in `/assets/built/`
+- le personalizzazioni CSS del fork sono in `/assets/css/aa-custom/index.css`
 - gli script custom principali sono in `/assets/js/brand-core.js`, `/assets/js/brand-post.js` e `/assets/js/code-enhancements.js`
 - il blocco di override CSS del fork vive in coda a `/assets/css/screen.css`
 
@@ -93,39 +96,39 @@ Il fork è pensato per restare vicino a Casper senza fare merge distruttivi.
 Regola di base:
 
 - `origin/upstream` deve rispecchiare Casper `main`
-- `custom` contiene solo i commit del fork
-- gli aggiornamenti si integrano con `rebase`, non con merge permanenti
+- gli aggiornamenti si integrano con `merge` di `origin/upstream` in `custom` — niente rebase né force-push, la storia del branch non viene riscritta
 
 Flusso manuale:
 
 ```bash
-git fetch origin
+git fetch upstream main
 git checkout custom
-git rebase origin/upstream
-./node_modules/.bin/gulp build
-git push --force-with-lease origin custom
+git push origin refs/remotes/upstream/main:refs/heads/upstream
+git merge upstream/main
+pnpm install && pnpm build
+git push origin custom
 ```
 
 Shortcut locale:
 
 ```bash
-yarn sync-upstream
+pnpm sync-upstream
 ```
 
-Se il rebase trova conflitti:
+Se il merge trova conflitti:
 
 ```bash
 git status
 # risolvi i file segnalati
 git add <file-risolti>
-git rebase --continue
-git push --force-with-lease origin custom
+git commit
+git push origin custom
 ```
 
 Per annullare:
 
 ```bash
-git rebase --abort
+git merge --abort
 ```
 
 ## GitHub Actions
@@ -133,12 +136,13 @@ git rebase --abort
 Workflow presenti nel repository:
 
 - `.github/workflows/sync-upstream.yml`
-  Aggiorna il mirror `upstream`, prova il rebase automatico di `custom` e scrive un riepilogo nella run se trova conflitti. Il trigger schedulato gira ogni lunedi alle `06:00 UTC`, oltre al trigger manuale `workflow_dispatch`.
+  Aggiorna il mirror `upstream`, prova il merge automatico di upstream in `custom` e scrive un riepilogo nella run (e apre una issue) se trova conflitti. Il trigger schedulato gira ogni lunedi alle `06:00 UTC`, oltre al trigger manuale `workflow_dispatch`.
 
 - `.github/workflows/test.yml`
   Installa le dipendenze e valida il tema su push e pull request.
 
 - `.github/workflows/deploy-theme.yml`
+  Al push su `main` builda, valida con gscan e carica il tema su Ghost Admin (`TryGhost/action-deploy-theme`).
   Esegue test e deploy del tema su Ghost quando viene aggiornato il branch `main`.
 
 ## Flusso Fotografico E AI Art

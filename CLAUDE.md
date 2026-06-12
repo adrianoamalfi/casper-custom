@@ -8,19 +8,20 @@ Custom fork of the Ghost Casper theme for adrianoamalfi.com. Extends the officia
 - **Platform**: Ghost CMS ≥ 5.0.0 (theme)
 - **Build**: Gulp 5, PostCSS (autoprefixer, cssnano, postcss-easy-import)
 - **Syntax highlighting**: highlight.js 11
-- **Validator**: gscan 5
+- **Validator**: gscan 6
 - **Database**: none (Ghost theme — no direct DB access)
 - **Infrastructure**: none (uploaded as zip to Ghost Admin)
 
 ## Commands
 | Command | Description |
 |---|---|
-| `yarn dev` | Start Gulp dev server with live reload |
-| `yarn zip` | Build theme zip to `dist/casper-custom.zip` |
-| `yarn test` | Run gscan validation on built zip |
-| `yarn test:ci` | gscan with `--fatal --verbose` (CI mode) |
-| `yarn ship` | Version bump + git push + release |
-| `yarn sync-upstream` | Rebase from upstream Casper |
+| `pnpm dev` | Start Gulp dev server with live reload |
+| `pnpm build` | Build assets to `assets/built/` |
+| `pnpm zip` | Build theme zip to `dist/casper-custom.zip` |
+| `pnpm test` | Run gscan validation on built zip |
+| `pnpm test:ci` | gscan with `--fatal --verbose` (CI mode) |
+| `pnpm ship` | Version bump + git push + release |
+| `pnpm sync-upstream` | Merge latest upstream Casper into `custom` |
 
 ## Coding Conventions & Architecture
 
@@ -45,13 +46,14 @@ Custom fork of the Ghost Casper theme for adrianoamalfi.com. Extends the officia
 - Use `IntersectionObserver` / `ResizeObserver` over scroll listeners
 
 ### Build
-- Always run `yarn zip` before `yarn test`
-- Validate with gscan before shipping: `yarn test:ci`
+- Always run `pnpm zip` before `pnpm test` (pretest hook handles this)
+- Validate with gscan before shipping: `pnpm test:ci`
 - Never commit `dist/` — it is generated on ship
 
 ### Git
-- Branch: `custom` (main working branch)
-- Upstream: official Ghost Casper repo (synced via `yarn sync-upstream`)
+- Branches: `custom` (development, default), `main` (production — push triggers deploy to adrianoamalfi.com), `upstream` (mirror of official Casper)
+- Promotion to production: open a PR `custom` -> `main`; never push directly to `main`
+- Upstream: official Ghost Casper repo (synced via `pnpm sync-upstream`, merge-based — never rebase/force-push `custom`)
 - Commits: conventional style, imperative mood
 
 ---
